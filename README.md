@@ -26,7 +26,7 @@ bits 0-9   - unique PostgreSQL node number set in postgresql.conf
 ```
 
 * The timestamp is a 41-bit unsigned value representing millisecond
-  precision and an epoch of 2020-01-01.
+  precision and an epoch of 2023-01-01.
 
 * The counter is a 12-bit unsigned value that increments per ID allocation.
   This provides for 4096 unique IDs per millisecond, or 4 million IDs per
@@ -184,8 +184,8 @@ Result:
 ```
         id         |                          format                           | some_data  
 -------------------+-----------------------------------------------------------+------------
-                 1 | {"id": 0, "ts": "2020-01-01 00:00:00.001+00", "count": 0} | first row
-                 2 | {"id": 0, "ts": "2020-01-01 00:00:00.002+00", "count": 0} | second row
+                 1 | {"id": 0, "ts": "2023-01-01 00:00:00.001+00", "count": 0} | first row
+                 2 | {"id": 0, "ts": "2023-01-01 00:00:00.002+00", "count": 0} | second row
  18014518155600128 | {"id": 1, "ts": "2023-10-16 19:01:58.144+00", "count": 0} | third row
  18014518155600129 | {"id": 1, "ts": "2023-10-16 19:01:58.145+00", "count": 0} | fourth row
 (4 rows)
@@ -193,7 +193,7 @@ Result:
 **NOTE:** The `bigint/int8` value of ID remains unique, althogh it does
 jump ahead quite a bit (which is in compliance with standard PostgreSQL
 sequences that may have gaps). Because the **Snowflake** EPOCH is
-2020-01-01 your existing database would have had to use over 18 **trillion**
+2023-01-01 your existing database would have had to use over 18 **trillion**
 sequence numbers before this conversion to cause any trouble with
 possible duplicate key values. 
 

@@ -103,7 +103,7 @@ typedef union Snowflake
 	} sf;
 } Snowflake;
 
-#define SNOWFLAKE_EPOCH_OFFSET	1577836800L	/* 2020 - 1970 in seconds */
+#define SNOWFLAKE_EPOCH_OFFSET	1672531200L	/* 2023 - 1970 in seconds */
 
 static HTAB *seqhashtab = NULL; /* hash table for SeqTable items */
 
