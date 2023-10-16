@@ -7,6 +7,8 @@
 * [Configuration](#configuration)
 * [API](#api)
 * [Examples](#examples)
+* [New table using a snowflake as PK](new-table-using-a-snowflake-as-pk)
+* [Converting an exitsting bigserial column into a snowflake](converting-an-existing-bigserial-column-into-a-snowflake)
 
 ## Implementation
 
