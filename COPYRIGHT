@@ -1,9 +1,7 @@
 Snowflake ID Implementation for PostgreSQL
 
-Portions Copyright (c) 2023, pgEdge, Inc.
-
+Copyright (c) 2023, pgEdge, Inc.
 Portions Copyright (c) 1996-2023, PostgreSQL Global Development Group
-
 Portions Copyright (c) 1994, The Regents of the University of California
 
 Permission to use, copy, modify, and distribute this software and its

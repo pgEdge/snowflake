@@ -3,7 +3,7 @@
  * snowflake.c
  *    Snowflake style IDs for PostgreSQL
  *
- * Portions Copyright (c) 2023, pgEdge, Inc.
+ * Copyright (c) 2023, pgEdge, Inc.
  * Portions Copyright (c) 2023, PostgreSQL Global Development Group
  * Portions Copyright (c) 1994, Regents of the University of California
  *
@@ -57,7 +57,7 @@ PG_MODULE_MAGIC;
 /*
  * We don't want to log each fetching of a value from a sequence,
  * so we pre-log a few fetches in advance. In the event of
- * crash we can lose (skip over) as many values as we pre-logged.
+ * crash we could lose (skip over) as many values as we pre-logged.
  */
 #define SEQ_LOG_VALS	32
 
