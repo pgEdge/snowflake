@@ -92,18 +92,33 @@ typedef struct SeqTableData
 
 typedef SeqTableData *SeqTable;
 
-typedef union Snowflake
+typedef struct Snowflake
 {
-	int64		sf_int64;
-	struct
-	{
-		uint	sf_node		:10;
-		uint	sf_count	:12;
-		int64	sf_msec		:42;
-	} sf;
+	uint32	sf_node;
+	uint32	sf_count;
+	int64	sf_msec;
 } Snowflake;
 
 #define SNOWFLAKE_EPOCH_OFFSET	1672531200L	/* 2023 - 1970 in seconds */
+
+#define SNOWFLAKE_NODE_SHIFT		0
+#define SNOWFLAKE_NODE_MASK			0x00000000000003FF	/* 10 bits */
+#define SNOWFLAKE_COUNT_SHIFT		10
+#define SNOWFLAKE_COUNT_MASK		0x0000000000000FFF	/* 12 bits */
+#define SNOWFLAKE_MSEC_SHIFT		22
+#define SNOWFLAKE_MSEC_MASK			0x000001FFFFFFFFFF	/* 41 bits */
+
+#define int64ToSnowflake(_i, _sf) { \
+	(_sf)->sf_node = ((_i) >> SNOWFLAKE_NODE_SHIFT) & SNOWFLAKE_NODE_MASK; \
+	(_sf)->sf_count = ((_i) >> SNOWFLAKE_COUNT_SHIFT) & SNOWFLAKE_COUNT_MASK; \
+	(_sf)->sf_msec = ((_i) >> SNOWFLAKE_MSEC_SHIFT) & SNOWFLAKE_MSEC_MASK; \
+}
+
+#define int64FromSnowflake(_sf) ( \
+	(((_sf)->sf_node) & SNOWFLAKE_NODE_MASK) << SNOWFLAKE_NODE_SHIFT | \
+	(((_sf)->sf_count) & SNOWFLAKE_COUNT_MASK) << SNOWFLAKE_COUNT_SHIFT | \
+	(((_sf)->sf_msec) & SNOWFLAKE_MSEC_MASK) << SNOWFLAKE_MSEC_SHIFT \
+)
 
 static HTAB *seqhashtab = NULL; /* hash table for SeqTable items */
 
@@ -215,12 +230,12 @@ snowflake_nextval(PG_FUNCTION_ARGS)
 			   now.tv_nsec / 1000000;
 
 	/* Check if the clock has advanced since last nextflake() call */
-	flake.sf_int64 = seq->last_value;
-	if (now_msec > flake.sf.sf_msec)
+	int64ToSnowflake(seq->last_value, &flake);
+	if (now_msec > flake.sf_msec)
 	{
 		/* The clock has ticked, reset the counter */
-		flake.sf.sf_msec = now_msec;
-		flake.sf.sf_count = 0;
+		flake.sf_msec = now_msec;
+		flake.sf_count = 0;
 		logit = true;
 	}
 	else
@@ -230,16 +245,17 @@ snowflake_nextval(PG_FUNCTION_ARGS)
 		 * sure that the flake doesn't move backwards and that we bump
 		 * it into the future should the count roll over.
 		 */
-		flake.sf.sf_count++;
-		if (flake.sf.sf_count == 0)
+		flake.sf_count++;
+		if ((flake.sf_count & SNOWFLAKE_COUNT_MASK) == 0)
 		{
-			flake.sf.sf_msec++;
+			flake.sf_count = 0;
+			flake.sf_msec++;
 			logit = true;
 		}
 	}
 
-	flake.sf.sf_node = snowflake_node_id;
-	result = flake.sf_int64;
+	flake.sf_node = snowflake_node_id;
+	result = int64FromSnowflake(&flake);
 
 	/*
 	 * Decide whether we should emit a WAL log record based on
@@ -292,7 +308,7 @@ snowflake_nextval(PG_FUNCTION_ARGS)
 	{
 		xl_seq_rec	xlrec;
 		XLogRecPtr	recptr;
-		Snowflake	log_flake;
+		Snowflake	log_flake = flake;
 
 		/*
 		 * We don't log the current state of the tuple, but rather the state
@@ -312,9 +328,9 @@ snowflake_nextval(PG_FUNCTION_ARGS)
 		 * of sequence allocation per millisecond, we'd like
 		 * to hear about it.
 		 */
-		log_flake.sf_int64 = flake.sf_int64;
-		log_flake.sf.sf_msec++;
-		seq->last_value = result;
+		log_flake.sf_msec++;
+		log_flake.sf_count = 0;
+		seq->last_value = int64FromSnowflake(&log_flake);
 		seq->is_called = true;
 		seq->log_cnt = 0;
 
@@ -394,9 +410,9 @@ snowflake_get_epoch(PG_FUNCTION_ARGS)
 {
 	Snowflake flake;
 
-	flake.sf_int64 = PG_GETARG_INT64(0);
+	int64ToSnowflake(PG_GETARG_INT64(0), &flake);
 
-	PG_RETURN_NUMERIC(int64_div_fast_to_numeric((int64)flake.sf.sf_msec + SNOWFLAKE_EPOCH_OFFSET * 1000L, 3));
+	PG_RETURN_NUMERIC(int64_div_fast_to_numeric((int64)flake.sf_msec + SNOWFLAKE_EPOCH_OFFSET * 1000L, 3));
 }
 
 /*
@@ -410,9 +426,9 @@ snowflake_get_count(PG_FUNCTION_ARGS)
 {
 	Snowflake flake;
 
-	flake.sf_int64 = PG_GETARG_INT64(0);
+	int64ToSnowflake(PG_GETARG_INT64(0), &flake);
 
-	PG_RETURN_INT32((int32)flake.sf.sf_count);
+	PG_RETURN_INT32((int32)flake.sf_count);
 }
 
 /*
@@ -426,9 +442,9 @@ snowflake_get_node(PG_FUNCTION_ARGS)
 {
 	Snowflake flake;
 
-	flake.sf_int64 = PG_GETARG_INT64(0);
+	int64ToSnowflake(PG_GETARG_INT64(0), &flake);
 
-	PG_RETURN_INT64((int32)flake.sf.sf_node);
+	PG_RETURN_INT64((int32)flake.sf_node);
 }
 
 /*
