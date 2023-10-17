@@ -97,9 +97,9 @@ typedef union Snowflake
 	int64		sf_int64;
 	struct
 	{
-		int64	sf_msec		:42;
-		uint	sf_count	:12;
 		uint	sf_node		:10;
+		uint	sf_count	:12;
+		int64	sf_msec		:42;
 	} sf;
 } Snowflake;
 
