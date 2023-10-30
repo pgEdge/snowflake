@@ -129,7 +129,7 @@ the following functions become available:
 
 * `snowflake.format(snowflake int8)`  
   Returns a `jsonb` object of the given **snowflake** like:  
-  `{"id": 1, "ts": "2023-10-16 17:57:26.361+00", "count": 0}`
+  `{"node": 1, "ts": "2023-10-16 17:57:26.361+00", "count": 0}`
 
 ## Examples
 
@@ -152,8 +152,8 @@ Result:
 ```
         id         |                          format                           | some_data
 -------------------+-----------------------------------------------------------+------------
- 18014518154714241 | {"id": 1, "ts": "2023-10-16 18:47:12.257+00", "count": 0} | first row
- 18014518154714242 | {"id": 1, "ts": "2023-10-16 18:47:12.258+00", "count": 0} | second row
+ 18014518154714241 | {"node": 1, "ts": "2023-10-16 18:47:12.257+00", "count": 0} | first row
+ 18014518154714242 | {"node": 1, "ts": "2023-10-16 18:47:12.258+00", "count": 0} | second row
 (2 rows)
 ```
 
@@ -184,10 +184,10 @@ Result:
 ```
         id         |                          format                           | some_data  
 -------------------+-----------------------------------------------------------+------------
-                 1 | {"id": 0, "ts": "2023-01-01 00:00:00.001+00", "count": 0} | first row
-                 2 | {"id": 0, "ts": "2023-01-01 00:00:00.002+00", "count": 0} | second row
- 18014518155600128 | {"id": 1, "ts": "2023-10-16 19:01:58.144+00", "count": 0} | third row
- 18014518155600129 | {"id": 1, "ts": "2023-10-16 19:01:58.145+00", "count": 0} | fourth row
+                 1 | {"node": 0, "ts": "2023-01-01 00:00:00.001+00", "count": 0} | first row
+                 2 | {"node": 0, "ts": "2023-01-01 00:00:00.002+00", "count": 0} | second row
+ 18014518155600128 | {"node": 1, "ts": "2023-10-16 19:01:58.144+00", "count": 0} | third row
+ 18014518155600129 | {"node": 1, "ts": "2023-10-16 19:01:58.145+00", "count": 0} | fourth row
 (4 rows)
 ```
 **NOTE:** The `bigint/int8` value of ID remains unique, althogh it does

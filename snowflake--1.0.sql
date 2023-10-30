@@ -43,7 +43,7 @@ RETURNS jsonb
 AS $$
 	SELECT ('{"ts": "' || to_timestamp(snowflake.get_epoch($1))::text ||
 		     '", "count": ' || snowflake.get_count($1)::text ||
-			 ', "id": ' || snowflake.get_node($1)::text ||
+			 ', "node": ' || snowflake.get_node($1)::text ||
 			'}')::jsonb;
 $$ language sql;
 GRANT EXECUTE ON FUNCTION snowflake.format(pg_catalog.int8) TO public;
