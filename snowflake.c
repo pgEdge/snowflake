@@ -236,7 +236,6 @@ snowflake_nextval(PG_FUNCTION_ARGS)
 		/* The clock has ticked, reset the counter */
 		flake.sf_msec = now_msec;
 		flake.sf_count = 0;
-		logit = true;
 	}
 	else
 	{
@@ -250,12 +249,14 @@ snowflake_nextval(PG_FUNCTION_ARGS)
 		{
 			flake.sf_count = 0;
 			flake.sf_msec++;
-			logit = true;
 		}
 	}
 
 	flake.sf_node = snowflake_node_id;
 	result = int64FromSnowflake(&flake);
+
+	if (result >= seq->log_cnt)
+		logit = true;
 
 	/*
 	 * Decide whether we should emit a WAL log record based on
@@ -321,14 +322,12 @@ snowflake_nextval(PG_FUNCTION_ARGS)
 
 		/*
 		 * Set values that will be saved in xlog.
-		 * We bump the millisecond in the last value one tick
+		 * We bump the millisecond in the last value 30 ticks
 		 * into the future of our current result. If a server
-		 * can recover from a postmaster crash that fast and
-		 * then come back into a workload of tens of thousands
-		 * of sequence allocation per millisecond, we'd like
-		 * to hear about it.
+		 * can recover from a postmaster crash that fast we'd
+		 * like to hear about it.
 		 */
-		log_flake.sf_msec++;
+		log_flake.sf_msec += 30;
 		log_flake.sf_count = 0;
 		seq->last_value = int64FromSnowflake(&log_flake);
 		seq->is_called = true;
