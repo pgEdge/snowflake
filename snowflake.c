@@ -332,7 +332,7 @@ snowflake_nextval(PG_FUNCTION_ARGS)
 		log_flake.sf_count = 0;
 		seq->last_value = int64FromSnowflake(&log_flake);
 		seq->is_called = true;
-		seq->log_cnt = 0;
+		seq->log_cnt = seq->last_value;
 
 #if PG_VERSION_NUM >= 160000
 		xlrec.locator = seqrel->rd_locator;
@@ -351,7 +351,6 @@ snowflake_nextval(PG_FUNCTION_ARGS)
 	/* Now update sequence tuple to the intended final state */
 	seq->last_value = result;		/* last fetched number */
 	seq->is_called = true;
-	seq->log_cnt = result;			/* how much is logged */
 
 	END_CRIT_SECTION();
 
