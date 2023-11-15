@@ -49,11 +49,12 @@ across multiple PostgreSQL instances in a distributed cluster.
 
 ## Installation
 
-### Installation from binary packages
+### Installation from pgEdge binaries
 
-*Document when we get this added to the PGDG packages.*
+Go to pgedge.org and run install.py (takes five seconds)
+After running the installer simply run the following command, as a non root user, from your home directory
 
-*Probably going to be along the lines of `dnf install postgresql-snowflake`.*
+./ctl install pg16 --start : install snowflake
 
 ### Installation from source code
 
