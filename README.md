@@ -1,13 +1,13 @@
-# Snowflake ID implementation for PostgreSQL
+# Snowflake Sequences for PostgreSQL
 
-* [Implementation](#implementaiont)
+* [Implementation](#implementation)
 * [Installation](#installation)
-  * [Installation from binary packages](#installation-from-binary-packages)
+  * [Installation from binaries](#installation-from-pgedge-binaries)
   * [Installation from source code](#installation-from-source-code)
 * [Configuration](#configuration)
 * [API](#api)
 * [Examples](#examples)
-* [New table using a snowflake as PK](#new-table-using-a-snowflake-as-pk)
+* [New table using a snowflake as a PK](#new-table-using-a-snowflake-as-pk)
 * [Converting an exitsting bigserial column into a snowflake](#converting-an-existing-bigserial-column-into-a-snowflake)
 
 ## Implementation
