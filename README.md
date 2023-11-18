@@ -12,14 +12,14 @@
 
 ## Implementation
 
-**Snowflake** is a PostgreSQL extension providing a `bigint/int8`
-and `sequence` based unique ID solution to replace the PostgreSQL
-built-in `bigserial` data type whenever you say so.
+**Snowflake** is a PostgreSQL extension providing an `int8`
+and `sequence` based unique ID solution to optionally replace 
+the PostgreSQL built-in `bigserial` data type.
 
-Internally **Snowflakes** are 64 bit integers represented externally as `bigint/int8` values. The 64 bits are divided into bit fields
+Internally **Snowflakes** are 64 bit integers represented externally as `bigint` values. The 64 bits are divided into bit fields
 
 ```
-bit  63    - unused (sign of bigint/int8)
+bit  63    - unused (sign of int8)
 bits 22-62 - timestamp with millisecond precision
 bits 10-21 - counter within one millisecond
 bits 0-9   - unique PostgreSQL node number set in postgresql.conf
@@ -51,10 +51,10 @@ across multiple PostgreSQL instances in a distributed cluster.
 
 ### Installation from pgEdge binaries
 
-Go to pgedge.org and run install.py (takes five seconds)
+Go to pgedge.org and run install.py (takes two seconds) to install pgEdge `nodectl`
 After running the installer simply run the following command, as a non root user, from your home directory
 
-./ctl install pg16 --start : install snowflake
+./nodectl install pg17 --start : install snowflake
 
 ### Installation from source code
 
@@ -98,7 +98,7 @@ CREATE EXTENSION snowflake;
 the following functions become available:
 
 * `snowflake.nextval([sequence regclass])`  
-  Generates the next **snowflake** ID for the given sequence. If no
+  Generates the next **snowflake** for the given sequence. If no
   sequence is specified the internal, database-wide sequence
   `snowflake.id_seq` will be used.
 
@@ -192,10 +192,10 @@ Result:
  18014518155600129 | {"node": 1, "ts": "2023-10-16 19:01:58.145+00", "count": 0} | fourth row
 (4 rows)
 ```
-**NOTE:** The `bigint/int8` value of ID remains unique, althogh it does
+**NOTE:** The `int8` value of ID remains unique, although it does
 jump ahead quite a bit (which is in compliance with standard PostgreSQL
-sequences that may have gaps). Because the **Snowflake** EPOCH is
-2023-01-01 your existing database would have had to use over 18 **trillion**
+sequences that may have gaps). Because the **snowflake** EPOCH is
+2023-01-01; your existing database would have had to use over 18 **trillion**
 sequence numbers before this conversion to cause any trouble with
 possible duplicate key values. 
 
