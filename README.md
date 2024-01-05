@@ -8,7 +8,7 @@
 * [API](#api)
 * [Examples](#examples)
   * [New table using a snowflake as a PK](#new-table-using-a-snowflake-as-pk)
-  * [Converting an exitsting bigserial column into a snowflake](#converting-an-existing-bigserial-column-into-a-snowflake)
+  * [Converting an existing bigserial column into a snowflake](#converting-an-existing-bigserial-column-into-a-snowflake)
 
 ## Implementation
 
@@ -159,7 +159,7 @@ Result:
 (2 rows)
 ```
 
-### Converting an exitsting bigserial column into a snowflake
+### Converting an existing bigserial column into a snowflake
 This SQL code demonstrates how to convert an existing `bigserial` or
 `serial8` column into a **snowflake**.
 ```
