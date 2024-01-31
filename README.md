@@ -51,10 +51,9 @@ across multiple PostgreSQL instances in a distributed cluster.
 
 ### Installation from pgEdge binaries
 
-Go to pgedge.org and run install.py (takes two seconds) to install pgEdge `nodectl`
-After running the installer simply run the following command, as a non root user, from your home directory
+Go to [pgeEdge Github](https://github.com/pgEdge/pgedge) and install the pgEdge CLI.
 
-./nodectl install pg17 --start : install snowflake
+./pgedge install pg16 --start : install snowflake
 
 ### Installation from source code
 
@@ -64,8 +63,8 @@ source.
 
 ```
 cd contrib
-git clone https://github.com/pgEdge/snowflake.git
-cd snowflake
+git clone https://github.com/pgEdge/snowflake-sequences.git
+cd snowflake-sequences
 make
 make install
 ```
