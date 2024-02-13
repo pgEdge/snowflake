@@ -65,8 +65,8 @@ source.
 cd contrib
 git clone https://github.com/pgEdge/snowflake-sequences.git
 cd snowflake-sequences
-make
-make install
+USE_PGXS=1 make
+USE_PGXS=1 make install
 ```
 
 ## Configuration
