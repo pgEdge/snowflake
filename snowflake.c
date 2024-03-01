@@ -145,7 +145,7 @@ _PG_init(void)
                             NULL,
                             &snowflake_node_id,
                             0,
-                            1,
+                            0,
                             1023,
                             PGC_SUSET,
                             0,
