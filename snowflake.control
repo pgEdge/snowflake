@@ -1,6 +1,6 @@
 # snowflake extension
 comment = 'Snowflake style IDs for PostgreSQL'
-default_version = '1.1'
+default_version = '1.2'
 module_pathname = '$libdir/snowflake'
 relocatable = false
 schema = snowflake

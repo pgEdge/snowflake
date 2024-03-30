@@ -1,4 +1,4 @@
-/* snowflake/snowflake--1.1.sql */
+/* snowflake/snowflake--1.2.sql */
 
 -- complain if script is sourced in psql, rather than via CREATE EXTENSION
 \echo Use "CREATE EXTENSION snowflake" to load this file. \quit
