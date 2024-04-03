@@ -132,6 +132,18 @@ the following functions become available:
   Returns a `jsonb` object of the given **snowflake** like:  
   `{"node": 1, "ts": "2023-10-16 17:57:26.361+00", "count": 0}`
 
+* `snowflake.convert_sequence_to_snowflake(p_relid regclass)`  
+  Converts an existing sequence into a snowflake. This is done by
+  changing any column that uses the given sequence with a
+  `DEFAULT pg_catalog.nextval(relid)` expression. The column is
+  forced to be type `int8` and the `DEFAULT` expression is
+  altered to use the `snowflake.nextval()` function. Then all
+  columns that eventually reference such column in a foreign key
+  are forced to `int8` as well. Finally the sequence's MAXVALUE
+  is adjusted to the current `last_value + 1`, which prevents
+  the accidental use of `pg_catalog.nextval()` from user code.
+
+
 ## Examples
 
 ### New table using a **snowflake** as PK
