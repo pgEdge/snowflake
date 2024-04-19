@@ -456,7 +456,7 @@ snowflake_get_node(PG_FUNCTION_ARGS)
 static Relation
 lock_and_open_sequence(SeqTable seq)
 {
-	LocalTransactionId thislxid = MyProc->lxid;
+	LocalTransactionId thislxid = MyProc->vxid.lxid;
 
 	/* Get the lock if not already held in this xact */
 	if (seq->lxid != thislxid)
