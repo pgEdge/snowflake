@@ -456,7 +456,11 @@ snowflake_get_node(PG_FUNCTION_ARGS)
 static Relation
 lock_and_open_sequence(SeqTable seq)
 {
+#if PG_VERSION_NUM >= 170000
 	LocalTransactionId thislxid = MyProc->vxid.lxid;
+#else
+	LocalTransactionId thislxid = MyProc->lxid;
+#endif
 
 	/* Get the lock if not already held in this xact */
 	if (seq->lxid != thislxid)
