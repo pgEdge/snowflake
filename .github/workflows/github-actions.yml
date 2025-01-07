@@ -1,0 +1,85 @@
+name: Run Python Schedules
+run-name: ${{ github.actor }} is running the test schedules.
+on:
+  push:
+    branches: ["main"]
+    
+jobs:
+  run-scripts:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout the repository
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Start Postgres
+      - name: start Postgres
+        run: |
+          sudo systemctl start postgresql.service
+          sudo systemctl status postgresql.service
+          sudo pg_isready
+          echo "This is who I am:"
+          echo ${{ github.actor }}
+          sudo pg_config
+          echo "After pg_config"
+          sudo -u postgres createuser -s -w -e lcusr       
+          echo "After createuser"
+          sudo -u postgres psql -c '\du'
+          echo "After psql"
+
+          ls -l /usr/lib/postgresql/14/bin
+          
+      # Set up Python environment
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+           
+      # Configure passwordless ssh
+      - name: Configure passwordless ssh
+        run: |
+          ssh-keygen -t rsa -f ~/.ssh/id_rsa -q -P ""
+          cd ~/.ssh
+          cat id_rsa.pub >> authorized_keys
+          chmod 700 ~/.ssh && chmod 600 ~/.ssh/authorized_keys
+          
+      # Install apt dependencies
+      - name: Install apt dependencies
+        run: |
+          sudo apt-get update -y
+          sudo apt-get install -y curl perl cpanminus libpq-dev python3-dev build-essential python3-psycopg2 python3-dotenv
+          echo $PATH
+
+      # Install pip dependencies
+      - name: Install pip dependencies
+        run: |
+          python -m pip install --upgrade pip
+          sudo pip install psycopg2-binary
+          
+      # Source environment variables
+      - name: source environment variables
+        run: |
+          source t/lib/config.env
+          echo $REPO
+          echo $EDGE_HOME_DIR/cluster/$EDGE_CLUSTER/demo.json
+
+      # Run the Python scripts with runner.py
+      - name: Run Python scripts
+        run: |
+          python runner.py -c t/lib/config.env -s schedule_files/script_file
+
+      # Upload log file as artifact of run
+      - name: Upload Log File as Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: latest-log
+          path: latest.log
+
+      # Verify output (GitHub Actions should fail the job if any script raises an error)
+      - name: Verify success
+        if: success()
+        run: echo "All scripts executed successfully. Pull request can be merged."
+
+
+
