@@ -108,7 +108,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: latest-log
-          path: latest.log
+          path: ${{ matrix.pgver }}latest.log
 
       # Verify output (GitHub Actions should fail the job if any script raises an error)
       - name: Verify success
