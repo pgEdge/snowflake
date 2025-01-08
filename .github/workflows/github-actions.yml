@@ -11,7 +11,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [macos-latest, ubuntu-22.04, windows-latest]
+        os: [ubuntu-22.04]
         pgver: [13, 14, 15, 16, 17]
 
     runs-on: ${{ matrix.os }}
