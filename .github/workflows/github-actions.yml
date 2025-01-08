@@ -40,7 +40,8 @@ jobs:
       - name: Add permissions
         run: |
           sudo chmod -R a+w ${GITHUB_WORKSPACE}
-          sudo chmod -R a+w ~/snowflake
+          echo ${GITHUB_WORKSPACE}
+          ls ~/
 
       - name: Build Snowflake
         run: |
