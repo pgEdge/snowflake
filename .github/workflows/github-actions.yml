@@ -33,13 +33,10 @@ jobs:
           sudo apt-get install -y postgresql-${{ matrix.pgver }} postgresql-server-dev-${{ matrix.pgver }}
 
       # Start Postgres
-      - name: start Postgres
+      - name: start PostgreSQL ${{ matrix.pgver }}
         run: |
-          sudo su - postgres -c "/usr/lib/postgresql/${{ matrix.pgver }}/bin/postgres -D /var/lib/postgresql/${{ matrix.pgver }}/main -c config_file=/etc/postgresql/${{ matrix.pgver }}/main/postgresql.conf &"
-          #sudo service postgresql start
-          #sudo -u postgres psql -c "SELECT version();"
-          #sudo systemctl start postgresql.service
-          #sudo systemctl status postgresql.service
+          sudo systemctl start postgresql.service
+          sudo systemctl status postgresql.service
           sudo pg_isready
           echo "This is who I am:"
           echo ${{ github.actor }}
