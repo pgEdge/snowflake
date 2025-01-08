@@ -40,12 +40,11 @@ jobs:
       - name: Add permissions
         run: |
           sudo chmod -R a+w ${GITHUB_WORKSPACE}
-          echo ${GITHUB_WORKSPACE}
-          ls ~/
+          sudo chmod -R a+w ~/work/snowflake/snowflake
 
       - name: Build Snowflake
         run: |
-          cd ~/snowflake
+          cd ~/work/snowflake/snowflake
           USE_PGXS=1 make install
 
       # Set up Python environment
