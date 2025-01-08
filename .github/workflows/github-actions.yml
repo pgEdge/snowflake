@@ -8,7 +8,13 @@ on:
 
 jobs:
   run-scripts:
-    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-latest, ubuntu-22.04, windows-latest]
+        pgver: [13, 14, 15, 16, 17]
+
+    runs-on: ${{ matrix.os }}
 
     steps:
       # Checkout the repository
@@ -31,6 +37,9 @@ jobs:
           echo "After psql"
 
           ls -l /usr/lib/postgresql/14/bin
+
+          echo ${{ matrix.os }}
+          echo ${{ matrix.pgver }}
  
       - name: Install dependencies
         run: |
