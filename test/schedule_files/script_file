@@ -1,18 +1,1 @@
-## Set up a two node cluster
 test/t/temp.sh
-
-#test/t/setup_01_install.py
-#test/t/setup_03_node_install.py
-#test/t/setup_04_node_setup.py
-
-#test/t/spock_2_node_create.py
-
-#test/t/snowflake.py
-#test/t/snowflake_script.py
-#test/t/snowflake_spock_cmds.py
-
-## Remove components, Clean environment and free ports
-#test/t/cleanup_01_node_remove.py
-
-# Delete the nc directory and pgpass file
-#test/t/cleanup_03_remove_nc.py
