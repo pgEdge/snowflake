@@ -1,1 +1,1 @@
-psql -c "CREATE EXTENSION snowflake"
+psql -c -U lcusr "CREATE EXTENSION snowflake"
