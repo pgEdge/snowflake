@@ -35,8 +35,9 @@ jobs:
       # Start Postgres
       - name: start Postgres
         run: |
-          sudo service postgresql start
-          sudo -u postgres psql -c "SELECT version();"
+          sudo su - postgres -c "/usr/lib/postgresql/${{ matrix.pgver }}/bin/postgres -D /var/lib/postgresql/${{ matrix.pgver }}/main -c config_file=/etc/postgresql/${{ matrix.pgver }}/main/postgresql.conf &"
+          #sudo service postgresql start
+          #sudo -u postgres psql -c "SELECT version();"
           #sudo systemctl start postgresql.service
           #sudo systemctl status postgresql.service
           sudo pg_isready
