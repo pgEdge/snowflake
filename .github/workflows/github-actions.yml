@@ -73,8 +73,8 @@ jobs:
 
       - name: Update pg_hba.conf
         run: |
-          sudo sed -i "s/peer/trust/g" /etc/postgresql/15/main/pg_hba.conf
-          sudo sed -i "s/md5/trust/g" /etc/postgresql/15/main/pg_hba.conf
+          sudo sed -i "s/peer/trust/g" /etc/postgresql/14/main/pg_hba.conf
+          sudo sed -i "s/md5/trust/g" /etc/postgresql/14/main/pg_hba.conf
           sudo service postgresql restart
 
       # Run the tests here
