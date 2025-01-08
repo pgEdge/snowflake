@@ -50,7 +50,7 @@ jobs:
       - name: Build Snowflake
         run: |
           cd ~/work/snowflake/snowflake
-          USE_PGXS=1 make install
+          sudo USE_PGXS=1 make install
 
       # Set up Python environment
       - name: Set up Python
