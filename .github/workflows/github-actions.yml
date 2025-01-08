@@ -101,14 +101,14 @@ jobs:
       - name: Run the test schedule
         run: |
           python test/runner.py -c test/t/lib/config.env -s test/schedule_files/script_file -k
-      
+          cp latest.log ${{ matrix.pgver }}latest.log
 
       # Upload log file as artifact of run
       - name: Upload Log File as Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: Add log file
-          path: test_logs_${{ matrix.postgres-version }}.log
+          name: ${{ matrix.pgver }}latest-log
+          path: ${{ matrix.pgver }}latest.log
 
       # Verify output (GitHub Actions should fail the job if any script raises an error)
       - name: Verify success
