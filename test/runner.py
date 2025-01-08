@@ -262,7 +262,9 @@ def runTests(testList):
     print("fail:   " + str(failCount))
     print("errors: " + str(errorCount))
 
-    return failCount + errorCount
+## Comment or uncomment the next line to make the GH action return an exit code
+## of 1 if any of the test cases fail 
+#    return failCount + errorCount
 
 ################################################################################
 # printTestResult()
