@@ -60,14 +60,14 @@ jobs:
       # Source environment variables
       - name: source environment variables
         run: |
-          source t/lib/config.env
+          source test/t/lib/config.env
           echo $REPO
           echo $EDGE_HOME_DIR/cluster/$EDGE_CLUSTER/demo.json
 
       # Run the Python scripts with runner.py
       - name: Run Python scripts
         run: |
-          python runner.py -c t/lib/config.env -s schedule_files/script_file
+          python runner.py -c test/t/lib/config.env -s test/schedule_files/script_file
 
       # Upload log file as artifact of run
       - name: Upload Log File as Artifact
