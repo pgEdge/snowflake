@@ -107,8 +107,8 @@ jobs:
       - name: Upload Log File as Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: latest-log
-          path: ${{ matrix.pgver }}latest.log
+          name: Add log file
+          path: test_logs_${{ matrix.postgres-version }}.log
 
       # Verify output (GitHub Actions should fail the job if any script raises an error)
       - name: Verify success
