@@ -12,7 +12,7 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-22.04]
-        pgver: [14]
+        pgver: [14, 15, 16, 17]
 
     runs-on: ${{ matrix.os }}
 
@@ -21,7 +21,13 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Install PostgreSQLInstall PostgreSQL ${{ matrix.pgver }}
+      - name: Setup the PGDG APT repo on Linux
+        if: ${{ matrix.os == 'ubuntu-22.04' }}
+        run: |
+          sudo sh -c 'echo "deb https://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
+          wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
+
+      - name: Install PostgreSQL ${{ matrix.pgver }}
         run: |
           sudo apt-get update
           sudo apt-get install -y postgresql-${{ matrix.pgver }} postgresql-server-dev-${{ matrix.pgver }}
