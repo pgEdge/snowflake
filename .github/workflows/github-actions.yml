@@ -89,7 +89,7 @@ jobs:
       # Run the Python scripts with runner.py
       - name: Run Python scripts
         run: |
-          python test/runner.py -c test/t/lib/config.env -s test/schedule_files/script_file
+          python test/runner.py -c test/t/lib/config.env -k -s test/schedule_files/script_file
 
       # Upload log file as artifact of run
       - name: Upload Log File as Artifact
