@@ -47,7 +47,7 @@ def initialize_pg_config():
     runners = {
         ".py": "/usr/bin/python",
         ".pl": "/usr/bin/perl",
-        ".sh": "bash %f",
+        ".sh": "bash",
         ".sql": psqlPath  # Newly added support for .sql file, and its runner psql command path for SQL file execution
     }
 
