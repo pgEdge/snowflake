@@ -25,7 +25,6 @@ jobs:
           echo ${{ github.actor }}
           sudo pg_config
           echo "After pg_config"
-          sudo createdb lcdb
           sudo -u postgres createuser -s -w -e lcusr       
           echo "After createuser"
           sudo -u postgres psql -c '\du'
