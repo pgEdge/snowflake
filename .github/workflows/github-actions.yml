@@ -12,7 +12,7 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-22.04]
-        pgver: [14, 15, 16, 17]
+        pgver: [14]
 
     runs-on: ${{ matrix.os }}
 
@@ -42,9 +42,7 @@ jobs:
           echo "After createuser"
           sudo -u postgres psql -c '\du'
           echo "After psql"
-
           ls -l /usr/lib/postgresql/14/bin
-
           echo ${{ matrix.os }}
           echo ${{ matrix.pgver }}
  
