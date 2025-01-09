@@ -89,11 +89,13 @@ jobs:
           python -m pip install --upgrade pip
           sudo pip install psycopg2-binary 
 
+      # Update authentication for the tests
       - name: Update pg_hba.conf
         run: |
           sudo sed -i "s/peer/trust/g" /etc/postgresql/${{ matrix.pgver }}/main/pg_hba.conf
           sudo sed -i "s/md5/trust/g" /etc/postgresql/${{ matrix.pgver }}/main/pg_hba.conf
           sudo service postgresql restart
+          sudo cat /etc/postgresql/${{ matrix.pgver }}/main/pg_hba.conf
 
       # Run the tests here
       - name: Run the test schedule
