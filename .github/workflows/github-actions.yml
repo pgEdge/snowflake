@@ -106,7 +106,7 @@ jobs:
         run: |
           echo "Current Directory: $(pwd)"
           echo "Testing PostgreSQL Version: ${{ matrix.pgver }}"
-          python test/runner.py -c test/t/lib/config.env -s test/schedule_files/script_file -k
+          python test/runner.py -c test/t/lib/${{ matrix.pgver }}config.env -s test/schedule_files/script_file -k
           cp latest.log ${{ matrix.pgver }}latest.log
 
       # Upload log file as artifact of run
