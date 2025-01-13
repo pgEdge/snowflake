@@ -100,7 +100,8 @@ jobs:
           echo "host all all 0.0.0.0/0 trust" | sudo tee -a /etc/postgresql/${{ matrix.pgver }}/main/pg_hba.conf
           sudo service postgresql restart
           sudo cat /etc/postgresql/${{ matrix.pgver }}/main/pg_hba.conf
-          sudo sudo -u postgres psql -c "\l"
+      # Having the next command in this section^^^ fails with the same authentication error for 14 that we see in the cases for 15/16/17 ...
+          sudo -u postgres psql -c "\l"
 
 
       # Run the tests here
