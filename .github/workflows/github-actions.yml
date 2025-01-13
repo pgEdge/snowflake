@@ -103,9 +103,6 @@ jobs:
           sudo -u postgres psql -c "\l"
           echo "Current Directory: $(pwd)"
           echo "Testing PostgreSQL Version: ${{ matrix.pgver }}"
-          python test/runner.py -c test/t/lib/${{ matrix.pgver }}config.env -s test/schedule_files/script_file -k
-          cp latest.log ${{ matrix.pgver }}latest.log
-
 
       # Run the tests here
       - name: Run the test schedule
