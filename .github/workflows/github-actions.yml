@@ -96,7 +96,7 @@ jobs:
           echo "s/peer/trust/g" /etc/postgresql/${{ matrix.pgver }}/main/pg_hba.conf"
           sudo sed -i "s/md5/trust/g" /etc/postgresql/${{ matrix.pgver }}/main/pg_hba.conf
           echo "s/md5/trust/g" /etc/postgresql/${{ matrix.pgver }}/main/pg_hba.conf"
-          echo "host all postgres 0.0.0.0/0 trust" | sudo tee -a /etc/postgresql/${{ matrix.pgver }}/main/pg_hba.conf
+          echo "host all postgres 0.0.0.0/0 peer" | sudo tee -a /etc/postgresql/${{ matrix.pgver }}/main/pg_hba.conf
           echo "host all all 0.0.0.0/0 trust" | sudo tee -a /etc/postgresql/${{ matrix.pgver }}/main/pg_hba.conf
           sudo service postgresql restart
           sudo cat /etc/postgresql/${{ matrix.pgver }}/main/pg_hba.conf
