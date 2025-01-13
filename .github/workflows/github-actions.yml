@@ -93,7 +93,9 @@ jobs:
       - name: Update pg_hba.conf
         run: |
           sudo sed -i "s/peer/trust/g" /etc/postgresql/${{ matrix.pgver }}/main/pg_hba.conf
+          echo "s/peer/trust/g" /etc/postgresql/${{ matrix.pgver }}/main/pg_hba.conf"
           sudo sed -i "s/md5/trust/g" /etc/postgresql/${{ matrix.pgver }}/main/pg_hba.conf
+          echo "s/md5/trust/g" /etc/postgresql/${{ matrix.pgver }}/main/pg_hba.conf"
           echo "host all all 0.0.0.0/0 trust" | sudo tee -a /etc/postgresql/${{ matrix.pgver }}/main/pg_hba.conf
           sudo service postgresql restart
           sudo cat /etc/postgresql/${{ matrix.pgver }}/main/pg_hba.conf
@@ -101,6 +103,8 @@ jobs:
       # Run the tests here
       - name: Run the test schedule
         run: |
+          echo "Current Directory: $(pwd)"
+          echo "Testing PostgreSQL Version: ${{ matrix.pgver }}"
           python test/runner.py -c test/t/lib/config.env -s test/schedule_files/script_file -k
           cp latest.log ${{ matrix.pgver }}latest.log
 
