@@ -43,6 +43,7 @@ jobs:
           sudo pg_config
           sudo -u postgres createuser -s -w -e lcusr       
           sudo -u postgres psql -c '\du'
+          pg_isready
           ls -l /usr/lib/postgresql/${{matrix.pgver}}/bin
           echo "This is who I am: ${{ github.actor }}"
           echo "This is where I am: $(pwd)"
