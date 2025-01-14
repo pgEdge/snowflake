@@ -93,6 +93,7 @@ jobs:
       - name: Update pg_hba.conf
         run: |
           sudo sed -i "s/peer/trust/g" /etc/postgresql/${{ matrix.pgver }}/main/pg_hba.conf
+          sudo sed -i "s/scram-sha-256/trust/g" /etc/postgresql/${{ matrix.pgver }}/main/pg_hba.conf
           echo "s/peer/trust/g" /etc/postgresql/${{ matrix.pgver }}/main/pg_hba.conf"
           sudo sed -i "s/md5/trust/g" /etc/postgresql/${{ matrix.pgver }}/main/pg_hba.conf
           echo "s/md5/trust/g" /etc/postgresql/${{ matrix.pgver }}/main/pg_hba.conf"
