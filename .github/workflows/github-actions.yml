@@ -98,10 +98,6 @@ jobs:
           echo "host all postgres 0.0.0.0/0 peer" | sudo tee -a /etc/postgresql/${{ matrix.pgver }}/main/pg_hba.conf
           echo "host all all 0.0.0.0/0 trust" | sudo tee -a /etc/postgresql/${{ matrix.pgver }}/main/pg_hba.conf
           sudo service postgresql restart
-          sudo cat /etc/postgresql/${{ matrix.pgver }}/main/pg_hba.conf
-          sudo -u postgres psql -c "\l"
-          echo "Current Directory: $(pwd)"
-          echo "Testing PostgreSQL Version: ${{ matrix.pgver }}"
 
       # Run the tests here
       - name: Run the test schedule
