@@ -69,8 +69,7 @@ jobs:
       - name: Add permissions
         run: |
           echo "adding permissions"
-          pwd
-          ls -la
+          sudo chmod -R a+w ~/work/snowflake/snowflake
 
       - name: Build Snowflake
         run: |
