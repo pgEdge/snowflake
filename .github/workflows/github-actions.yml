@@ -57,17 +57,9 @@ jobs:
           sudo systemctl start postgresql.service
           sudo systemctl status postgresql.service
           sudo pg_isready
-          echo "This is who I am: ${{ github.actor }}"
-          echo "This is where I am: $(pwd)"
-          sudo pg_config
           sudo -u postgres createuser -s -w -e lcusr       
           sudo -u postgres psql -U postgres -c '\du'
-          pg_isready
           ls -l /usr/lib/postgresql/${{matrix.pgver}}/bin
-          echo "This is who I am: ${{ github.actor }}"
-          echo "This is where I am: $(pwd)"
-          echo "We're installing into: ${{ matrix.os }}"
-          echo "We're installing PG versions: ${{ matrix.pgver }}"
 
       - name: Checkout snowflake
         uses: actions/checkout@v4
@@ -76,12 +68,12 @@ jobs:
 
       - name: Add permissions
         run: |
-          sudo chmod -R a+w ${GITHUB_WORKSPACE}
-          sudo chmod -R a+w ~/work/snowflake/snowflake
+          echo "adding permissions"
+          pwd
+          ls -la
 
       - name: Build Snowflake
         run: |
-          cd ~/work/snowflake/snowflake
           USE_PGXS=1 make
           sudo USE_PGXS=1 make install
 
