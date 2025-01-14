@@ -38,8 +38,8 @@ jobs:
           sudo systemctl start postgresql.service
           sudo systemctl status postgresql.service
           sudo pg_isready
-          echo "This is who I am:"
-          echo ${{ github.actor }}
+          echo "This is who I am: ${{ github.actor }}"
+          echo "This is where I am: $(pwd)"
           sudo pg_config
           echo "After pg_config"
           sudo -u postgres createuser -s -w -e lcusr       
@@ -47,8 +47,8 @@ jobs:
           sudo -u postgres psql -c '\du'
           echo "After psql"
           ls -l /usr/lib/postgresql/14/bin
-          echo ${{ matrix.os }}
-          echo ${{ matrix.pgver }}
+          echo "We're installing into: ${{ matrix.os }}"
+          echo "We're installing PG versions: ${{ matrix.pgver }}"
  
       - name: Install dependencies
         run: |
