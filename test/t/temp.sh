@@ -1,1 +1,1 @@
-psql -U postgres -c "CREATE EXTENSION snowflake"
+sudo -u postgres psql -c "CREATE EXTENSION snowflake"
