@@ -18,8 +18,15 @@ jobs:
 
     steps:
       # Checkout the repository
-      - name: Checkout code
+      - name: Checkout snowflake
         uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref }}
+
+      - name: Add permissions
+        run: |
+          echo "adding permissions"
+          sudo chmod -R a+w ~/work/snowflake/snowflake
 
       - name: Setup the PGDG APT repo on Linux
         if: ${{ matrix.os == 'ubuntu-22.04' }}
@@ -60,16 +67,6 @@ jobs:
           sudo -u postgres createuser -s -w -e lcusr       
           sudo -u postgres psql -U postgres -c '\du'
           ls -l /usr/lib/postgresql/${{matrix.pgver}}/bin
-
-      - name: Checkout snowflake
-        uses: actions/checkout@v4
-        with:
-          ref: ${{ github.ref }}
-
-      - name: Add permissions
-        run: |
-          echo "adding permissions"
-          sudo chmod -R a+w ~/work/snowflake/snowflake
 
       - name: Build Snowflake
         run: |
