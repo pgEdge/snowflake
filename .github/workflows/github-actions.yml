@@ -99,13 +99,14 @@ jobs:
           echo "host all all 0.0.0.0/0 trust" | sudo tee -a /etc/postgresql/${{ matrix.pgver }}/main/pg_hba.conf
           sudo service postgresql restart
           sudo cat /etc/postgresql/${{ matrix.pgver }}/main/pg_hba.conf
-          sudo -u postgres psql -c "\l"
+          echo "This is who I am: ${{ github.actor }}"
+          echo "This is where I am: $(pwd)"
 
       # Run the tests here
       - name: Run the test schedule
         run: |
-          echo "Current Directory: $(pwd)"
-          echo "Testing PostgreSQL Version: ${{ matrix.pgver }}"
+          echo "This is where I am: $(pwd)"
+          echo "Testing PostgreSQL Version ${{ matrix.pgver }}"
           sudo cat /etc/postgresql/${{ matrix.pgver }}/main/pg_hba.conf
           sudo -u postgres psql -c "\l"
           python test/runner.py -c test/t/lib/${{ matrix.pgver }}config.env -s test/schedule_files/script_file -k
