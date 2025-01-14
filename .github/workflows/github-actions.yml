@@ -35,7 +35,7 @@ jobs:
             postgresql-client-${{ matrix.pgver }} \
             autoconf \
             automake \
-            libgeos-dev 
+            libgeos-dev \
             libproj-dev \
             libgdal-dev \
             libjson-c-dev \
