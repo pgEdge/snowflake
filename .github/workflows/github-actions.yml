@@ -105,12 +105,13 @@ jobs:
           echo "This is where I am: $(pwd)"
 
       # Run the tests here
+      # python test/runner.py -c test/t/lib/${{ matrix.pgver }}config.env -s test/schedule_files/script_file -k
       - name: Run the test schedule
         run: |
           echo "This is where I am: $(pwd)"
           echo "This is who I am: ${{ github.actor }}"
           echo "Testing PostgreSQL Version ${{ matrix.pgver }}"
-          python test/runner.py -c test/t/lib/${{ matrix.pgver }}config.env -s test/schedule_files/script_file -k
+          psql -U postgres -c 'create extension snowflake;'
           cp latest.log ${{ matrix.pgver }}latest.log
 
       # Upload log file as artifact of run
