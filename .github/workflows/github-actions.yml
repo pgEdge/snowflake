@@ -41,12 +41,11 @@ jobs:
           echo "This is who I am: ${{ github.actor }}"
           echo "This is where I am: $(pwd)"
           sudo pg_config
-          echo "After pg_config"
           sudo -u postgres createuser -s -w -e lcusr       
-          echo "After createuser"
           sudo -u postgres psql -c '\du'
-          echo "After psql"
-          ls -l /usr/lib/postgresql/14/bin
+          ls -l /usr/lib/postgresql/${{matrix.pgver}}/bin
+          echo "This is who I am: ${{ github.actor }}"
+          echo "This is where I am: $(pwd)"
           echo "We're installing into: ${{ matrix.os }}"
           echo "We're installing PG versions: ${{ matrix.pgver }}"
  
