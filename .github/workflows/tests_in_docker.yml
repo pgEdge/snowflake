@@ -1,4 +1,4 @@
-name: Test Python with PostgreSQL Matrix
+name: Test PostgreSQL Matrix
 
 on:
   push:
@@ -45,11 +45,13 @@ jobs:
         run: |
           echo "adding permissions"
           sudo chmod -R a+w ~/work/snowflake/snowflake
+
       - name: Setup the PGDG APT repo on Linux
         if: ${{ matrix.os == 'ubuntu-22.04' }}
         run: |
           sudo sh -c 'echo "deb https://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
           wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
+      
       - name: Install PostgreSQL ${{ matrix.pgver }} and its dependencies
         run: |
           sudo apt -y update
@@ -83,6 +85,7 @@ jobs:
           sudo -u postgres createuser -s -w -e lcusr       
           sudo -u postgres psql -U postgres -c '\du'
           ls -l /usr/lib/postgresql/${{matrix.pgver}}/bin
+      
       - name: Build Snowflake
         run: |
           USE_PGXS=1 make
@@ -91,11 +94,11 @@ jobs:
       # Run Test Harness
       - name: Run Test Harness (runner.py)
         run: |
-          python runner.py
-
-      # Step 6: Publish Test Logs to Artifacts
+          python test/runner.py -c test/t/lib/${{ matrix.pgver }}config.env -s test/schedule_files/script_file -k
+          
+      # Publish Test Logs to Artifacts
       - name: Upload Test Log
         uses: actions/upload-artifact@v3
         with:
-          name: latest-test-log-${{ matrix.pgver }}
-          path: latest.log
+          name: ${{ matrix.pgver }}latest-log
+          path: ${{ matrix.pgver }}latest.log
