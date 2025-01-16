@@ -35,28 +35,6 @@ jobs:
           --health-timeout 5s 
           --health-retries 5
 
-    services:
-      postgres:
-        image: postgres:${{ matrix.pgver }}
-        ports:
-          - 6432:5432
-          - 6433:5433
-          - 6434:5434
-          - 6435:5435
-          - 6436:5436
-          - 6437:5437
-          - 6438:5438
-          - 6439:5439
-        env:
-          POSTGRES_USER: lcusr
-          POSTGRES_PASSWORD: password
-          POSTGRES_DB: lcdb
-        options: >-
-          --health-cmd "pg_isready -U lcusr -d lcdb" 
-          --health-interval 10s 
-          --health-timeout 5s 
-          --health-retries 5
-
     strategy:
       matrix:
         pgver: [14, 15, 16, 17] # PostgreSQL versions
