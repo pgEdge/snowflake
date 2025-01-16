@@ -1,5 +1,5 @@
 name: Test PostgreSQL Matrix
-
+run-name: ${{ github.actor }} is running the test schedules.
 on:
   push:
     branches:
@@ -9,9 +9,36 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
+    container: 
+      image: python:3.10  # Use a Python Docker image for the job
+      options: --network host  # Use host networking to allow PostgreSQL access
+
+    services:
+      postgres:
+        image: postgres:${{ matrix.postgres-version }}
+        ports:
+          - 6432:5432
+          - 6433:5433
+          - 6434:5434
+          - 6435:5435
+          - 6436:5436
+          - 6437:5437
+          - 6438:5438
+          - 6439:5439
+        env:
+          POSTGRES_USER: lcusr
+          POSTGRES_PASSWORD: password
+          POSTGRES_DB: lcdb
+        options: >-
+          --health-cmd "pg_isready -U lcusr -d lcdb" 
+          --health-interval 10s 
+          --health-timeout 5s 
+          --health-retries 5
+
     strategy:
       matrix:
-        pgver: [14, 15, 16, 17] # PostgreSQL versions to test
+        pgver: [14, 15, 16, 17] # PostgreSQL versions
+        os: [ubuntu-22.04] 
 
     services:
       postgres:
