@@ -3,7 +3,7 @@ name: Test Python with PostgreSQL Matrix
 on:
   push:
     branches:
-      - main
+      - GH_actions_test
 
 jobs:
   test:
