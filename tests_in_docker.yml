@@ -61,7 +61,7 @@ conn.close()
       # Step 3: Run Test Harness
       - name: Run Test Harness (runner.py)
         run: |
-          python runner.py
+          python test/runner.py -c test/t/lib/${{ matrix.pgver }}config.env -s test/schedule_files/script_file -k
 
       # Step 4: Publish Test Logs
       - name: Upload Test Log
