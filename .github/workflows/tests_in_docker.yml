@@ -36,34 +36,59 @@ jobs:
           --health-retries 5
 
     steps:
-      # Step 1: Checkout Code
-      - name: Checkout code
+      - name: Checkout snowflake
         uses: actions/checkout@v4
-
-      # Step 2: Set up Python
-      - name: Set up Python 3.10
-        uses: actions/setup-python@v4
         with:
-          python-version: 3.10
+          ref: ${{ github.ref }}
 
-      # Step 3: Install Dependencies
-      - name: Install Python Dependencies
+      - name: Add permissions
         run: |
-          python -m pip install --upgrade pip
-          pip install psycopg psycopg2
-
-      # Step 4: Verify PostgreSQL Connection
-      - name: Verify PostgreSQL Connection
+          echo "adding permissions"
+          sudo chmod -R a+w ~/work/snowflake/snowflake
+      - name: Setup the PGDG APT repo on Linux
+        if: ${{ matrix.os == 'ubuntu-22.04' }}
         run: |
-          echo "Testing connection to PostgreSQL (Version: ${{ matrix.pgver }})..."
-          python -c "
-            import psycopg2
-            conn = psycopg2.connect(dbname='lcdb', user='lcusr', password='password', host='localhost', port=6432)
-            print('Successfully connected to PostgreSQL version ${{ matrix.pgver }}!')
-            conn.close()
-            "
+          sudo sh -c 'echo "deb https://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
+          wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
+      - name: Install PostgreSQL ${{ matrix.pgver }} and its dependencies
+        run: |
+          sudo apt -y update
+          sudo apt install -y postgresql-${{ matrix.pgver }} \
+            postgresql-server-dev-${{ matrix.pgver }} \
+            postgresql-client-${{ matrix.pgver }} \
+            autoconf \
+            automake \
+            libgeos-dev \
+            libproj-dev \
+            libgdal-dev \
+            libjson-c-dev \
+            gettext \
+            libxml2-dev \
+            libprotobuf-c-dev \
+            libprotoc-dev \
+            protobuf-c-compiler \
+            g++ \
+            libpq-dev \
+            python3-dev \
+            build-essential \
+            python3-psycopg2 \
+            python3-dotenv
 
-      # Step 5: Run Test Harness
+      # Start Postgres
+      - name: start PostgreSQL ${{ matrix.pgver }}
+        run: |
+          sudo systemctl start postgresql.service
+          sudo systemctl status postgresql.service
+          sudo pg_isready
+          sudo -u postgres createuser -s -w -e lcusr       
+          sudo -u postgres psql -U postgres -c '\du'
+          ls -l /usr/lib/postgresql/${{matrix.pgver}}/bin
+      - name: Build Snowflake
+        run: |
+          USE_PGXS=1 make
+          sudo USE_PGXS=1 make install
+
+      # Run Test Harness
       - name: Run Test Harness (runner.py)
         run: |
           python runner.py
