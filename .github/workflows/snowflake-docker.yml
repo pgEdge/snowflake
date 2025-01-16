@@ -6,8 +6,14 @@ on:
       - GH_actions_test
 
 jobs:
-  build-and-test:
-    runs-on: ubuntu-latest
+  run-scripts:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-22.04]
+        pgver: [14, 15, 16, 17]
+
+    runs-on: ${{ matrix.os }}
 
     steps:
     - name: Checkout snowflake
