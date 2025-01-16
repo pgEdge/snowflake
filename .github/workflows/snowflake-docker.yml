@@ -1,10 +1,9 @@
-name: Build and Test Docker Image
-
+name: Test PostgreSQL Matrix
+run-name: ${{ github.actor }} is running the test schedules.
 on:
   push:
     branches:
-      - main
-  pull_request:
+      - GH_actions_test
 
 jobs:
   build-and-test:
