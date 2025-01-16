@@ -35,11 +35,6 @@ jobs:
           --health-timeout 5s 
           --health-retries 5
 
-    strategy:
-      matrix:
-        pgver: [14, 15, 16, 17] # PostgreSQL versions
-        os: [ubuntu-22.04] 
-
     services:
       postgres:
         image: postgres:${{ matrix.pgver }}
@@ -61,6 +56,11 @@ jobs:
           --health-interval 10s 
           --health-timeout 5s 
           --health-retries 5
+
+    strategy:
+      matrix:
+        pgver: [14, 15, 16, 17] # PostgreSQL versions
+        os: [ubuntu-22.04] 
 
     steps:
       - name: Checkout snowflake
