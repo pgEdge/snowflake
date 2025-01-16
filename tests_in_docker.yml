@@ -45,18 +45,9 @@ jobs:
       - name: Verify PostgreSQL Connection
         run: |
           echo "Testing connection to PostgreSQL (Version: ${{ matrix.postgres-version }})..."
-          python -c "
-import psycopg2
-conn = psycopg2.connect(
-    dbname='lcdb',
-    user='lcusr',
-    password='password',
-    host='localhost',
-    port=5432
-)
-print('Successfully connected to PostgreSQL version ${{ matrix.postgres-version }}!')
-conn.close()
-"
+          python -c "import psycopg2 conn = psycopg2.connect(dbname='lcdb', user='lcusr', password='password', host='localhost', port=5432)
+          print('Successfully connected to PostgreSQL version ${{ matrix.postgres-version }}!')
+          conn.close()"
 
       # Step 3: Run Test Harness
       - name: Run Test Harness (runner.py)
