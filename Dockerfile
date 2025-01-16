@@ -1,4 +1,5 @@
-FROM postgres:16-alpine
+ARG PGVER
+FROM postgres:$PGVER-alpine
 
 RUN apk add --no-cache \
     make \
