@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - main
-      - GH_actions_test
+      #- GH_actions_test
 
 jobs:
   run-scripts:
