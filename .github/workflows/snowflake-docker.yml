@@ -26,7 +26,7 @@ jobs:
 
     - name: Build Docker Image
       run: |
-        docker build --build-arg PGVER=${{ matrix.pgver }} --progress plain -t snowflake .
+        docker build --build-arg PGVER=${{ matrix.pgver }} -t snowflake .
 
     - name: Run Docker Container
       run: |
@@ -55,5 +55,5 @@ jobs:
     - name: Upload Log File as Artifact
       uses: actions/upload-artifact@v4
       with:
-        name: ${{ matrix.pgver }}latest-log
-        path: ${{ matrix.pgver }}latest.log
+        name: latest-log-${{ matrix.pgver }}
+        path: latest.log
