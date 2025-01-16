@@ -41,7 +41,7 @@ jobs:
     - name: Install dependencies
       run: |
         sudo apt -y update
-        sudo apt install -y postgresql${{ matrix.pgver }}-client \
+        sudo apt install -y postgresql-client \
             libpq-dev \
             python3-dev \
             python3-psycopg2 \
