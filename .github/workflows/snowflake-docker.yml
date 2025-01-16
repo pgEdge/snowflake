@@ -50,3 +50,9 @@ jobs:
     - name: Run Test Harness (runner.py)
       run: |
         python test/runner.py -c test/t/lib/${{ matrix.pgver }}config.env -s test/schedule_files/script_file -k
+
+    - name: Upload Log File as Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: ${{ matrix.pgver }}latest-log
+        path: ${{ matrix.pgver }}latest.log
