@@ -1,0 +1,82 @@
+name: Test Python with PostgreSQL Matrix
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        pgver: [14, 15, 16, 17] # PostgreSQL versions to test
+
+    services:
+      postgres:
+        image: postgres:${{ matrix.pgver }}
+        ports:
+          - 6432:5432
+          - 6433:5433
+          - 6434:5434
+          - 6435:5435
+          - 6436:5436
+          - 6437:5437
+          - 6438:5438
+          - 6439:5439
+        env:
+          POSTGRES_USER: lcusr
+          POSTGRES_PASSWORD: password
+          POSTGRES_DB: lcdb
+        options: >-
+          --health-cmd "pg_isready -U lcusr -d lcdb" 
+          --health-interval 10s 
+          --health-timeout 5s 
+          --health-retries 5
+
+    steps:
+      # Step 1: Checkout Code
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Step 2: Set up Python
+      - name: Set up Python 3.10
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.10
+
+      # Step 3: Install Dependencies
+      - name: Install Python Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install psycopg psycopg2
+
+      # Step 4: Verify PostgreSQL Connection
+      - name: Verify PostgreSQL Connection
+        run: |
+          echo "Testing connection to PostgreSQL (Version: ${{ matrix.pgver }})..."
+          python -c "
+import psycopg2
+conn = psycopg2.connect(
+    dbname='lcdb',
+    user='lcusr',
+    password='password',
+    host='localhost',
+    port=6432
+)
+print('Successfully connected to PostgreSQL version ${{ matrix.pgver }}!')
+conn.close()
+"
+
+      # Step 5: Run Test Harness
+      - name: Run Test Harness (runner.py)
+        run: |
+          python runner.py
+
+      # Step 6: Publish Test Logs to Artifacts
+      - name: Upload Test Log
+        uses: actions/upload-artifact@v3
+        with:
+          name: latest-test-log-${{ matrix.pgver }}
+          path: latest.log
