@@ -25,6 +25,7 @@ jobs:
         run: |
           DOCKERFILE_NAME="Dockerfile.pg${{ matrix.pgver }}"
           echo "Using Dockerfile: $DOCKERFILE_NAME"
+          echo "DOCKERFILE_NAME=$DOCKERFILE_NAME" >> $GITHUB_ENV
 
     - name: Build Docker image
         run: |
