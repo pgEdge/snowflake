@@ -21,16 +21,19 @@ jobs:
       with:
         ref: ${{ github.ref }}
 
-    - name: Set up Docker
-      uses: docker/setup-buildx-action@v2
+    - name: Set up PostgreSQL Dockerfile
+        run: |
+          DOCKERFILE_NAME="Dockerfile.pg${{ matrix.postgres-version }}"
+          echo "Using Dockerfile: $DOCKERFILE_NAME"
 
-    - name: Build Docker Image
-      run: |
-        docker build --build-arg PGVER=${{ matrix.pgver }} -t snowflake .
+    - name: Build Docker image
+        run: |
+          DOCKERFILE_NAME="Dockerfile.pg${{ matrix.postgres-version }}"
+          docker build -t my-app:${{ matrix.postgres-version }} -f $DOCKERFIL
 
     - name: Run Docker Container
       run: |
-        docker run -d --name snowflake -e POSTGRES_HOST_AUTH_METHOD=trust -p 5432:5432 snowflake
+        docker run -d --name DOCKERFILE_NAME -e POSTGRES_HOST_AUTH_METHOD=trust -p 5432:5432 DOCKERFILE_NAME
         sleep 5
 
     - name: Set up Python
