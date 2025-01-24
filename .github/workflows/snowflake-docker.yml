@@ -21,16 +21,16 @@ jobs:
       with:
         ref: ${{ github.ref }}
 
-    - name: Define Dockerfile name
-        id: set-dockerfile
-        run: |
-          # Dynamically set the Dockerfile name based on the matrix version
-          DOCKERFILE_NAME="Dockerfile${{ matrix.pgver }}"
-          echo "DOCKERFILE_NAME=$DOCKERFILE_NAME" >> $GITHUB_ENV
+     - name: Set up Docker
+      uses: docker/setup-buildx-action@v2
 
-      - name: Build Docker image
-        run: |
-          docker build -t my-app:${{ matrix.pgver }} -f $DOCKERFILE_NAME .
+    - name: Build Docker Image
+      run: |
+        docker build --build-arg PGVER=${{ matrix.pgver }} -t snowflake .
+   
+    - name: Run Docker Container
+      run: |
+        docker run -d --name snowflake -e POSTGRES_HOST_AUTH_METHOD=trust -p 5432:5432 snowflake
         sleep 5
 
     - name: Set up Python
