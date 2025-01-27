@@ -47,7 +47,7 @@ def initialize_pg_config():
     runners = {
         ".py": "/usr/bin/python",
         ".pl": "/usr/bin/perl",
-        ".sh": "bash %f",
+        ".sh": "bash",
         ".sql": psqlPath  # Newly added support for .sql file, and its runner psql command path for SQL file execution
     }
 
@@ -262,6 +262,8 @@ def runTests(testList):
     print("fail:   " + str(failCount))
     print("errors: " + str(errorCount))
 
+# Comment or uncomment the next line to make the GH action return an exit code
+# of 1 if any of the test cases fail 
     return failCount + errorCount
 
 ################################################################################

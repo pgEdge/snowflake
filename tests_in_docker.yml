@@ -1,0 +1,62 @@
+name: Test PostgreSQL in Docker
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    container: 
+      image: python:3.10  # Use a Python Docker image for the job
+      options: --network host  # Use host networking to allow PostgreSQL access
+
+    services:
+      postgres:
+        image: postgres:${{ matrix.postgres-version }}
+        ports:
+          - 5432:5432
+        env:
+          POSTGRES_USER: lcusr
+          POSTGRES_PASSWORD: password
+          POSTGRES_DB: lcdb
+        options: >-
+          --health-cmd "pg_isready -U lcusr -d lcdb" 
+          --health-interval 10s 
+          --health-timeout 5s 
+          --health-retries 5
+
+    strategy:
+      matrix:
+        postgres-version: [14, 15, 16, 17]
+
+    steps:
+      # Step 1: Install Dependencies
+      - name: Install Python Dependencies
+        run: |
+          apt-get update
+          apt-get install -y build-essential
+          pip install --upgrade pip
+          pip install psycopg psycopg2
+
+      # Step 2: Verify PostgreSQL Connection
+      - name: Verify PostgreSQL Connection
+        run: |
+          echo "Testing connection to PostgreSQL (Version: ${{ matrix.postgres-version }})..."
+          python -c "import psycopg2 conn = psycopg2.connect(dbname='lcdb', user='lcusr', password='password', host='localhost', port=5432)
+          print('Successfully connected to PostgreSQL version ${{ matrix.postgres-version }}!')
+          conn.close()"
+
+      # Step 3: Run Test Harness
+      - name: Run Test Harness (runner.py)
+        run: |
+          python test/runner.py -c test/t/lib/${{ matrix.pgver }}config.env -s test/schedule_files/script_file -k
+
+      # Step 4: Publish Test Logs
+      - name: Upload Test Log
+        uses: actions/upload-artifact@v3
+        with:
+          name: latest-test-log-${{ matrix.postgres-version }}
+          path: latest.log
