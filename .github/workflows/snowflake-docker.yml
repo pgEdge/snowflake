@@ -3,7 +3,7 @@ run-name: ${{ github.actor }} is running the test schedules.
 on:
   push:
     branches:
-      - GH_actions_test
+      - main
 
 jobs:
   run-scripts:
