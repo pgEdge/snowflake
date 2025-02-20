@@ -3,8 +3,8 @@
  * snowflake.c
  *    Snowflake style IDs for PostgreSQL
  *
- * Copyright (c) 2023, pgEdge, Inc.
- * Portions Copyright (c) 2023, PostgreSQL Global Development Group
+ * Copyright (c) 2025, pgEdge, Inc.
+ * Portions Copyright (c) 2025, PostgreSQL Global Development Group
  * Portions Copyright (c) 1994, Regents of the University of California
  *
  *
