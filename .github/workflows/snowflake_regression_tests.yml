@@ -194,10 +194,10 @@ jobs:
           cd /home/postgres/postgres-source/contrib && \
 
           # Clone Snowflake extension inside contrib/ using GITHUB_TOKEN
-          git clone https://x-access-token:${GITHUB_TOKEN}@github.com/pgEdge/snowflake-sequences.git && \
+          git clone https://x-access-token:${GITHUB_TOKEN}@github.com/pgEdge/snowflake.git && \
 
           # Move into the Snowflake extension directory
-          cd snowflake-sequences && \
+          cd snowflake && \
 
           # Build & Install using PGXS
           echo 'Building Snowflake extension...' && \
