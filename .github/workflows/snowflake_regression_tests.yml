@@ -202,8 +202,21 @@ jobs:
           # Build & Install using PGXS
           echo 'Building Snowflake extension...' && \
           USE_PGXS=1 make && \
-          echo 'Installing Snowflake extension...' && \
-          USE_PGXS=1 make install
+          echo 'Installing Snowflake extension...'
+        "
+
+    - name: Make Install Snowflake as Root
+      run: |
+        docker exec -u root snowflake-${{ matrix.pgver }} bash -c "
+          PG_CONFIG_PATH=\$(find /usr/local/pgsql -type f -name pg_config | head -n 1) && \
+          if [ -z \"\$PG_CONFIG_PATH\" ]; then \
+            echo 'Error: pg_config not found!' && exit 1; \
+          fi && \
+          export PATH=\$(dirname \"\$PG_CONFIG_PATH\"):\$PATH && \
+          echo \"pg_config location successfully added to PATH: \$(dirname \"\$PG_CONFIG_PATH\")\" && \
+          cd /home/postgres/snowflake && \
+          echo 'Installing Snowflake extension as root...' && \
+          make install
         "
 
     - name: Ensure PG is running, add Snowflake to shared_preload_libraries, and create extension
