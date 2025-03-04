@@ -193,7 +193,7 @@ jobs:
           # Clone Snowflake extension if it doesn't exist
           if [ ! -d \"snowflake\" ]; then \
             echo 'Cloning Snowflake extension...' && \
-            git clone https://x-access-token:${GITHUB_TOKEN}@github.com/pgEdge/snowflake-sequences.git snowflake; \
+            git clone https://x-access-token:${GITHUB_TOKEN}@github.com/pgEdge/snowflake.git snowflake; \
           fi && \
 
           # Move into the Snowflake extension directory
