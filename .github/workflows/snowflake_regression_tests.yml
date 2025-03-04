@@ -178,6 +178,8 @@ jobs:
         "
 
     - name: Clone & Install Snowflake Extension
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
         docker exec -u postgres snowflake-${{ matrix.pgver }} bash -c "
           set -e  # Exit on first error
@@ -191,8 +193,8 @@ jobs:
           # Ensure contrib directory exists in Postgres source
           cd /home/postgres/postgres-source/contrib && \
 
-          # Clone Snowflake extension inside contrib/
-          git clone https://github.com/pgEdge/snowflake-sequences.git && \
+          # Clone Snowflake extension inside contrib/ using GITHUB_TOKEN
+          git clone https://x-access-token:${GITHUB_TOKEN}@github.com/pgEdge/snowflake-sequences.git && \
 
           # Move into the Snowflake extension directory
           cd snowflake-sequences && \
