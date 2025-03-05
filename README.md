@@ -35,12 +35,17 @@ To use pgEdge binaries to install Snowflake, go to [pgeEdge Github](https://gith
 
 **Installing Snowflake from source code**
 
-If you're installing Snowflake from source code, we assume that you're familiar with how to build standard PostgreSQL extensions from source:
+If you're installing Snowflake from source code, we assume that you're familiar with how to build standard PostgreSQL extensions from source.  Before building Snowflake:
+
+1. Build a copy of PostgreSQL in your preferred version.
+2. Add pg_config to your $PATH environment variable.
+
+Then, you can build the snowflake extension
 
 ```
 cd contrib
-git clone https://github.com/pgEdge/snowflake-sequences.git
-cd snowflake-sequences
+git clone https://github.com/pgEdge/snowflake.git
+cd snowflake
 USE_PGXS=1 make
 USE_PGXS=1 make install
 ```
