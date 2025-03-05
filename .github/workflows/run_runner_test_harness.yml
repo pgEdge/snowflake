@@ -1,19 +1,18 @@
 name: Docker tests
-run-name: ${{ github.actor }} is running the test schedules.
+run-name: ${{ github.actor }} is running the runner.py test harness.
 on:
   push:
     branches:
       - main
   pull_request:
     
-
 jobs:
   run-scripts:
     strategy:
       fail-fast: false
       matrix:
         os: [ubuntu-22.04]
-        pgver: [14, 15, 16, 17]
+        pgver: [15, 16, 17]
 
     runs-on: ${{ matrix.os }}
 
