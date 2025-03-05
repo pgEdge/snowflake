@@ -1,10 +1,10 @@
 name: Docker tests
-run-name: ${{ github.actor }} is running the test schedules.
+run-name: ${{ github.actor }} is running regression tests.
 
 on:
   push:
     branches:
-      - gh_actions
+      - '**'
   pull_request:
     types: [opened, synchronize, reopened]
 
