@@ -29,7 +29,7 @@ across multiple PostgreSQL instances in a distributed cluster.
 
 **Installing Snowflake with pgEdge binaries**
 
-To use pgEdge binaries to install Snowflake, go to [pgeEdge Github](https://github.com/pgEdge/pgedge) and install the pgEdge CLI; then use the CLI to create a PostgreSQL node with the Snowflake extension installed:
+To use pgEdge binaries to install Snowflake, start out by installing the [pgEdge CLI](https://github.com/pgEdge/cli); then use the CLI to create a PostgreSQL node with the Snowflake extension installed:
 
 `./pgedge install pg16 --start : install snowflake`
 
