@@ -7,8 +7,8 @@ Internally, `snowflakes` are 64 bit integers represented externally as `bigint` 
 ```
 bit  63    - unused (sign of int8)
 bits 22-62 - timestamp with millisecond precision
-bits 10-21 - counter within one millisecond
-bits 0-9   - unique PostgreSQL node number set in postgresql.conf
+bits 12-21 - counter within one millisecond
+bits 0-11   - unique PostgreSQL node number set in postgresql.conf
 ```
 
 * The timestamp is a 41-bit unsigned value representing millisecond
