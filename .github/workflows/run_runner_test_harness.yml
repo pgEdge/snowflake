@@ -12,7 +12,7 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-22.04]
-        pgver: [15, 16, 17]
+        pgver: [15, 16, 17, 18]
 
     runs-on: ${{ matrix.os }}
 
