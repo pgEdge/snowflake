@@ -150,23 +150,42 @@ DECLARE
 	v_last_value	bigint;
 
 	v_seqname1		text;
-	v_seqname2		text;
+	extseqname		text;
+	is_identity		boolean;
 BEGIN
 	-- Identify the (relation,attnum) that uses this sequence as a source
 	-- for values. Follow the logic of the getOwnedSequences_internal.
 	--
 	-- Complain, if such data wasn't found - incoming object may be not
 	-- a sequence, or sequence which is used for different purposes.
+	-- objdesc's fields:
+	-- heapreloid - Oid of the target relation.
+	-- nspname - namespace of the sequence
+	-- seqname - sequence name
+	-- attnum - number of relation's attribute that employs this sequence
 	SELECT INTO objdesc
-		refobjid::regclass AS heapOid, refobjsubid AS attnum
-	FROM pg_depend AS d
+		refobjid AS heapreloid,
+		c.relnamespace::regnamespace::text AS nspname,
+		c.relname AS seqname,
+		refobjsubid AS attnum
+	FROM pg_depend AS d JOIN pg_class AS c ON (d.objid = c.oid)
 	WHERE
 		classid = 'pg_class'::regclass AND
 		(deptype = 'i' OR deptype = 'a') AND
-		objid = (SELECT oid FROM pg_class
-				 WHERE oid = p_seqid AND relkind = 'S');
+		c.oid = p_seqid AND relkind = 'S';
+
 	IF (objdesc IS NULL) THEN
 		raise EXCEPTION 'Input value "%" is not used by any relation as a DEFAULT value or an IDENTITY', p_seqid;
+		RETURN false;
+	END IF;
+
+	SELECT INTO is_identity
+		(attidentity = 'a' OR attidentity = 'd')
+	FROM pg_attribute a JOIN pg_class c ON (c.oid = a.attrelid)
+	WHERE a.attrelid = objdesc.heapreloid AND a.attnum = objdesc.attnum;
+
+	IF (is_identity) THEN
+		raise EXCEPTION 'transformation of an IDENTITY column to snowflake is not supported';
 		RETURN false;
 	END IF;
 
@@ -178,15 +197,9 @@ BEGIN
 	-- name here.
 	-- ----
 	SELECT INTO v_seqname1
-		quote_ident(C.relname)
-	FROM pg_class C
-	WHERE C.oid = p_seqid;
-
-	SELECT INTO v_seqname2
-		quote_ident(N.nspname) || '.' || quote_ident(C.relname)
-	FROM pg_class C
-	JOIN pg_namespace N ON N.oid = C.relnamespace
-	WHERE C.oid = p_seqid;
+		quote_ident(objdesc.seqname);
+	SELECT INTO extseqname
+		quote_ident(objdesc.nspname) || '.' || quote_ident(objdesc.seqname);
 
 	FOR v_attrdef IN
 		WITH AD AS (
@@ -196,7 +209,7 @@ BEGIN
 		)
 		SELECT * FROM AD
 		WHERE AD.adstr = 'nextval(' || quote_literal(v_seqname1) || '::regclass)'
-		   OR AD.adstr = 'nextval(' || quote_literal(v_seqname2) || '::regclass)'
+		   OR AD.adstr = 'nextval(' || quote_literal(extseqname) || '::regclass)'
 	LOOP
 		-- ----
 		-- Get the attribute definition
