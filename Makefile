@@ -1,6 +1,9 @@
 # snowflake/Makefile
 
 MODULES = snowflake
+OBJS = \
+	$(WIN32RES) \
+	snowflake.o \
 
 EXTENSION = snowflake
 DATA = snowflake--1.0.sql \
@@ -14,8 +17,7 @@ DATA = snowflake--1.0.sql \
 	   snowflake--2.2.sql
 PGFILEDESC = "snowflake - snowflake style IDs for PostgreSQL"
 
-ISOLATION = snowflake
-ISOLATION_OPTS = --load-extension=snowflake
+REGRESS = conversion
 
 ifdef USE_PGXS
 PG_CONFIG = pg_config

@@ -141,6 +141,7 @@ RETURNS integer
 SET search_path = pg_catalog
 AS $$
 DECLARE
+	objdesc			record; -- contains target (reloid,attnum) value
 	v_attrdef		record;
 	v_attr			record;
 	v_seq			record;
@@ -151,6 +152,24 @@ DECLARE
 	v_seqname1		text;
 	v_seqname2		text;
 BEGIN
+	-- Identify the (relation,attnum) that uses this sequence as a source
+	-- for values. Follow the logic of the getOwnedSequences_internal.
+	--
+	-- Complain, if such data wasn't found - incoming object may be not
+	-- a sequence, or sequence which is used for different purposes.
+	SELECT INTO objdesc
+		refobjid::regclass AS heapOid, refobjsubid AS attnum
+	FROM pg_depend AS d
+	WHERE
+		classid = 'pg_class'::regclass AND
+		(deptype = 'i' OR deptype = 'a') AND
+		objid = (SELECT oid FROM pg_class
+				 WHERE oid = p_seqid AND relkind = 'S');
+	IF (objdesc IS NULL) THEN
+		raise EXCEPTION 'Input value "%" is not used by any relation as a DEFAULT value or an IDENTITY', p_seqid;
+		RETURN false;
+	END IF;
+
 	-- ----
 	-- We are looking for column defaults that use the requested
 	-- sequence and the function nextval(). Because pg_get_expr()
