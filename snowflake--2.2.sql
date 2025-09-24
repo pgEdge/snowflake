@@ -132,9 +132,13 @@ $$ LANGUAGE plpgsql;
 -- ----------------------------------------------------------------------
 -- convert_sequence_to_snowflake()
 --
---	Convert the DEFAULT expression for a sequence to snowflake's nextval()
---	function. Eventually change the data type of columns using it
---	to bigint.
+-- If input sequence is used for Serial or Bigserial DEFAULT values generation,
+-- or participate in an IDENTITY constraint, alter this column definition to
+-- use snowflake's nextval() as a DEFAULT value.
+--
+-- NOTES:
+-- 1. Eventually change the data type of the column to bigint.
+-- 2. IDENTITY ALWAYS restriction will be eased to DEFAULT.
 -- ----------------------------------------------------------------------
 CREATE OR REPLACE FUNCTION snowflake.convert_sequence_to_snowflake(p_seqid regclass)
 RETURNS integer
@@ -142,16 +146,17 @@ SET search_path = pg_catalog
 AS $$
 DECLARE
 	objdesc			record; -- contains target (reloid,attnum) value
+	identdesc		record; -- sequence-related flags (attisidentity, atthasdef)
 	v_attrdef		record;
-	v_attr			record;
-	v_seq			record;
 	v_cmd			text;
-	v_num_altered	integer := 0;
+	v_num_altered	integer;
 	v_last_value	bigint;
 
 	v_seqname1		text;
 	extseqname		text;
-	is_identity		boolean;
+	is_serial_def	boolean;
+	textstr			text;
+--	msg1 record;
 BEGIN
 	-- Identify the (relation,attnum) that uses this sequence as a source
 	-- for values. Follow the logic of the getOwnedSequences_internal.
@@ -179,92 +184,79 @@ BEGIN
 		RETURN false;
 	END IF;
 
-	SELECT INTO is_identity
-		(attidentity = 'a' OR attidentity = 'd')
+	SELECT INTO identdesc
+		(attidentity = 'a' OR attidentity = 'd') AS is_identity,
+		atthasdef,
+		c.relnamespace::regnamespace::text AS nspname,
+		c.relname AS relname,
+		a.attname AS attname
 	FROM pg_attribute a JOIN pg_class c ON (c.oid = a.attrelid)
 	WHERE a.attrelid = objdesc.heapreloid AND a.attnum = objdesc.attnum;
 
-	IF (is_identity) THEN
-		raise EXCEPTION 'transformation of an IDENTITY column to snowflake is not supported';
-		RETURN false;
+	IF (identdesc.is_identity) THEN
+		UPDATE pg_attribute SET attidentity = ''
+		WHERE attrelid = objdesc.heapreloid AND attnum = objdesc.attnum;
+		RAISE NOTICE
+			'Update pg_attribute: reset attidentity value for table %, column %',
+			objdesc.heapreloid::regclass, identdesc.attname;
+	ELSE
+		-- ----
+		-- We are looking for column defaults that use the requested
+		-- sequence and the function nextval(). Because pg_get_expr()
+		-- omits the schemaname of the sequence if it is "public" we
+		-- need to be prepared for a schema qualified and unqualified
+		-- name here.
+		-- ----
+		SELECT INTO v_seqname1
+			quote_ident(objdesc.seqname);
+		SELECT INTO extseqname
+			quote_ident(objdesc.nspname) || '.' || quote_ident(objdesc.seqname);
+
+		-- Extract DEFAULT definition for the column and conver it into
+		-- a readable string representation.
+		SELECT INTO textstr
+			pg_get_expr(ad.adbin, ad.adrelid, true)
+		FROM pg_attrdef ad
+		WHERE adrelid = objdesc.heapreloid AND adnum = objdesc.attnum;
+
+		-- Check that the DEFAULT expression contains input sequence in a form
+		-- as related to the serial and bigserial type.
+		SELECT INTO is_serial_def
+		CASE WHEN
+				textstr = 'nextval(' || quote_literal(v_seqname1) || '::regclass)' OR
+				textstr = 'nextval(' || quote_literal(extseqname) || '::regclass)'
+		THEN true ELSE false END;
+
+		-- If there are another DEFAULT expression already set for this column, we
+		-- are not so bold to remove it, just complain,
+		IF (NOT is_serial_def) THEN
+			raise EXCEPTION
+				'definition of DEFAULT value for column "%" of relation "%" does not correspond serial or bigserial type: "%"',
+				identdesc.attname, identdesc.relname, textstr;
+		END IF;
 	END IF;
 
 	-- ----
-	-- We are looking for column defaults that use the requested
-	-- sequence and the function nextval(). Because pg_get_expr()
-	-- omits the schemaname of the sequence if it is "public" we
-	-- need to be prepared for a schema qualified and unqualified
-	-- name here.
+	-- If the attribute type is not bigint, we change it
 	-- ----
-	SELECT INTO v_seqname1
-		quote_ident(objdesc.seqname);
-	SELECT INTO extseqname
-		quote_ident(objdesc.nspname) || '.' || quote_ident(objdesc.seqname);
+	v_num_altered =
+		snowflake.convert_column_to_int8(objdesc.heapreloid::regclass,
+										 objdesc.attnum::smallint);
 
-	FOR v_attrdef IN
-		WITH AD AS (
-			SELECT AD.*,
-				   pg_get_expr(AD.adbin, AD.adrelid, true) adstr
-			FROM pg_attrdef AD
-		)
-		SELECT * FROM AD
-		WHERE AD.adstr = 'nextval(' || quote_literal(v_seqname1) || '::regclass)'
-		   OR AD.adstr = 'nextval(' || quote_literal(extseqname) || '::regclass)'
-	LOOP
-		-- ----
-		-- Get the attribute definition
-		-- ----
-		SELECT * INTO v_attr
-		FROM pg_namespace N
-		JOIN pg_class C
-			ON N.oid = C.relnamespace
-		JOIN pg_attribute A
-			ON C.oid = A.attrelid
-		WHERE A.attrelid = v_attrdef.adrelid
-			AND A.attnum = v_attrdef.adnum;
-
-		IF NOT FOUND THEN
-			RAISE EXCEPTION 'Attribute for % not found', v_attrdef.adstr;
-		END IF;
-
-		-- ----
-		-- Get the sequence definition
-		-- ----
-		SELECT * INTO v_seq
-		FROM pg_namespace N
-		JOIN pg_class C
-			ON N.oid = C.relnamespace
-		WHERE C.oid = p_seqid;
-
-		IF NOT FOUND THEN
-			RAISE EXCEPTION 'Sequence with Oid % not found', p_seqid;
-		END IF;
-
-		-- ----
-		-- If the attribute type is not bigint, we change it
-		-- ----
-		v_num_altered = v_num_altered +
-			snowflake.convert_column_to_int8(v_attr.attrelid, v_attr.attnum);
-
-		-- ----
-		-- Now we can change the default to snowflake.nextval()
-		-- ----
-		v_cmd = 'ALTER TABLE ' ||
-			quote_ident(v_attr.nspname) || '.' ||
-			quote_ident(v_attr.relname) ||
-			' ALTER COLUMN ' ||
-			quote_ident(v_attr.attname) ||
-			' SET DEFAULT snowflake.nextval(' ||
-			quote_literal(
-				quote_ident(v_seq.nspname) || '.' ||
-				quote_ident(v_seq.relname)
-			) ||
-			'::regclass)';
-		RAISE NOTICE 'EXECUTE %', v_cmd;
-		EXECUTE v_cmd;
-
-		v_num_altered = v_num_altered + 1;
-	END LOOP;
+	-- ----
+	-- Now we can change the default to snowflake.nextval()
+	-- ----
+	v_cmd = 'ALTER TABLE ' ||
+		quote_ident(identdesc.nspname) || '.' ||
+		quote_ident(identdesc.relname) ||
+		' ALTER COLUMN ' || quote_ident(identdesc.attname) ||
+		' SET DEFAULT snowflake.nextval(' ||
+		quote_literal(
+			quote_ident(objdesc.nspname) || '.' ||
+			quote_ident(objdesc.seqname)
+		) || '::regclass)';
+	RAISE NOTICE 'EXECUTE %', v_cmd;
+	EXECUTE v_cmd;
 
 	-- ----
 	-- Finally we need to change the sequence itself to settings that
@@ -292,8 +284,6 @@ BEGIN
 	EXECUTE v_cmd;
 
 	PERFORM snowflake.nextval(p_seqid);
-	v_num_altered = v_num_altered + 1;
-
 	RETURN v_num_altered;
 END;
 $$ LANGUAGE plpgsql;
