@@ -1,0 +1,56 @@
+site_name: snowflake
+
+extra_css:
+  - stylesheets/extra.css
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+
+plugins:
+  - search
+
+theme:
+  name: material
+  custom_dir: docs/overrides
+
+  logo_dark_mode: 'img/logo-dark.png'
+  logo_light_mode: 'img/logo-light.png'
+
+  features:
+    - navigation.instant
+    - navigation.tracking
+    - navigation.prune
+    - navigation.top
+    - toc.follow
+
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: white
+      accent: cyan
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: black
+      accent: cyan
+      toggle:
+        icon: material/brightness-4
+        name: Switch to system preference
+
+extra:
+  generator: false
+
+copyright: Copyright &copy; 2023 - 2025 pgEdge, Inc
+repo_url: https://github.com/pgEdge/snowflake
+
+nav:
+  - Snowflake Overview: index.md
+  - Creating a Snowflake Sequence: docs/managing/creating.md
+  - Converting an Existing Postgres Sequence: docs/converting.md
+  - Using Snowflake Functions: docs/snowflake_functions.md
+  - Reviewing Snowflake Meta-Data: docs/review_seq.md
