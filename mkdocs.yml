@@ -49,14 +49,11 @@ copyright: Copyright &copy; 2023 - 2025 pgEdge, Inc
 repo_url: https://github.com/pgEdge/ace
 
 nav:
-  - Introduction: index.md
-  - Understanding ACE Use Cases: ace_use_cases.md
-  - Configuring ACE: configuring.md
-  - Using Merkle Trees with ACE: merkle.md
-  - Using ACE Functions: ace_functions.md
-  - Using the ACE API: ace_api.md
-  - API Reference: api.md
-  - Scheduling ACE: schedule_ace.md
+  - Snowflake Overview: index.md
+  - Creating a Snowflake Sequence: docs/managing/creating.md
+  - Converting an Existing Postgres Sequence: docs/converting.md
+  - Using Snowflake Functions: docs/snowflake_functions.md
+  - Reviewing Snowflake Meta-Data: docs/review_seq.md
   
   - Internals:
     - Design: internals-doc/DESIGN.md
