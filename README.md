@@ -13,8 +13,6 @@ Snowflake is a Postgres extension that provides an `int8` and `sequence` based u
 
 ## Installation
 
-**Installing Snowflake from Source Code**
-
 If you're installing Snowflake from source code, we assume that you're familiar with how to build standard Postgres extensions from source.  Before building Snowflake:
 
 1. Build a copy of Postgres in your preferred version.
@@ -35,13 +33,6 @@ After installing the Snowflake extension with the pgEdge binary or from source c
 ```
 CREATE EXTENSION snowflake;
 ```
-
-**Installing Snowflake with pgEdge Binaries**
-
-To use pgEdge binaries to install Snowflake, start out by installing the [pgEdge CLI](https://github.com/pgEdge/cli); then use the CLI to create a Postgres node with the Snowflake extension installed:
-
-`./pgedge install pg16 --start : install snowflake`
-
 
 ## Configuring Snowflake
 
