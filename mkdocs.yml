@@ -46,7 +46,7 @@ extra:
   generator: false
 
 copyright: Copyright &copy; 2023 - 2025 pgEdge, Inc
-repo_url: https://github.com/pgEdge/ace
+repo_url: https://github.com/pgEdge/snowflake
 
 nav:
   - Snowflake Overview: index.md
@@ -54,8 +54,3 @@ nav:
   - Converting an Existing Postgres Sequence: docs/converting.md
   - Using Snowflake Functions: docs/snowflake_functions.md
   - Reviewing Snowflake Meta-Data: docs/review_seq.md
-  
-  - Internals:
-    - Design: internals-doc/DESIGN.md
-    - Output Plugin: internals-doc/OUTPUT.md
-    - Protocol: internals-doc/protocol.txt
