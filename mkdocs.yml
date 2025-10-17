@@ -50,7 +50,7 @@ repo_url: https://github.com/pgEdge/snowflake
 
 nav:
   - Snowflake Overview: index.md
-  - Creating a Snowflake Sequence: docs/managing/creating.md
-  - Converting an Existing Postgres Sequence: docs/converting.md
-  - Using Snowflake Functions: docs/snowflake_functions.md
-  - Reviewing Snowflake Meta-Data: docs/review_seq.md
+  - Creating a Snowflake Sequence: creating.md
+  - Converting an Existing Postgres Sequence: converting.md
+  - Using Snowflake Functions: snowflake_functions.md
+  - Reviewing Snowflake Meta-Data: review_seq.md
