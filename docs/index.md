@@ -20,5 +20,4 @@ Snowflake sequences let you:
 
 Snowflake sequences also alleviate concerns that network lag could disrupt sequences in distributed transactions.
 
-A Snowflake sequence is made up of a timestamp, a counter, and a unique node identifier; these components are sized to ensure over 18 trillion unique sequence numbers. The extension supports versatile commands and [functions](#snowflake-functions) that simplify [creating a new Snowflake sequence](#creating-a-snowflake-sequence-in-a-new-cluster) or [converting an existing sequence](#converting-a-postgresql-sequence-to-a-snowflake-sequence) in a pgEdge Distributed Postgres cluster.
-
+A Snowflake sequence is made up of a timestamp, a counter, and a unique node identifier; these components are sized to ensure over 18 trillion unique sequence numbers. The extension supports versatile commands and [functions](./snowflake_functions.md) that simplify [creating a new Snowflake sequence](./creating.md) or [converting an existing sequence](./converting.md).
