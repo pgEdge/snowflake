@@ -1,4 +1,4 @@
-## Creating a Snowflake Sequence in a New Cluster
+# Creating a Snowflake Sequence in a New Cluster
 
 Before using Snowflake sequences, each node in your cluster must be assigned a unique `snowflake.node` identity in the `postgresql.conf` file. There are three ways to set the value of `snowflake.node`. You can:
 
