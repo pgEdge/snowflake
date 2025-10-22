@@ -1,6 +1,6 @@
 # Snowflake Sequences
 
-Using a [`Snowflake` sequence] (https://github.com/pgEdge/snowflake?tab=readme-ov-file#snowflake-sequences-for-postgresql) allows you to take full advantage of the benefits offered by a distributed, multi-master replication solution. Snowflake is a Postgres extension that provides an int8 and sequence based unique ID solution to optionally replace the Postgres built-in bigserial data type. 
+Using a [`Snowflake` sequence](https://github.com/pgEdge/snowflake?tab=readme-ov-file#snowflake-sequences-for-postgresql) allows you to take full advantage of the benefits offered by a distributed, multi-master replication solution. Snowflake is a Postgres extension that provides an int8 and sequence based unique ID solution to optionally replace the Postgres built-in bigserial data type. 
 
 Internally, snowflakes are 64 bit integers represented externally as bigint values. The 64 bits are divided into bit fields:
 
