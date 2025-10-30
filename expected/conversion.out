@@ -15,9 +15,14 @@ INSERT INTO t1 VALUES (DEFAULT);
 INSERT INTO t2 VALUES (DEFAULT);
 INSERT INTO t3 VALUES (DEFAULT);
 SELECT snowflake.convert_sequence_to_snowflake('t1'); -- ERROR, not a sequence
-ERROR:  Input value "public.t1" is not used by any relation as a DEFAULT value or an IDENTITY
+ERROR:  Input value "public.t1" is not a valid convertable sequence
 SELECT snowflake.convert_sequence_to_snowflake('seq_1'); -- ERROR, not assocoated with any relation
-ERROR:  Input value "public.seq_1" is not used by any relation as a DEFAULT value or an IDENTITY
+NOTICE:  ALTER SEQUENCE public.seq_1 NO CYCLE MAXVALUE 43
+ convert_sequence_to_snowflake 
+-------------------------------
+                             0
+(1 row)
+
 SELECT snowflake.convert_sequence_to_snowflake('t1_x_seq');
 NOTICE:  EXECUTE ALTER TABLE public.t1 ALTER COLUMN x SET DATA TYPE int8
 NOTICE:  EXECUTE ALTER TABLE public.t1 ALTER COLUMN x SET DEFAULT snowflake.nextval('public.t1_x_seq'::regclass)
@@ -144,6 +149,33 @@ FROM t3 ORDER BY x;
  f                      | f                      | f
 (2 rows)
 
+-- Explict default
+CREATE SEQUENCE favorite_seq;
+CREATE TABLE t4 (x integer DEFAULT nextval('favorite_seq'::regclass));
+INSERT INTO t4 values (DEFAULT);
+SELECT * FROM t4;
+ x 
+---
+ 1
+(1 row)
+
+SELECT snowflake.convert_sequence_to_snowflake('favorite_seq');
+NOTICE:  EXECUTE ALTER TABLE public.t4 ALTER COLUMN x SET DATA TYPE int8
+NOTICE:  EXECUTE ALTER TABLE public.t4 ALTER COLUMN x SET DEFAULT snowflake.nextval('public.favorite_seq'::regclass)
+NOTICE:  ALTER SEQUENCE public.favorite_seq NO CYCLE MAXVALUE 2
+ convert_sequence_to_snowflake 
+-------------------------------
+                             2
+(1 row)
+
+INSERT INTO t4 values (DEFAULT);
+SELECT x <= 42 AS is_not_snowflake_value FROM t4 ORDER BY x;
+ is_not_snowflake_value 
+------------------------
+ t
+ f
+(2 rows)
+
 -- Cleanup
-DROP TABLE t1,t2,t3 CASCADE;
+DROP TABLE t1,t2,t3,t4 CASCADE;
 DROP EXTENSION snowflake;
