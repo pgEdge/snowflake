@@ -1,34 +1,40 @@
-# Converting a PostgreSQL Sequence to a Snowflake Sequence with the Spock Extension
+# Converting a PostgreSQL Sequence to a Snowflake Sequence
 
-If you are using the spock extension, you can use the `pgedge spock sequence-convert` command at the psql command line to convert your existing sequence definitions into Snowflake sequences. Note that this converts the sequence definition; existing values in a sequence column will not change. The command syntax is:
+You can use the `snowflake.convert_sequence_to_snowflake()` function to convert individual sequences to snowflake sequences. Note that this converts the sequence definition; existing values in a sequence column will not change. The command syntax in SQL is:
 
-`pgedge spock.sequence_convert sequence_name`
+    `SELECT snowflake.convert_sequence_name('sequence_name');`
 
 **Where**
 
-`sequence_name` is the name of a sequence; you can use wildcards when specifying the sequence name to convert sequences in more than one table. 
+`sequence_name` is the name of a sequence.
 
-For example, the following command:
+There are a number of ways to return a list of sequences. One way is to use the Postgres [`psql client`](https://www.postgresql.org/docs/current/app-psql.html) to execute the following command:
 
-```sh
-[pgedge]$ ./pgedge spock.sequence_convert my_sequence
+```
+    \ds
 ```
 
-Converts the sequences in tables that reside in the `public` schema of the `acctg` database to use Snowflake sequences. If you invoke the command on one node of a replicating cluster, the table definition updates are propagated to the other nodes in the cluster.  
+Another way is to query metadata catalog information directly in `psql` or another SQL editor.
+
+```
+    SELECT * FROM information_schema.sequences;
+```
+
+The second command will provide data type information, which is useful for learning which sequences will be converted to the BIGINT data type (64 bits).
 
 
 ## Example: Converting an Existing Sequence
 
-The example that follows starts at the psql command line; in this example, we are using a table named `orders` that has three columns; the last column is a sequence named `id`:
+The example that follows demonstrates using the psql command line to convert a sequence; in this example, we are using a table named `orders` that has three columns; the last column is a sequence named `id`:
 
-```sh
+```
 acctg=# CREATE TABLE orders (customer VARCHAR, invoice VARCHAR, id bigserial PRIMARY KEY);
 CREATE TABLE
 ```
 
 After creating the table, we insert data into the `orders` table. We only need to provide content for the first two columns, since the sequence definition keeps track of the value of the third column and adds it as needed:
 
-```sh
+```
 acctg=# INSERT INTO orders VALUES ('Chesterfield Schools', 'art_9338');
 INSERT 0 1
 acctg=# INSERT INTO orders VALUES ('Chesterfield Schools', 'math_9663');
@@ -46,7 +52,7 @@ INSERT 0 1
 ```
 When we select the rows from our table, we can see the sequence numbers in the `id` column:
 
-```sh
+```
 acctg=# SELECT * FROM orders;
        customer       |  invoice   | id 
 ----------------------+------------+----
@@ -59,16 +65,15 @@ acctg=# SELECT * FROM orders;
  Washington Schools   | hist_2983  |  7
 (7 rows)
 ```
-To convert the sequence definition for the `orders` table to use Snowflake sequences, we exit psql on `n1`, and invoke the command:
+To convert the sequence definition for the `orders` table to use Snowflake sequences, invoke the command in `psql` or another SQL editor:
 
-```sh
-[pgedge]$ ./pgedge spock sequence-convert public.orders_id_seq acctg
-Converting sequence public.orders_id_seq to snowflake sequence.
+```
+SELECT snowflake.convert_sequence_to_snowflake('orders_id_seq'::regclass);
 ```
 
 The conversion process modifies the sequence definition to use Snowflake sequences, but does not update existing rows. If we reconnect with psql and add new rows to the table, the new row's `id` will be a Snowflake sequence:
 
-```sh
+```
 acctg=# INSERT INTO orders VALUES ('Prince William Schools', 'math_8330');
 INSERT 0 1
 acctg=# INSERT INTO orders VALUES ('Fluvanna Schools', 'art_9447');
@@ -79,7 +84,7 @@ In the query results that follows, you can see the unformatted sequence value in
 
 Original entries in the table display a Postgres sequence, while entries made after the conversion display Snowflake sequences:
 
-```sh
+```
 acctg=# SELECT id, snowflake.format(id), customer, invoice FROM orders;
          id         |                          format                           |        customer        |  invoice   
 --------------------+-----------------------------------------------------------+------------------------+------------
