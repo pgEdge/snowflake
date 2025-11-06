@@ -83,6 +83,23 @@ SELECT snowflake.convert_sequence_to_snowflake('favorite_seq');
 INSERT INTO t4 values (DEFAULT);
 SELECT x <= 42 AS is_not_snowflake_value FROM t4 ORDER BY x;
 
+-- Sequence, shared by two tables
+DROP TABLE t4 CASCADE;
+DROP SEQUENCE favorite_seq;
+CREATE SEQUENCE favorite_seq;
+CREATE TABLE t4 (x integer DEFAULT nextval('favorite_seq'::regclass));
+INSERT INTO t4 values (DEFAULT);
+CREATE TABLE t5 (x integer DEFAULT nextval('favorite_seq'::regclass));
+INSERT INTO t5 values (DEFAULT);
+SELECT * FROM t4;
+SELECT * FROM t5;
+SELECT snowflake.convert_sequence_to_snowflake('favorite_seq');
+INSERT INTO t4 values (DEFAULT);
+INSERT INTO t5 values (DEFAULT);
+SELECT x AS sf_val FROM t4 WHERE x > 42 \gset
+SELECT :sf_val < x AS is_growing FROM t5 WHERE x > 42;
+
 -- Cleanup
-DROP TABLE t1,t2,t3,t4 CASCADE;
+DROP TABLE t1,t2,t3,t4,t5 CASCADE;
+DROP SEQUENCE favorite_seq;
 DROP EXTENSION snowflake;
