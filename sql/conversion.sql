@@ -21,7 +21,7 @@ INSERT INTO t2 VALUES (DEFAULT);
 INSERT INTO t3 VALUES (DEFAULT);
 
 SELECT snowflake.convert_sequence_to_snowflake('t1'); -- ERROR, not a sequence
-SELECT snowflake.convert_sequence_to_snowflake('seq_1'); -- ERROR, not assocoated with any relation
+SELECT snowflake.convert_sequence_to_snowflake('seq_1'); -- No associated relation found
 
 SELECT snowflake.convert_sequence_to_snowflake('t1_x_seq');
 SELECT snowflake.convert_sequence_to_snowflake('t2_x_seq');
