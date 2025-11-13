@@ -6,8 +6,8 @@ Internally, snowflakes are 64 bit integers represented externally as bigint valu
 
 * bit  63    - unused (sign of int8)
 * bits 22-62 - timestamp with millisecond precision
-* bits 10-21 - counter within one millisecond
-* bits 0-9   - unique pgEdge Distributed Postgres node number
+* bits 12-21 - unique pgEdge Distributed Postgres node number
+* bits 0-11   - counter within one millisecond
 * The timestamp is a 41-bit unsigned value representing millisecond precision and an epoch of 2023-01-01.
 * The counter is a 12-bit unsigned value that increments per ID allocation. This provides for 4096 unique IDs per millisecond, or 4 million IDs per second.
 * The node number is a 10-bit unique identifier for the Postgres instance inside a global cluster. This value is set with the `snowflake.node` GUC in the `postgresql.conf` file.
