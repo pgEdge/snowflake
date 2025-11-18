@@ -99,7 +99,57 @@ INSERT INTO t5 values (DEFAULT);
 SELECT x AS sf_val FROM t4 WHERE x > 42 \gset
 SELECT :sf_val < x AS is_growing FROM t5 WHERE x > 42;
 
+-- Test INCREMENT
+CREATE TABLE t6(x bigserial, y int);
+INSERT INTO t6 VALUES (DEFAULT, 10);
+INSERT INTO t6 VALUES (DEFAULT, 20);
+SELECT * FROM t6;
+INSERT INTO t6 VALUES (DEFAULT, 30);
+SELECT * FROM t6;
+SELECT snowflake.convert_sequence_to_snowflake('t6_x_seq');
+-- Get the count portion of the id.
+-- It happens within the same milisecond, should increment
+SELECT snowflake.get_count(snowflake.nextval('t6_x_seq'))
+UNION ALL
+SELECT snowflake.get_count(snowflake.nextval('t6_x_seq'))
+UNION ALL
+SELECT snowflake.get_count(snowflake.nextval('t6_x_seq'));
+
+-- Should return 1 (the counter difference)
+SELECT ABS(snowflake.nextval('t6_x_seq') - snowflake.nextval('t6_x_seq'));
+
+-- If < 4096, will increment that amount
+ALTER SEQUENCE t6_x_seq INCREMENT 100 NO MAXVALUE;
+SELECT snowflake.get_count(snowflake.nextval('t6_x_seq'))
+UNION ALL
+SELECT snowflake.get_count(snowflake.nextval('t6_x_seq'))
+UNION ALL
+SELECT snowflake.get_count(snowflake.nextval('t6_x_seq'));
+
+-- This will force the time ms portion to increment,
+-- the count portion should be 0
+ALTER SEQUENCE t6_x_seq INCREMENT 4096;
+SELECT snowflake.get_count(snowflake.nextval('t6_x_seq'))
+UNION ALL
+SELECT snowflake.get_count(snowflake.nextval('t6_x_seq'))
+UNION ALL
+SELECT snowflake.get_count(snowflake.nextval('t6_x_seq'));
+
+-- should return 1 (the ms difference)
+SELECT ABS(snowflake.nextval('t6_x_seq') - snowflake.nextval('t6_x_seq')) >> 22;
+
+-- Test unreasonable value- still should get 0s
+ALTER SEQUENCE t6_x_seq INCREMENT 9999;
+SELECT snowflake.get_count(snowflake.nextval('t6_x_seq'))
+UNION ALL
+SELECT snowflake.get_count(snowflake.nextval('t6_x_seq'))
+UNION ALL
+SELECT snowflake.get_count(snowflake.nextval('t6_x_seq'));
+
+-- should return 1 (the ms difference)
+SELECT ABS(snowflake.nextval('t6_x_seq') - snowflake.nextval('t6_x_seq')) >> 22;
+
 -- Cleanup
-DROP TABLE t1,t2,t3,t4,t5 CASCADE;
+DROP TABLE t1,t2,t3,t4,t5,t6 CASCADE;
 DROP SEQUENCE favorite_seq;
 DROP EXTENSION snowflake;
