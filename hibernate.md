@@ -1,5 +1,5 @@
 Hibernate uses identifiers as the primary key of an entity. There are ways to
-define identifiers in Hibernate, which are unique keys for an  entity, ensuring
+define identifiers in Hibernate, which are unique keys for an entity, ensuring
 they are not null.
 
 pgEdge Snowflake Sequences for PostgreSQL can be used with Hibernate, in this
@@ -84,5 +84,10 @@ FROM
 170505378935607296	"London"
 ```
 
-It is a basic example to demostrate use of pgEdge Snow Flake sequence with the
+It is a basic example to demostrate use of pgEdge Snowflake sequence with the
 Java Hibernate code.
+
+
+**INCREMENT and Caching**
+
+Within the same millisecond, snowflake will allow a maximum of 4096 values. Hibernate may be configured to try to fetch a sequence value, cache and assign a range by using an `INCREMENT` value for the sequence. Snowflake sequences honor the increment value, but you should not use a value greater than 4096. If you would like to change the increment value, use `ALTER SEQUENCE <seq_name> INCREMENT <increment_value> NO MAXVALUE`.

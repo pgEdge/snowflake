@@ -49,3 +49,5 @@ or use the `pg_ctl reload` command to reload the server:
 [pgedge]$ /home/pgedge/pg16/bin/pg_ctl reload -D "/home/pgedge/data/pg16"
 server signaled
 ```
+
+Once snowflake is configured, you can begin to use snowflake sequences by first [converting](converting.md) them from Postgres sequences.

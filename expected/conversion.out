@@ -16,7 +16,7 @@ INSERT INTO t2 VALUES (DEFAULT);
 INSERT INTO t3 VALUES (DEFAULT);
 SELECT snowflake.convert_sequence_to_snowflake('t1'); -- ERROR, not a sequence
 ERROR:  Input value "public.t1" is not a valid convertable sequence
-SELECT snowflake.convert_sequence_to_snowflake('seq_1'); -- ERROR, not assocoated with any relation
+SELECT snowflake.convert_sequence_to_snowflake('seq_1'); -- No associated relation found
 NOTICE:  ALTER SEQUENCE public.seq_1 NO CYCLE MAXVALUE 43
  convert_sequence_to_snowflake 
 -------------------------------
@@ -216,7 +216,113 @@ SELECT :sf_val < x AS is_growing FROM t5 WHERE x > 42;
  t
 (1 row)
 
+-- Test INCREMENT
+CREATE TABLE t6(x bigserial, y int);
+INSERT INTO t6 VALUES (DEFAULT, 10);
+INSERT INTO t6 VALUES (DEFAULT, 20);
+SELECT * FROM t6;
+ x | y  
+---+----
+ 1 | 10
+ 2 | 20
+(2 rows)
+
+INSERT INTO t6 VALUES (DEFAULT, 30);
+SELECT * FROM t6;
+ x | y  
+---+----
+ 1 | 10
+ 2 | 20
+ 3 | 30
+(3 rows)
+
+SELECT snowflake.convert_sequence_to_snowflake('t6_x_seq');
+NOTICE:  EXECUTE ALTER TABLE public.t6 ALTER COLUMN x SET DEFAULT snowflake.nextval('public.t6_x_seq'::regclass)
+NOTICE:  ALTER SEQUENCE public.t6_x_seq NO CYCLE MAXVALUE 4
+ convert_sequence_to_snowflake 
+-------------------------------
+                             0
+(1 row)
+
+-- Get the count portion of the id.
+-- It happens within the same milisecond, should increment
+SELECT snowflake.get_count(snowflake.nextval('t6_x_seq'))
+UNION ALL
+SELECT snowflake.get_count(snowflake.nextval('t6_x_seq'))
+UNION ALL
+SELECT snowflake.get_count(snowflake.nextval('t6_x_seq'));
+ get_count 
+-----------
+         0
+         1
+         2
+(3 rows)
+
+-- Should return 1 (the counter difference)
+SELECT ABS(snowflake.nextval('t6_x_seq') - snowflake.nextval('t6_x_seq'));
+ abs 
+-----
+   1
+(1 row)
+
+-- If < 4096, will increment that amount
+ALTER SEQUENCE t6_x_seq INCREMENT 100 NO MAXVALUE;
+SELECT snowflake.get_count(snowflake.nextval('t6_x_seq'))
+UNION ALL
+SELECT snowflake.get_count(snowflake.nextval('t6_x_seq'))
+UNION ALL
+SELECT snowflake.get_count(snowflake.nextval('t6_x_seq'));
+ get_count 
+-----------
+       104
+       204
+       304
+(3 rows)
+
+-- This will force the time ms portion to increment,
+-- the count portion should be 0
+ALTER SEQUENCE t6_x_seq INCREMENT 4096;
+SELECT snowflake.get_count(snowflake.nextval('t6_x_seq'))
+UNION ALL
+SELECT snowflake.get_count(snowflake.nextval('t6_x_seq'))
+UNION ALL
+SELECT snowflake.get_count(snowflake.nextval('t6_x_seq'));
+ get_count 
+-----------
+         0
+         0
+         0
+(3 rows)
+
+-- should return 1 (the ms difference)
+SELECT ABS(snowflake.nextval('t6_x_seq') - snowflake.nextval('t6_x_seq')) >> 22;
+ ?column? 
+----------
+        1
+(1 row)
+
+-- Test unreasonable value- still should get 0s
+ALTER SEQUENCE t6_x_seq INCREMENT 9999;
+SELECT snowflake.get_count(snowflake.nextval('t6_x_seq'))
+UNION ALL
+SELECT snowflake.get_count(snowflake.nextval('t6_x_seq'))
+UNION ALL
+SELECT snowflake.get_count(snowflake.nextval('t6_x_seq'));
+ get_count 
+-----------
+         0
+         0
+         0
+(3 rows)
+
+-- should return 1 (the ms difference)
+SELECT ABS(snowflake.nextval('t6_x_seq') - snowflake.nextval('t6_x_seq')) >> 22;
+ ?column? 
+----------
+        1
+(1 row)
+
 -- Cleanup
-DROP TABLE t1,t2,t3,t4,t5 CASCADE;
+DROP TABLE t1,t2,t3,t4,t5,t6 CASCADE;
 DROP SEQUENCE favorite_seq;
 DROP EXTENSION snowflake;
