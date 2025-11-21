@@ -1,6 +1,6 @@
 # Converting a PostgreSQL Sequence to a Snowflake Sequence
 
-You cannot directly create a snowflake sequence, you must first create a sequence in Postgres and then convert it. Sequences are created explicitly with the `CREATE SEQUENCE` command but are also implicitly created by `GENERATED { ALWAYS | BY DEFAULT } AS IDENTITY` table columns or SERIAL and BIGSERIAL columns. GENERATED AS IDENTITY is the recommended ANSI SQL method.
+You cannot directly create a snowflake sequence; you must first create a sequence in Postgres and then convert it. Sequences are created explicitly with the `CREATE SEQUENCE` command but are also implicitly created by `GENERATED { ALWAYS | BY DEFAULT } AS IDENTITY` table columns or `SERIAL` and `BIGSERIAL` columns. `GENERATED AS IDENTITY` is the recommended ANSI SQL method.
 
 You can use the `snowflake.convert_sequence_to_snowflake()` function to convert individual sequences to snowflake sequences. Note that this converts the sequence definition; existing values in a sequence column will not change. The command syntax in SQL is:
 
@@ -22,7 +22,7 @@ Another way is to query metadata catalog information directly in `psql` or anoth
     SELECT * FROM information_schema.sequences;
 ```
 
-The second command will provide data type information, which is useful for learning which sequences will be converted to the BIGINT data type (64 bits).
+The second command will include data type information, which is useful for learning which sequences will be converted to the BIGINT data type (64 bits).
 
 
 ## Example: Converting an Existing Sequence
@@ -67,7 +67,8 @@ acctg=# SELECT * FROM orders;
  Washington Schools   | hist_2983  |  7
 (7 rows)
 ```
-To convert the sequence definition for the `orders` table to use Snowflake sequences, invoke the command in `psql` or another SQL editor:
+
+To convert the sequence definition for the `orders` table to use Snowflake sequences, invoke the following command in `psql` or another SQL editor:
 
 ```
 SELECT snowflake.convert_sequence_to_snowflake('orders_id_seq'::regclass);
@@ -82,7 +83,7 @@ acctg=# INSERT INTO orders VALUES ('Fluvanna Schools', 'art_9447');
 INSERT 0 1
 ```
 
-In the query results that follows, you can see the unformatted sequence value in the `id` column, and the same information in the `format` column, formatted with the `snowflake.format(id)` function. The rows added before the conversion to Snowflake sequences show a fixed timestamp of `2022-12-31 19:00:00-05`, while the Snowflake sequences have a unique `id` and timestamp.
+In the query results that follows, you can see the unformatted sequence values in the `id` column, and the same information in the `format` column, formatted with the `snowflake.format(id)` function. The rows added before the conversion to Snowflake sequences show a fixed timestamp of `2022-12-31 19:00:00-05`, while the Snowflake sequences have a unique `id` and timestamp.
 
 Original entries in the table display a Postgres sequence, while entries made after the conversion display Snowflake sequences:
 
