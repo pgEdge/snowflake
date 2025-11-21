@@ -1,5 +1,7 @@
 # Converting a PostgreSQL Sequence to a Snowflake Sequence
 
+You cannot directly create a snowflake sequence, you must first create a sequence in Postgres and then convert it. Sequences are created explicitly with the `CREATE SEQUENCE` command but are also implicitly created by `GENERATED { ALWAYS | BY DEFAULT } AS IDENTITY` table columns or SERIAL and BIGSERIAL columns. GENERATED AS IDENTITY is the recommended ANSI SQL method.
+
 You can use the `snowflake.convert_sequence_to_snowflake()` function to convert individual sequences to snowflake sequences. Note that this converts the sequence definition; existing values in a sequence column will not change. The command syntax in SQL is:
 
     `SELECT snowflake.convert_sequence_name('sequence_name');`
@@ -99,3 +101,7 @@ acctg=# SELECT id, snowflake.format(id), customer, invoice FROM orders;
  135824609030176769 | {"id": 1, "ts": "2024-01-10 14:18:30.292-05", "count": 0} | Fluvanna Schools       | art_9447
 (9 rows)
 ```
+
+**INCREMENT and Caching**
+
+Within the same millisecond, snowflake will allow a maximum of 4096 values. Some frameworks like the ORM framework Hibernate may be configured to try to fetch a sequence value, cache and assign a range by using an `INCREMENT` value for the sequence. Snowflake sequences honor the increment value, but you should not use a value greater than 4096. If you would like to change the increment value, use `ALTER SEQUENCE <seq_name> INCREMENT <increment_value> NO MAXVALUE`.
