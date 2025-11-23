@@ -4,7 +4,7 @@
 - [Snowflake Overview](docs/index.md)
 - [Building the Snowflake Extension](README.md#installation)
 - [Basic Configuration and Usage](README.md#configuring-snowflake)
-- [Creating a Snowflake Sequence](docs/managing/creating.md)
+- [Creating a Snowflake Sequence](docs/creating.md)
 - [Converting an Existing Postgres Sequence](docs/converting.md)
 - [Using Snowflake Functions](docs/snowflake_functions.md)
 - [Reviewing Snowflake Meta-Data](docs/review_seq.md)

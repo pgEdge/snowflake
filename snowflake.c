@@ -172,7 +172,9 @@ snowflake_nextval(PG_FUNCTION_ARGS)
 	Buffer		buf;
 	Page		page;
 	HeapTupleData seqdatatuple;
+	HeapTuple	pgstuple;
 	Form_pg_sequence_data seq;
+	Form_pg_sequence	pgsform;
 	int64		result;
 	bool		logit = false;
 	Snowflake	flake;
@@ -243,9 +245,25 @@ snowflake_nextval(PG_FUNCTION_ARGS)
 		 * The clock either has not ticked or is behind. We need to make
 		 * sure that the flake doesn't move backwards and that we bump
 		 * it into the future should the count roll over.
+		 *
+		 * There is special handing for when ids are assigned in ranges
+		 * like for Hibernate. INCREMENT as part of the sequence definition
+		 * can be used. If the count portion of snowflake exceeds the
+		 * count mask + 1 (4096), it will cause the count to be set to 0
+		 * and the time ms portion is incremented.
 		 */
-		flake.sf_count++;
-		if ((flake.sf_count & SNOWFLAKE_COUNT_MASK) == 0)
+
+		pgstuple = SearchSysCache1(SEQRELID, ObjectIdGetDatum(relid));
+		if (HeapTupleIsValid(pgstuple))
+		{
+			pgsform = (Form_pg_sequence) GETSTRUCT(pgstuple);
+			elm->increment = pgsform->seqincrement;
+			ReleaseSysCache(pgstuple);
+		}
+		flake.sf_count += elm->increment;
+
+		/* Mask uses least signicant bits, so this is safe */
+		if (flake.sf_count > SNOWFLAKE_COUNT_MASK)
 		{
 			flake.sf_count = 0;
 			flake.sf_msec++;
@@ -533,6 +551,7 @@ init_sequence(Oid relid, SeqTable *p_elm, Relation *p_rel)
 		elm->lxid = InvalidLocalTransactionId;
 		elm->last_valid = false;
 		elm->last = elm->cached = 0;
+		elm->increment = 1;
 	}
 
 	/*
