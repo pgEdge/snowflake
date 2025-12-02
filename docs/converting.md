@@ -4,7 +4,7 @@ You cannot directly create a snowflake sequence; you must first create a sequenc
 
 You can use the `snowflake.convert_sequence_to_snowflake()` function to convert individual sequences to snowflake sequences. Note that this converts the sequence definition; existing values in a sequence column will not change. The command syntax in SQL is:
 
-    `SELECT snowflake.convert_sequence_name('sequence_name');`
+    `SELECT snowflake.convert_sequence_to_snowflake('sequence_name');`
 
 **Where**
 
