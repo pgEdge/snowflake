@@ -191,8 +191,9 @@ def runTest(testName):
         try:
             # Build the psql command with appropriate switches/inputs/outputs,
             psql_command, actual_output_file, expected_output_file = build_psql_command(testName)
-            # Execute the psql command
-            result = subprocess.run(psql_command, shell=True, capture_output=True, text=True)  
+            # Execute the psql command, redirecting output to file via Python (not shell)
+            with open(actual_output_file, 'w') as outf:
+                result = subprocess.run(psql_command, stdout=outf, stderr=subprocess.STDOUT, text=True)
             # Compare actual and expected output files, setting shallow=False compares content and not just timestamps/size
             if filecmp.cmp(actual_output_file, expected_output_file, shallow=False):
                 result_status = "pass"
@@ -325,16 +326,22 @@ def build_psql_command(sql_file):
     # Assume the expected output file is in the same location as the sql_file, but with a .out extension
     expected_output_file = sql_file.replace('.sql', '.out')
 
-    # Construct the full psql command using the database parameters and file paths
-    psql_command = f"{psql_command_path} -X -a -d {pgdb} -p {port} -h {pghost} < {sql_file} > {actual_output_file} 2>&1"
-    
+    # Construct the psql command as an argument list (no shell interpretation needed)
+    psql_command = [
+        psql_command_path, "-X", "-a",
+        "-d", pgdb,
+        "-p", str(port),
+        "-h", pghost,
+        "-f", sql_file,
+    ]
+
     if glDebug:
         print("sql_file:   " + str(sql_file))
         print("port:   " + str(port))
         print("actual output file:   " + str(actual_output_file))
         print("expected output file:   " + str(expected_output_file))
         print("psql_command:   " + str(psql_command))
-    
+
     # Return the constructed psql command and the paths for the actual and expected output files
     return psql_command, actual_output_file, expected_output_file
 
