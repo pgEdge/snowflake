@@ -6,15 +6,13 @@ RUN apk add --no-cache \
     gcc \
     musl-dev \
     postgresql-dev \
-    git \
-    clang \
-    llvm
+    git
 
 WORKDIR /home/postgres/snowflake
 
 COPY . /home/postgres/snowflake/
 
-RUN USE_PGXS=1 make && USE_PGXS=1 make install
+RUN USE_PGXS=1 make with_llvm=no && USE_PGXS=1 make with_llvm=no install
 
 EXPOSE 5432
 
