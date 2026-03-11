@@ -1,5 +1,5 @@
-ARG PGVER
-FROM postgres:$PGVER-alpine
+ARG PGVER=17
+FROM postgres:${PGVER}-alpine
 
 RUN apk add --no-cache \
     make \
