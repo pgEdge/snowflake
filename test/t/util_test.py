@@ -85,7 +85,7 @@ def enable_autoddl(host, dbname, port, pw, usr):
 
 def run_cmd(msg, cmd, node_path):
     print(cmd)
-    result = subprocess.run(f"{node_path}/pgedge/pgedge {cmd}", shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+    result = subprocess.run([f"{node_path}/pgedge/pgedge"] + cmd.split(), stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
     return result
 
 # ************************************************************************************************************** 
@@ -97,7 +97,7 @@ def run_cmd(msg, cmd, node_path):
 
 def run_nc_cmd(msg, cmd, node_path):
     print(cmd)
-    result = subprocess.run(f"{node_path}/pgedge {cmd}", shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+    result = subprocess.run([f"{node_path}/pgedge"] + cmd.split(), stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
     return result
 
 # **************************************************************************************************************
