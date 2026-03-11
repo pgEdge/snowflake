@@ -358,9 +358,9 @@ def get_sqlite_connection(db_file):
 
 ## Execute a query on the SQLite database:
 
-def execute_sqlite_query(conn):
+def execute_sqlite_query(conn, query):
     cur = conn.cursor()
-    cur.execute(f"{query}")
+    cur.execute(query)
     rows = cur.fetchall()
     for row in rows:
         print(row)
