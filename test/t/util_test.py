@@ -1,4 +1,4 @@
-import sys, os, psycopg2, json, subprocess, shutil, re, csv, socket
+import sys, os, psycopg2, json, subprocess, shutil, re, csv, socket, shlex
 from dotenv import load_dotenv
 from psycopg2 import sql
 
@@ -85,7 +85,7 @@ def enable_autoddl(host, dbname, port, pw, usr):
 
 def run_cmd(msg, cmd, node_path):
     print(cmd)
-    result = subprocess.run([f"{node_path}/pgedge/pgedge"] + cmd.split(), stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)  # nosec B603
+    result = subprocess.run([f"{node_path}/pgedge/pgedge", *shlex.split(cmd)], stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)  # nosec B603
     return result
 
 # ************************************************************************************************************** 
@@ -97,7 +97,7 @@ def run_cmd(msg, cmd, node_path):
 
 def run_nc_cmd(msg, cmd, node_path):
     print(cmd)
-    result = subprocess.run([f"{node_path}/pgedge"] + cmd.split(), stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)  # nosec B603
+    result = subprocess.run([f"{node_path}/pgedge", *shlex.split(cmd)], stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)  # nosec B603
     return result
 
 # **************************************************************************************************************
