@@ -107,6 +107,10 @@ SELECT * FROM t6;
 INSERT INTO t6 VALUES (DEFAULT, 30);
 SELECT * FROM t6;
 SELECT snowflake.convert_sequence_to_snowflake('t6_x_seq');
+-- Start from a fresh millisecond so the counter base is 0 regardless of how
+-- the preceding calls happened to land in time. Without this the exact count
+-- values below depend on millisecond boundaries and the test is flaky.
+SELECT pg_sleep(0.5);
 -- Get the count portion of the id.
 -- It happens within the same milisecond, should increment
 SELECT snowflake.get_count(snowflake.nextval('t6_x_seq'))
@@ -120,6 +124,8 @@ SELECT ABS(snowflake.nextval('t6_x_seq') - snowflake.nextval('t6_x_seq'));
 
 -- If < 4096, will increment that amount
 ALTER SEQUENCE t6_x_seq INCREMENT 100 NO MAXVALUE;
+-- Again start from a fresh millisecond for a deterministic counter base.
+SELECT pg_sleep(0.5);
 SELECT snowflake.get_count(snowflake.nextval('t6_x_seq'))
 UNION ALL
 SELECT snowflake.get_count(snowflake.nextval('t6_x_seq'))

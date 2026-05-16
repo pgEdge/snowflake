@@ -17,10 +17,11 @@ DATA = snowflake--1.0.sql \
 	   snowflake--2.2.sql \
 	   snowflake--2.2--2.3.sql \
 	   snowflake--2.3.sql \
-	   snowflake--2.3--2.4.sql
+	   snowflake--2.3--2.4.sql \
+	   snowflake--2.4--2.5.sql
 PGFILEDESC = "snowflake - snowflake style IDs for PostgreSQL"
 
-REGRESS = conversion
+REGRESS = conversion maxvalue repair
 
 ifdef USE_PGXS
 PG_CONFIG = pg_config

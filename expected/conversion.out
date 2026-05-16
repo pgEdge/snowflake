@@ -17,7 +17,7 @@ INSERT INTO t3 VALUES (DEFAULT);
 SELECT snowflake.convert_sequence_to_snowflake('t1'); -- ERROR, not a sequence
 ERROR:  Input value "public.t1" is not a valid convertable sequence
 SELECT snowflake.convert_sequence_to_snowflake('seq_1'); -- No associated relation found
-NOTICE:  ALTER SEQUENCE public.seq_1 NO CYCLE MAXVALUE 43
+NOTICE:  ALTER SEQUENCE public.seq_1 AS bigint NO CYCLE MAXVALUE 9223372036854775807
  convert_sequence_to_snowflake 
 -------------------------------
                              0
@@ -26,7 +26,7 @@ NOTICE:  ALTER SEQUENCE public.seq_1 NO CYCLE MAXVALUE 43
 SELECT snowflake.convert_sequence_to_snowflake('t1_x_seq');
 NOTICE:  EXECUTE ALTER TABLE public.t1 ALTER COLUMN x SET DATA TYPE int8
 NOTICE:  EXECUTE ALTER TABLE public.t1 ALTER COLUMN x SET DEFAULT snowflake.nextval('public.t1_x_seq'::regclass)
-NOTICE:  ALTER SEQUENCE public.t1_x_seq NO CYCLE MAXVALUE 2
+NOTICE:  ALTER SEQUENCE public.t1_x_seq AS bigint NO CYCLE MAXVALUE 9223372036854775807
  convert_sequence_to_snowflake 
 -------------------------------
                              1
@@ -36,7 +36,7 @@ SELECT snowflake.convert_sequence_to_snowflake('t2_x_seq');
 NOTICE:  Update pg_attribute: reset attidentity value for table public.t2, column x
 NOTICE:  EXECUTE ALTER TABLE public.t2 ALTER COLUMN x SET DATA TYPE int8
 NOTICE:  EXECUTE ALTER TABLE public.t2 ALTER COLUMN x SET DEFAULT snowflake.nextval('public.t2_x_seq'::regclass)
-NOTICE:  ALTER SEQUENCE public.t2_x_seq NO CYCLE MAXVALUE 2
+NOTICE:  ALTER SEQUENCE public.t2_x_seq AS bigint NO CYCLE MAXVALUE 9223372036854775807
  convert_sequence_to_snowflake 
 -------------------------------
                              1
@@ -46,7 +46,7 @@ SELECT snowflake.convert_sequence_to_snowflake('t3_x_seq');
 NOTICE:  Update pg_attribute: reset attidentity value for table public.t3, column x
 NOTICE:  EXECUTE ALTER TABLE public.t3 ALTER COLUMN x SET DATA TYPE int8
 NOTICE:  EXECUTE ALTER TABLE public.t3 ALTER COLUMN x SET DEFAULT snowflake.nextval('public.t3_x_seq'::regclass)
-NOTICE:  ALTER SEQUENCE public.t3_x_seq NO CYCLE MAXVALUE 2
+NOTICE:  ALTER SEQUENCE public.t3_x_seq AS bigint NO CYCLE MAXVALUE 9223372036854775807
  convert_sequence_to_snowflake 
 -------------------------------
                              1
@@ -55,7 +55,7 @@ NOTICE:  ALTER SEQUENCE public.t3_x_seq NO CYCLE MAXVALUE 2
 SELECT snowflake.convert_sequence_to_snowflake('t3_z_seq'); -- non-default attnum
 NOTICE:  EXECUTE ALTER TABLE public.t3 ALTER COLUMN z SET DATA TYPE int8
 NOTICE:  EXECUTE ALTER TABLE public.t3 ALTER COLUMN z SET DEFAULT snowflake.nextval('public.t3_z_seq'::regclass)
-NOTICE:  ALTER SEQUENCE public.t3_z_seq NO CYCLE MAXVALUE 2
+NOTICE:  ALTER SEQUENCE public.t3_z_seq AS bigint NO CYCLE MAXVALUE 9223372036854775807
  convert_sequence_to_snowflake 
 -------------------------------
                              1
@@ -114,7 +114,7 @@ ALTER TABLE t3 ALTER COLUMN y SET DEFAULT nextval('t3_y_seq'::regclass);
 SELECT snowflake.convert_sequence_to_snowflake('t3_y_seq');
 NOTICE:  EXECUTE ALTER TABLE public.t3 ALTER COLUMN y SET DATA TYPE int8
 NOTICE:  EXECUTE ALTER TABLE public.t3 ALTER COLUMN y SET DEFAULT snowflake.nextval('public.t3_y_seq'::regclass)
-NOTICE:  ALTER SEQUENCE public.t3_y_seq NO CYCLE MAXVALUE 3
+NOTICE:  ALTER SEQUENCE public.t3_y_seq AS bigint NO CYCLE MAXVALUE 9223372036854775807
  convert_sequence_to_snowflake 
 -------------------------------
                              1
@@ -162,7 +162,7 @@ SELECT * FROM t4;
 SELECT snowflake.convert_sequence_to_snowflake('favorite_seq');
 NOTICE:  EXECUTE ALTER TABLE public.t4 ALTER COLUMN x SET DATA TYPE int8
 NOTICE:  EXECUTE ALTER TABLE public.t4 ALTER COLUMN x SET DEFAULT snowflake.nextval('public.favorite_seq'::regclass)
-NOTICE:  ALTER SEQUENCE public.favorite_seq NO CYCLE MAXVALUE 2
+NOTICE:  ALTER SEQUENCE public.favorite_seq AS bigint NO CYCLE MAXVALUE 9223372036854775807
  convert_sequence_to_snowflake 
 -------------------------------
                              2
@@ -201,7 +201,7 @@ NOTICE:  EXECUTE ALTER TABLE public.t4 ALTER COLUMN x SET DATA TYPE int8
 NOTICE:  EXECUTE ALTER TABLE public.t4 ALTER COLUMN x SET DEFAULT snowflake.nextval('public.favorite_seq'::regclass)
 NOTICE:  EXECUTE ALTER TABLE public.t5 ALTER COLUMN x SET DATA TYPE int8
 NOTICE:  EXECUTE ALTER TABLE public.t5 ALTER COLUMN x SET DEFAULT snowflake.nextval('public.favorite_seq'::regclass)
-NOTICE:  ALTER SEQUENCE public.favorite_seq NO CYCLE MAXVALUE 3
+NOTICE:  ALTER SEQUENCE public.favorite_seq AS bigint NO CYCLE MAXVALUE 9223372036854775807
  convert_sequence_to_snowflake 
 -------------------------------
                              4
@@ -238,10 +238,19 @@ SELECT * FROM t6;
 
 SELECT snowflake.convert_sequence_to_snowflake('t6_x_seq');
 NOTICE:  EXECUTE ALTER TABLE public.t6 ALTER COLUMN x SET DEFAULT snowflake.nextval('public.t6_x_seq'::regclass)
-NOTICE:  ALTER SEQUENCE public.t6_x_seq NO CYCLE MAXVALUE 4
+NOTICE:  ALTER SEQUENCE public.t6_x_seq AS bigint NO CYCLE MAXVALUE 9223372036854775807
  convert_sequence_to_snowflake 
 -------------------------------
                              0
+(1 row)
+
+-- Start from a fresh millisecond so the counter base is 0 regardless of how
+-- the preceding calls happened to land in time. Without this the exact count
+-- values below depend on millisecond boundaries and the test is flaky.
+SELECT pg_sleep(0.5);
+ pg_sleep 
+----------
+ 
 (1 row)
 
 -- Get the count portion of the id.
@@ -267,6 +276,13 @@ SELECT ABS(snowflake.nextval('t6_x_seq') - snowflake.nextval('t6_x_seq'));
 
 -- If < 4096, will increment that amount
 ALTER SEQUENCE t6_x_seq INCREMENT 100 NO MAXVALUE;
+-- Again start from a fresh millisecond for a deterministic counter base.
+SELECT pg_sleep(0.5);
+ pg_sleep 
+----------
+ 
+(1 row)
+
 SELECT snowflake.get_count(snowflake.nextval('t6_x_seq'))
 UNION ALL
 SELECT snowflake.get_count(snowflake.nextval('t6_x_seq'))
@@ -274,9 +290,9 @@ UNION ALL
 SELECT snowflake.get_count(snowflake.nextval('t6_x_seq'));
  get_count 
 -----------
-       104
-       204
-       304
+         0
+       100
+       200
 (3 rows)
 
 -- This will force the time ms portion to increment,
