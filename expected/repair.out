@@ -1,0 +1,100 @@
+/*
+ * repair.sql - regression for the SUP-140 2.4->2.5 auto-repair.
+ *
+ * A sequence converted by the pre-2.5 code is left with a tiny MAXVALUE
+ * (old last_value + 1), while snowflake.nextval() bypasses MAXVALUE and
+ * writes snowflake-sized values into last_value.  The result is an
+ * internally inconsistent sequence (last_value > max_value) that pg_dump
+ * captures faithfully and that cannot be restored:
+ *
+ *   ERROR: setval: value <big_snowflake_id> is out of bounds for
+ *          sequence "<seq>" (1..<small>)
+ *
+ * The 2.4->2.5 upgrade script repairs such sequences automatically by
+ * widening MAXVALUE to the full bigint range.  This test builds the broken
+ * state under 2.4, upgrades to 2.5, and asserts the repair ran -- for both
+ * an owned (serial) sequence (detected by its snowflake.nextval column
+ * default) and a standalone sequence (detected by last_value > max_value).
+ */
+\set VERBOSITY terse
+CREATE EXTENSION snowflake VERSION '2.4';
+SET snowflake.node = 1;
+-- ----------------------------------------------------------------------
+-- Owned (bigserial) sequence: convert under 2.4 leaves the broken state.
+-- ----------------------------------------------------------------------
+CREATE TABLE orders (id bigserial PRIMARY KEY, customer text NOT NULL);
+INSERT INTO orders (customer) VALUES ('Alice'), ('Bob'), ('Carol');
+SELECT snowflake.convert_sequence_to_snowflake('orders_id_seq'::regclass);
+NOTICE:  EXECUTE ALTER TABLE public.orders ALTER COLUMN id SET DEFAULT snowflake.nextval('public.orders_id_seq'::regclass)
+NOTICE:  ALTER SEQUENCE public.orders_id_seq NO CYCLE MAXVALUE 4
+ convert_sequence_to_snowflake 
+-------------------------------
+                             0
+(1 row)
+
+-- Broken state: max_value is tiny and last_value already exceeds it.
+SELECT max_value < 9223372036854775807 AS max_is_low,
+       last_value > max_value          AS last_exceeds_max
+FROM pg_sequences WHERE sequencename = 'orders_id_seq';
+ max_is_low | last_exceeds_max 
+------------+------------------
+ t          | t
+(1 row)
+
+-- ----------------------------------------------------------------------
+-- Standalone sequence with a below-snowflake ceiling, driven directly via
+-- snowflake.nextval().  No column default marker, so the repair must detect
+-- it via the last_value > max_value signature.
+-- ----------------------------------------------------------------------
+CREATE SEQUENCE standalone_seq MAXVALUE 1000000;
+SELECT snowflake.nextval('standalone_seq') > 1000000 AS wrote_snowflake_id;
+ wrote_snowflake_id 
+--------------------
+ t
+(1 row)
+
+SELECT max_value < 9223372036854775807 AS max_is_low,
+       last_value > max_value          AS last_exceeds_max
+FROM pg_sequences WHERE sequencename = 'standalone_seq';
+ max_is_low | last_exceeds_max 
+------------+------------------
+ t          | t
+(1 row)
+
+-- ----------------------------------------------------------------------
+-- Upgrade to 2.5: the repair block runs automatically.  Suppress its
+-- NOTICEs so the test output does not depend on repair ordering.
+-- ----------------------------------------------------------------------
+SET client_min_messages = warning;
+ALTER EXTENSION snowflake UPDATE TO '2.5';
+RESET client_min_messages;
+-- Both sequences must now carry the full bigint ceiling.
+SELECT sequencename, max_value = 9223372036854775807 AS repaired
+FROM pg_sequences
+WHERE sequencename IN ('orders_id_seq', 'standalone_seq')
+ORDER BY sequencename;
+  sequencename  | repaired 
+----------------+----------
+ orders_id_seq  | t
+ standalone_seq | t
+(2 rows)
+
+-- A snowflake-sized setval (what pg_dump emits on restore) must now succeed.
+SELECT pg_catalog.setval('orders_id_seq', 4446196691613229056, true);
+       setval        
+---------------------
+ 4446196691613229056
+(1 row)
+
+SELECT pg_catalog.setval('standalone_seq', 4446196691613229056, true);
+       setval        
+---------------------
+ 4446196691613229056
+(1 row)
+
+-- ----------------------------------------------------------------------
+-- Cleanup
+-- ----------------------------------------------------------------------
+DROP TABLE orders CASCADE;
+DROP SEQUENCE standalone_seq;
+DROP EXTENSION snowflake;
