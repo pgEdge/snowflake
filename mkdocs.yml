@@ -54,3 +54,4 @@ nav:
   - Converting an Existing Postgres Sequence: converting.md
   - Using Snowflake Functions: snowflake_functions.md
   - Reviewing Snowflake Meta-Data: review_seq.md
+  - Changelog: changelog.md

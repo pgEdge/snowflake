@@ -1,7 +1,7 @@
-/* snowflake--2.4--2.5.sql */
+/* snowflake--2.4--2.5.0.sql */
 
 -- complain if script is sourced in psql, rather than via ALTER EXTENSION
-\echo Use "ALTER EXTENSION snowflake UPDATE TO '2.5'" to load this file. \quit
+\echo Use "ALTER EXTENSION snowflake UPDATE TO '2.5.0'" to load this file. \quit
 
 -- ----------------------------------------------------------------------
 -- 2.4 -> 2.5 - fix MAXVALUE on snowflake-converted sequences.
