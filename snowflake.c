@@ -16,6 +16,8 @@
 
 #include "postgres.h"
 
+#include <time.h>
+
 #include "access/bufmask.h"
 #include "access/htup_details.h"
 #include "access/multixact.h"
@@ -35,6 +37,9 @@
 #include "catalog/storage_xlog.h"
 #include "commands/defrem.h"
 #include "commands/sequence.h"
+#if PG_VERSION_NUM >= 190000
+#include "commands/sequence_xlog.h"
+#endif
 #include "commands/tablecmds.h"
 #include "funcapi.h"
 #include "miscadmin.h"
@@ -61,6 +66,7 @@ PG_MODULE_MAGIC;
  */
 #define SEQ_LOG_VALS	32
 
+#if PG_VERSION_NUM < 190000
 /*
  * The "special area" of a sequence's buffer page looks like this.
  */
@@ -70,6 +76,7 @@ typedef struct sequence_magic
 {
 	uint32		magic;
 } sequence_magic;
+#endif
 
 /*
  * We store a SeqTable item for every sequence we have touched in the current
@@ -186,7 +193,6 @@ snowflake_nextval(PG_FUNCTION_ARGS)
 		ereport(ERROR,
 				(errcode(ERRCODE_CONFIG_FILE_ERROR),
 				 errmsg("value for snowflake.node is not set")));
-		
 
 	/* open and lock sequence */
 	init_sequence(relid, &elm, &seqrel);
