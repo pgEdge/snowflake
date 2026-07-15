@@ -2,7 +2,14 @@
 
 All notable changes to the Snowflake extension are documented here.
 
-## 2.5.0 (unreleased)
+## 2.6.0 
+
+### Added
+
+- Added support for Postgres 19
+
+
+## 2.5.0 
 
 ### Added
 
