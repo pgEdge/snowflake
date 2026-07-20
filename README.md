@@ -28,7 +28,7 @@ USE_PGXS=1 make
 USE_PGXS=1 make install
 ```
 
-After installing the Snowflake extension with the pgEdge binary or from source code, connect to your Postgres database and create the extension with the command:
+After installing the Snowflake extension with your pgEdge deployment or from source code, connect to your Postgres database and create the extension with the command:
 
 ```
 CREATE EXTENSION snowflake;
