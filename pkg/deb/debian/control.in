@@ -1,0 +1,30 @@
+Source: pgedge-snowflake
+Section: database
+Priority: optional
+Maintainer: pgEdge Build Team <support@pgedge.com>
+Build-Depends:
+ debhelper-compat (= 13),
+ pgedge-postgresql-all <!nocheck>,
+ pgedge-postgresql-server-dev-PG_MAJOR_VERSION,
+ pgedge-postgresql-server-dev-all,
+Standards-Version: 4.7.0
+Rules-Requires-Root: no
+Homepage: https://github.com/pgEdge/snowflake
+
+Package: pgedge-postgresql-PG_MAJOR_VERSION-snowflake
+Architecture: any
+Depends:
+ ${misc:Depends},
+ pgedge-postgresql-PG_MAJOR_VERSION,
+ ${shlibs:Depends},
+Conflicts:
+ postgresql-PG_MAJOR_VERSION-snowflake,
+Provides:
+ postgresql-PG_MAJOR_VERSION-snowflake,
+Replaces:
+ postgresql-PG_MAJOR_VERSION-snowflake,
+Breaks:
+ postgresql-PG_MAJOR_VERSION-snowflake,
+Description: Snowflake is a PostgreSQL extension providing an int8 and sequence
+ based unique ID solution to optionally replace the PostgreSQL built-in
+ bigserial data type.
