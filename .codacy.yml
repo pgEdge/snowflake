@@ -1,3 +1,6 @@
 ---
 exclude_paths:
   - "test/**"
+  - "docker/**" # CI-only SSH test harness; sshd requires root
+  - '*.sql'     # non-standard SQL files with \ directives
+  - 'sql/*.sql' # non-standard SQL files with \ directives
