@@ -116,6 +116,10 @@ jobs:
                   git clone --depth 1 \
                       "https://x-access-token:${TOKEN}@github.com/pgEdge/pgedge-detect-build-matrix.git" \
                       ".github/actions/pgedge-detect-build-matrix"
+                  # The clone URL embeds the token, so git persists it in
+                  # .git/config — inside a workspace that is mounted into the
+                  # build containers. The action only needs its files.
+                  rm -rf ".github/actions/pgedge-detect-build-matrix/.git"
 
             - name: Detect build matrix
               id: detect
@@ -163,6 +167,10 @@ jobs:
                   git clone --depth 1 \
                       "https://x-access-token:${TOKEN}@github.com/pgEdge/pgedge-parse-release-tag.git" \
                       ".github/actions/pgedge-parse-release-tag"
+                  # The clone URL embeds the token, so git persists it in
+                  # .git/config — inside a workspace that is mounted into the
+                  # build containers. The action only needs its files.
+                  rm -rf ".github/actions/pgedge-parse-release-tag/.git"
 
             - name: Parse release tag
               id: parse
@@ -273,6 +281,10 @@ jobs:
                   git clone --depth 1 \
                       "https://x-access-token:${TOKEN}@github.com/pgEdge/pgedge-builder-action.git" \
                       ".github/actions/pgedge-builder-action"
+                  # The clone URL embeds the token, so git persists it in
+                  # .git/config — inside a workspace that is mounted into the
+                  # build containers. The action only needs its files.
+                  rm -rf ".github/actions/pgedge-builder-action/.git"
 
             - name: Build RPM
               uses: ./.github/actions/pgedge-builder-action
@@ -309,6 +321,7 @@ jobs:
         name: Push DNF (all EL majors × archs × PG majors, batched)
         if: |
             always() && github.ref_type == 'tag' &&
+            needs.detect-matrix.outputs.has_rpm == 'true' &&
             (needs.package-rpm.result == 'success' ||
              (github.event.inputs.force_push == 'true' && needs.package-rpm.result != 'cancelled'))
         needs: [detect-matrix, determine-repo-type, package-rpm]
@@ -387,6 +400,8 @@ jobs:
                       git clone --depth 1 --branch multi-target \
                           "https://x-access-token:${TOKEN}@github.com/pgEdge/${repo}.git" \
                           ".github/actions/${repo}"
+                      # Drop the token git persisted in .git/config.
+                      rm -rf ".github/actions/${repo}/.git"
                   done
 
             - name: Push RPMs to yum repo (all EL majors batched)
@@ -469,6 +484,10 @@ jobs:
                   git clone --depth 1 \
                       "https://x-access-token:${TOKEN}@github.com/pgEdge/pgedge-builder-action.git" \
                       ".github/actions/pgedge-builder-action"
+                  # The clone URL embeds the token, so git persists it in
+                  # .git/config — inside a workspace that is mounted into the
+                  # build containers. The action only needs its files.
+                  rm -rf ".github/actions/pgedge-builder-action/.git"
 
             - name: Build DEB
               uses: ./.github/actions/pgedge-builder-action
@@ -503,6 +522,7 @@ jobs:
         name: Push APT (all distros × archs × PG majors, batched)
         if: |
             always() && github.ref_type == 'tag' &&
+            needs.detect-matrix.outputs.has_deb == 'true' &&
             (needs.package-deb.result == 'success' ||
              (github.event.inputs.force_push == 'true' && needs.package-deb.result != 'cancelled'))
         needs: [detect-matrix, determine-repo-type, package-deb]
@@ -576,6 +596,8 @@ jobs:
                       git clone --depth 1 --branch multi-target \
                           "https://x-access-token:${TOKEN}@github.com/pgEdge/${repo}.git" \
                           ".github/actions/${repo}"
+                      # Drop the token git persisted in .git/config.
+                      rm -rf ".github/actions/${repo}/.git"
                   done
 
             - name: Push DEBs to apt repo (all distros batched)
@@ -629,6 +651,14 @@ jobs:
                   set -euo pipefail
                   mkdir -p aggregated
 
+                  # --argjson below needs literal true/false; an unset SIMULATED
+                  # would make jq exit non-zero and lose the manifest after the
+                  # packages have already been pushed.
+                  case "${SIMULATED:-}" in
+                      true|false) simulated_json="${SIMULATED}" ;;
+                      *)          simulated_json=false ;;
+                  esac
+
                   # One backup path per OS (PG majors share it — the repo layout
                   # has no PG dimension), but one cell per (os, arch, pg_major)
                   # so qa-certify/promote can see the full build surface.
@@ -680,7 +710,7 @@ jobs:
                       --arg     run_attempt         "${GITHUB_RUN_ATTEMPT}" \
                       --arg     repo                "${GITHUB_REPOSITORY}" \
                       --arg     tag                 "${EFFECTIVE_TAG}" \
-                      --argjson simulated           "${SIMULATED}" \
+                      --argjson simulated           "${simulated_json}" \
                       --arg     commit_sha          "${GITHUB_SHA}" \
                       --arg     component_name      "${COMPONENT_NAME}" \
                       --arg     component_version   "${CV}" \
@@ -740,6 +770,10 @@ jobs:
                   git clone --depth 1 \
                       "https://x-access-token:${TOKEN}@github.com/pgEdge/pgedge-build-publisher.git" \
                       ".github/actions/pgedge-build-publisher"
+                  # The clone URL embeds the token, so git persists it in
+                  # .git/config — inside a workspace that is mounted into the
+                  # build containers. The action only needs its files.
+                  rm -rf ".github/actions/pgedge-build-publisher/.git"
 
             - name: Compose Slack fields
               id: compose_slack
