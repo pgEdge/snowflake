@@ -754,6 +754,10 @@ jobs:
               env:
                   AWS_ACCESS_KEY_ID:     ${{ secrets.AWS_ACCESS_KEY_ID }}
                   AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+                  # Every shared pgEdge action defaults its region input to
+                  # us-east-1 and exports it; this inline aws call is the only
+                  # one that relied on botocore's implicit fallback.
+                  AWS_DEFAULT_REGION:    us-east-1
                   S3_BACKUP_BUCKET:      ${{ secrets.S3_BACKUP_BUCKET_NAME }}
                   REPO_TYPE:             ${{ needs.determine-repo-type.outputs.repo-type }}
                   CV:                    ${{ needs.determine-repo-type.outputs.component-version }}
