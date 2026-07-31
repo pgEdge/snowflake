@@ -40,11 +40,17 @@ build() {
   DISTRO=$(lsb_release -cs)
   # SNOWFLAKE_DEB_VERSION carries the '~<pretag>' form for pre-releases so they
   # sort below stable; it equals SNOWFLAKE_VERSION for a GA build.
+  # A Debian changelog entry needs a blank line after the header and before the
+  # maintainer trailer. Written in final form, so no dch pass is needed — dch
+  # with this same version appended a duplicate entry instead of editing.
   rm -rf debian/changelog
-  echo "pgedge-snowflake (${SNOWFLAKE_DEB_VERSION}-${SNOWFLAKE_BUILDNUM}.${DISTRO}) unstable; urgency=low" >> debian/changelog
-  echo "  * Update Release." >> debian/changelog
-  echo " -- pgEdge Build Team <support@pgedge.com>  $(date -R)" >> debian/changelog
-  dch -D "$DISTRO" --force-distribution -v "${SNOWFLAKE_DEB_VERSION}-${SNOWFLAKE_BUILDNUM}.${DISTRO}" "pgEdge Snowflake $SNOWFLAKE_DEB_VERSION for $DISTRO"
+  {
+      echo "pgedge-snowflake (${SNOWFLAKE_DEB_VERSION}-${SNOWFLAKE_BUILDNUM}.${DISTRO}) ${DISTRO}; urgency=low"
+      echo ""
+      echo "  * Update Release."
+      echo ""
+      echo " -- pgEdge Build Team <support@pgedge.com>  $(date -R)"
+  } > debian/changelog
 
   PATH=/usr/lib/postgresql/${PG_MAJOR_VERSION}/bin:$PATH USE_PGXS=1 dpkg-buildpackage -us -uc -b
 }
