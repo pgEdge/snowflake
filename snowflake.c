@@ -138,6 +138,16 @@ static int32 snowflake_node_id = 0;
 
 extern void _PG_init(void);
 
+static void check_nextval_preconditions(SeqTable elm, Relation seqrel,
+										 bool check_permissions);
+static Snowflake compute_next_flake(Oid relid, SeqTable elm,
+									 Form_pg_sequence_data seq, int64 now_msec);
+static bool decide_wal_logging(Form_pg_sequence_data seq, Page page,
+								int64 result);
+static void snowflake_apply_and_log(Relation seqrel, Buffer buf,
+									 HeapTupleData seqdatatuple, Page page,
+									 Form_pg_sequence_data seq, Snowflake flake,
+									 int64 result, bool logit);
 static Relation lock_and_open_sequence(SeqTable seq);
 static void create_seq_hashtable(void);
 static void init_sequence(Oid relid, SeqTable *p_elm, Relation *p_rel);
@@ -179,9 +189,7 @@ snowflake_nextval(PG_FUNCTION_ARGS)
 	Buffer		buf;
 	Page		page;
 	HeapTupleData seqdatatuple;
-	HeapTuple	pgstuple;
 	Form_pg_sequence_data seq;
-	Form_pg_sequence	pgsform;
 	int64		result;
 	bool		logit = false;
 	Snowflake	flake;
@@ -197,24 +205,7 @@ snowflake_nextval(PG_FUNCTION_ARGS)
 	/* open and lock sequence */
 	init_sequence(relid, &elm, &seqrel);
 
-	if (check_permissions &&
-		pg_class_aclcheck(elm->relid, GetUserId(),
-						  ACL_USAGE | ACL_UPDATE) != ACLCHECK_OK)
-		ereport(ERROR,
-				(errcode(ERRCODE_INSUFFICIENT_PRIVILEGE),
-				 errmsg("permission denied for sequence %s",
-						RelationGetRelationName(seqrel))));
-
-	/* read-only transactions may only modify temp sequences */
-	if (!seqrel->rd_islocaltemp)
-		PreventCommandIfReadOnly("nextval()");
-
-	/*
-	 * Forbid this during parallel operation because, to make it work, the
-	 * cooperating backends would need to share the backend-local cached
-	 * sequence information.  Currently, we don't support that.
-	 */
-	PreventCommandIfParallelMode("nextval()");
+	check_nextval_preconditions(elm, seqrel, check_permissions);
 
 #if 0 /* TODO: we might want to bring back sequence caching later */
 	if (elm->last != elm->cached)	/* some numbers were cached */
@@ -237,65 +228,10 @@ snowflake_nextval(PG_FUNCTION_ARGS)
 	now_msec = (now.tv_sec - SNOWFLAKE_EPOCH_OFFSET) * 1000 +
 			   now.tv_nsec / 1000000;
 
-	/* Check if the clock has advanced since last nextflake() call */
-	int64ToSnowflake(seq->last_value, &flake);
-	if (now_msec > flake.sf_msec)
-	{
-		/* The clock has ticked, reset the counter */
-		flake.sf_msec = now_msec;
-		flake.sf_count = 0;
-	}
-	else
-	{
-		/*
-		 * The clock either has not ticked or is behind. We need to make
-		 * sure that the flake doesn't move backwards and that we bump
-		 * it into the future should the count roll over.
-		 *
-		 * There is special handing for when ids are assigned in ranges
-		 * like for Hibernate. INCREMENT as part of the sequence definition
-		 * can be used. If the count portion of snowflake exceeds the
-		 * count mask + 1 (4096), it will cause the count to be set to 0
-		 * and the time ms portion is incremented.
-		 */
-
-		pgstuple = SearchSysCache1(SEQRELID, ObjectIdGetDatum(relid));
-		if (HeapTupleIsValid(pgstuple))
-		{
-			pgsform = (Form_pg_sequence) GETSTRUCT(pgstuple);
-			elm->increment = pgsform->seqincrement;
-			ReleaseSysCache(pgstuple);
-		}
-		flake.sf_count += elm->increment;
-
-		/* Mask uses least signicant bits, so this is safe */
-		if (flake.sf_count > SNOWFLAKE_COUNT_MASK)
-		{
-			flake.sf_count = 0;
-			flake.sf_msec++;
-		}
-	}
-
-	flake.sf_node = snowflake_node_id;
+	flake = compute_next_flake(relid, elm, seq, now_msec);
 	result = int64FromSnowflake(&flake);
 
-	if (result >= seq->log_cnt)
-		logit = true;
-
-	/*
-	 * Decide whether we should emit a WAL log record based on
-	 * checkpoint.
-	 */
-	if (!logit)
-	{
-		XLogRecPtr	redoptr = GetRedoRecPtr();
-
-		if (PageGetLSN(page) <= redoptr)
-		{
-			/* last update of seq was before checkpoint */
-			logit = true;
-		}
-	}
+	logit = decide_wal_logging(seq, page, result);
 
 	/* save info in local cache */
 	elm->last = result;			/* last returned number */
@@ -304,78 +240,8 @@ snowflake_nextval(PG_FUNCTION_ARGS)
 
 	last_used_seq = elm;
 
-	/*
-	 * If something needs to be WAL logged, acquire an xid, so this
-	 * transaction's commit will trigger a WAL flush and wait for syncrep.
-	 * It's sufficient to ensure the toplevel transaction has an xid, no need
-	 * to assign xids subxacts, that'll already trigger an appropriate wait.
-	 * (Have to do that here, so we're outside the critical section)
-	 */
-	if (logit && RelationNeedsWAL(seqrel))
-		GetTopTransactionId();
-
-	/* ready to change the on-disk (or really, in-buffer) tuple */
-	START_CRIT_SECTION();
-
-	/*
-	 * We must mark the buffer dirty before doing XLogInsert(); see notes in
-	 * SyncOneBuffer().  However, we don't apply the desired changes just yet.
-	 * This looks like a violation of the buffer update protocol, but it is in
-	 * fact safe because we hold exclusive lock on the buffer.  Any other
-	 * process, including a checkpoint, that tries to examine the buffer
-	 * contents will block until we release the lock, and then will see the
-	 * final state that we install below.
-	 */
-	MarkBufferDirty(buf);
-
-	/* XLOG stuff */
-	if (logit && RelationNeedsWAL(seqrel))
-	{
-		xl_seq_rec	xlrec;
-		XLogRecPtr	recptr;
-		Snowflake	log_flake = flake;
-
-		/*
-		 * We don't log the current state of the tuple, but rather the state
-		 * as it would appear after "log" more fetches.  This lets us skip
-		 * that many future WAL records, at the cost that we lose those
-		 * sequence values if we crash.
-		 */
-		XLogBeginInsert();
-		XLogRegisterBuffer(0, buf, REGBUF_WILL_INIT);
-
-		/*
-		 * Set values that will be saved in xlog.
-		 * We bump the millisecond in the last value 30 ticks
-		 * into the future of our current result. If a server
-		 * can recover from a postmaster crash that fast we'd
-		 * like to hear about it.
-		 */
-		log_flake.sf_msec += 30;
-		log_flake.sf_count = 0;
-		seq->last_value = int64FromSnowflake(&log_flake);
-		seq->is_called = true;
-		seq->log_cnt = seq->last_value;
-
-#if PG_VERSION_NUM >= 160000
-		xlrec.locator = seqrel->rd_locator;
-#else
-		xlrec.node = seqrel->rd_node;
-#endif
-
-		XLogRegisterData((char *) &xlrec, sizeof(xl_seq_rec));
-		XLogRegisterData((char *) seqdatatuple.t_data, seqdatatuple.t_len);
-
-		recptr = XLogInsert(RM_SEQ_ID, XLOG_SEQ_LOG);
-
-		PageSetLSN(page, recptr);
-	}
-
-	/* Now update sequence tuple to the intended final state */
-	seq->last_value = result;		/* last fetched number */
-	seq->is_called = true;
-
-	END_CRIT_SECTION();
+	snowflake_apply_and_log(seqrel, buf, seqdatatuple, page, seq, flake,
+							 result, logit);
 
 	UnlockReleaseBuffer(buf);
 
@@ -644,3 +510,197 @@ read_seq_tuple(Relation rel, Buffer *buf, HeapTuple seqdatatuple)
 	return seq;
 }
 
+/*
+ * check_nextval_preconditions()
+ *
+ */
+static void
+check_nextval_preconditions(SeqTable elm, Relation seqrel, bool check_permissions)
+{
+	if (check_permissions &&
+		pg_class_aclcheck(elm->relid, GetUserId(),
+						  ACL_USAGE | ACL_UPDATE) != ACLCHECK_OK)
+		ereport(ERROR,
+				(errcode(ERRCODE_INSUFFICIENT_PRIVILEGE),
+				 errmsg("permission denied for sequence %s",
+						RelationGetRelationName(seqrel))));
+
+	/* read-only transactions may only modify temp sequences */
+	if (!seqrel->rd_islocaltemp)
+		PreventCommandIfReadOnly("nextval()");
+
+	/*
+	 * Forbid this during parallel operation because, to make it work, the
+	 * cooperating backends would need to share the backend-local cached
+	 * sequence information.  Currently, we don't support that.
+	 */
+	PreventCommandIfParallelMode("nextval()");
+}
+
+/*
+ * compute_next_flake()
+ *
+ */
+static Snowflake
+compute_next_flake(Oid relid, SeqTable elm, Form_pg_sequence_data seq, int64 now_msec)
+{
+	Snowflake	flake;
+	HeapTuple	pgstuple;
+	Form_pg_sequence	pgsform;
+
+	/* Check if the clock has advanced since last nextflake() call */
+	int64ToSnowflake(seq->last_value, &flake);
+	if (now_msec > flake.sf_msec)
+	{
+		/* The clock has ticked, reset the counter */
+		flake.sf_msec = now_msec;
+		flake.sf_count = 0;
+	}
+	else
+	{
+		/*
+		 * The clock either has not ticked or is behind. We need to make
+		 * sure that the flake doesn't move backwards and that we bump
+		 * it into the future should the count roll over.
+		 *
+		 * There is special handing for when ids are assigned in ranges
+		 * like for Hibernate. INCREMENT as part of the sequence definition
+		 * can be used. If the count portion of snowflake exceeds the
+		 * count mask + 1 (4096), it will cause the count to be set to 0
+		 * and the time ms portion is incremented.
+		 */
+
+		pgstuple = SearchSysCache1(SEQRELID, ObjectIdGetDatum(relid));
+		if (HeapTupleIsValid(pgstuple))
+		{
+			pgsform = (Form_pg_sequence) GETSTRUCT(pgstuple);
+			elm->increment = pgsform->seqincrement;
+			ReleaseSysCache(pgstuple);
+		}
+		flake.sf_count += elm->increment;
+
+		/* Mask uses least signicant bits, so this is safe */
+		if (flake.sf_count > SNOWFLAKE_COUNT_MASK)
+		{
+			flake.sf_count = 0;
+			flake.sf_msec++;
+		}
+	}
+
+	flake.sf_node = snowflake_node_id;
+
+	return flake;
+}
+
+/*
+ * decide_wal_logging()
+ *
+ */
+static bool
+decide_wal_logging(Form_pg_sequence_data seq, Page page, int64 result)
+{
+	bool		logit = false;
+
+	if (result >= seq->log_cnt)
+		logit = true;
+
+	/*
+	 * Decide whether we should emit a WAL log record based on
+	 * checkpoint.
+	 */
+	if (!logit)
+	{
+		XLogRecPtr	redoptr = GetRedoRecPtr();
+
+		if (PageGetLSN(page) <= redoptr)
+		{
+			/* last update of seq was before checkpoint */
+			logit = true;
+		}
+	}
+
+	return logit;
+}
+
+/*
+ * snowflake_apply_and_log()
+ *
+ */
+static void
+snowflake_apply_and_log(Relation seqrel, Buffer buf, HeapTupleData seqdatatuple,
+						 Page page, Form_pg_sequence_data seq, Snowflake flake,
+						 int64 result, bool logit)
+{
+	/*
+	 * If something needs to be WAL logged, acquire an xid, so this
+	 * transaction's commit will trigger a WAL flush and wait for syncrep.
+	 * It's sufficient to ensure the toplevel transaction has an xid, no need
+	 * to assign xids subxacts, that'll already trigger an appropriate wait.
+	 * (Have to do that here, so we're outside the critical section)
+	 */
+	if (logit && RelationNeedsWAL(seqrel))
+		GetTopTransactionId();
+
+	/* ready to change the on-disk (or really, in-buffer) tuple */
+	START_CRIT_SECTION();
+
+	/*
+	 * We must mark the buffer dirty before doing XLogInsert(); see notes in
+	 * SyncOneBuffer().  However, we don't apply the desired changes just yet.
+	 * This looks like a violation of the buffer update protocol, but it is in
+	 * fact safe because we hold exclusive lock on the buffer.  Any other
+	 * process, including a checkpoint, that tries to examine the buffer
+	 * contents will block until we release the lock, and then will see the
+	 * final state that we install below.
+	 */
+	MarkBufferDirty(buf);
+
+	/* XLOG stuff */
+	if (logit && RelationNeedsWAL(seqrel))
+	{
+		xl_seq_rec	xlrec;
+		XLogRecPtr	recptr;
+		Snowflake	log_flake = flake;
+
+		/*
+		 * We don't log the current state of the tuple, but rather the state
+		 * as it would appear after "log" more fetches.  This lets us skip
+		 * that many future WAL records, at the cost that we lose those
+		 * sequence values if we crash.
+		 */
+		XLogBeginInsert();
+		XLogRegisterBuffer(0, buf, REGBUF_WILL_INIT);
+
+		/*
+		 * Set values that will be saved in xlog.
+		 * We bump the millisecond in the last value 30 ticks
+		 * into the future of our current result. If a server
+		 * can recover from a postmaster crash that fast we'd
+		 * like to hear about it.
+		 */
+		log_flake.sf_msec += 30;
+		log_flake.sf_count = 0;
+		seq->last_value = int64FromSnowflake(&log_flake);
+		seq->is_called = true;
+		seq->log_cnt = seq->last_value;
+
+#if PG_VERSION_NUM >= 160000
+		xlrec.locator = seqrel->rd_locator;
+#else
+		xlrec.node = seqrel->rd_node;
+#endif
+
+		XLogRegisterData((char *) &xlrec, sizeof(xl_seq_rec));
+		XLogRegisterData((char *) seqdatatuple.t_data, seqdatatuple.t_len);
+
+		recptr = XLogInsert(RM_SEQ_ID, XLOG_SEQ_LOG);
+
+		PageSetLSN(page, recptr);
+	}
+
+	/* Now update sequence tuple to the intended final state */
+	seq->last_value = result;		/* last fetched number */
+	seq->is_called = true;
+
+	END_CRIT_SECTION();
+}
