@@ -8,6 +8,11 @@ on:
   pull_request:
     types: [opened, synchronize, reopened]
 
+# The only thing this workflow needs the token for is actions/checkout and
+# the public clones below. Nothing here writes to the repo.
+permissions:
+  contents: read
+
 jobs:
   run-scripts:
     strategy:
@@ -214,7 +219,7 @@ jobs:
           # Clone Snowflake extension if it doesn't exist
           if [ ! -d \"snowflake\" ]; then \
             echo 'Cloning Snowflake extension...' && \
-            git clone https://x-access-token:${GITHUB_TOKEN}@github.com/pgEdge/snowflake.git snowflake; \
+            git clone https://github.com/pgEdge/snowflake.git snowflake; \
           fi && \
 
           # Move into the Snowflake extension directory
@@ -224,8 +229,6 @@ jobs:
           echo 'Building Snowflake extension...' && \
           USE_PGXS=1 make
         "
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Make Install Snowflake as Root
       run: |
