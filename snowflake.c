@@ -129,11 +129,13 @@ typedef struct Snowflake
 
 static HTAB *seqhashtab = NULL; /* hash table for SeqTable items */
 
+#if 0
 /*
  * last_used_seq is updated by nextval() to point to the last used
  * sequence.
  */
 static SeqTableData *last_used_seq = NULL;
+#endif
 static int32 snowflake_node_id = 0;
 
 extern void _PG_init(void);
@@ -237,9 +239,9 @@ snowflake_nextval(PG_FUNCTION_ARGS)
 	elm->last = result;			/* last returned number */
 	elm->cached = result;		/* last fetched number */
 	elm->last_valid = true;
-
+#if 0
 	last_used_seq = elm;
-
+#endif
 	snowflake_apply_and_log(seqrel, buf, seqdatatuple, page, seq, flake,
 							 result, logit);
 
