@@ -9,11 +9,11 @@ export PG_VERSION="${PG_VERSION:-17}"
 export PG_MAJOR_VERSION="$(echo "$PG_VERSION" | cut -d. -f1)"
 
 export PG_SNOWFLAKE_REPO="https://github.com/pgEdge/snowflake.git"
-export SNOWFLAKE_BRANCH="${COMPONENT_BRANCH:-v2.6.0}"
+export SNOWFLAKE_BRANCH="${COMPONENT_BRANCH:-v2.6.1}"
 
-# Upstream version, suffix-stripped (e.g. 2.6.0). Names the source tarball's
+# Upstream version, suffix-stripped (e.g. 2.6.1). Names the source tarball's
 # internal directory and the RPM Version.
-export SNOWFLAKE_VERSION="${COMPONENT_VERSION:-2.6.0}"
+export SNOWFLAKE_VERSION="${COMPONENT_VERSION:-2.6.1}"
 export SNOWFLAKE_BUILDNUM=${COMPONENT_BUILDNUM:-1}
 
 export REPO_TYPE="${REPO_TYPE:-daily}"
@@ -60,5 +60,21 @@ stage_source() {
     tar -czf "${SRC_TARBALL}" "snowflake-${SNOWFLAKE_VERSION}"
     rm -rf "snowflake-${SNOWFLAKE_VERSION}"
     mv "${SRC_TARBALL}" "${dest}"
+  fi
+
+  verify_source_version "${dest}"
+}
+
+# Fail unless the staged source's snowflake.control declares the version being
+# packaged. Guards both the git-archive and clone-fallback paths against a
+# package labelled SNOWFLAKE_VERSION that actually contains older extension
+# code (and lacks the matching upgrade script).
+verify_source_version() {
+  local tarball="$1" src_version
+  src_version="$(tar -xzOf "${tarball}" "snowflake-${SNOWFLAKE_VERSION}/snowflake.control" \
+    | sed -n "s/^default_version[[:space:]]*=[[:space:]]*'\([^']*\)'.*/\1/p")" || true
+  if [ "${src_version}" != "${SNOWFLAKE_VERSION}" ]; then
+    echo "::error::source tarball declares extension version '${src_version:-<unknown>}' in snowflake.control, but the package version is '${SNOWFLAKE_VERSION}'. Bump snowflake.control (and add the upgrade script) or fix COMPONENT_VERSION/COMPONENT_BRANCH." >&2
+    return 1
   fi
 }
