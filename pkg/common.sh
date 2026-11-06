@@ -9,11 +9,11 @@ export PG_VERSION="${PG_VERSION:-17}"
 export PG_MAJOR_VERSION="$(echo "$PG_VERSION" | cut -d. -f1)"
 
 export PG_SNOWFLAKE_REPO="https://github.com/pgEdge/snowflake.git"
-export SNOWFLAKE_BRANCH="${COMPONENT_BRANCH:-v2.6.0}"
+export SNOWFLAKE_BRANCH="${COMPONENT_BRANCH:-v2.6.1}"
 
-# Upstream version, suffix-stripped (e.g. 2.6.0). Names the source tarball's
+# Upstream version, suffix-stripped (e.g. 2.6.1). Names the source tarball's
 # internal directory and the RPM Version.
-export SNOWFLAKE_VERSION="${COMPONENT_VERSION:-2.6.0}"
+export SNOWFLAKE_VERSION="${COMPONENT_VERSION:-2.6.1}"
 export SNOWFLAKE_BUILDNUM=${COMPONENT_BUILDNUM:-1}
 
 export REPO_TYPE="${REPO_TYPE:-daily}"

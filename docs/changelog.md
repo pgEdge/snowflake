@@ -2,6 +2,14 @@
 
 All notable changes to the Snowflake extension are documented here.
 
+## 2.6.1
+
+### Changed
+
+- Version bump to 2.6.1 (no catalog changes). Includes release packaging and
+  CI updates since 2.6.0.
+
+
 ## 2.6.0 
 
 ### Added

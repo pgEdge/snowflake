@@ -46,11 +46,11 @@ SELECT max_value < 9223372036854775807 AS max_is_low,
 FROM pg_sequences WHERE sequencename = 'standalone_seq';
 
 -- ----------------------------------------------------------------------
--- Upgrade to 2.5.0: the repair block runs automatically.  Suppress its
+-- Upgrade to 2.6.1 (via 2.5.0, where the repair block runs automatically).  Suppress its
 -- NOTICEs so the test output does not depend on repair ordering.
 -- ----------------------------------------------------------------------
 SET client_min_messages = warning;
-ALTER EXTENSION snowflake UPDATE TO '2.5.0';
+ALTER EXTENSION snowflake UPDATE TO '2.6.1';
 RESET client_min_messages;
 
 -- Both sequences must now carry the full bigint ceiling.
