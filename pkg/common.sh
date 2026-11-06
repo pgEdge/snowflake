@@ -61,4 +61,20 @@ stage_source() {
     rm -rf "snowflake-${SNOWFLAKE_VERSION}"
     mv "${SRC_TARBALL}" "${dest}"
   fi
+
+  verify_source_version "${dest}"
+}
+
+# Fail unless the staged source's snowflake.control declares the version being
+# packaged. Guards both the git-archive and clone-fallback paths against a
+# package labelled SNOWFLAKE_VERSION that actually contains older extension
+# code (and lacks the matching upgrade script).
+verify_source_version() {
+  local tarball="$1" src_version
+  src_version="$(tar -xzOf "${tarball}" "snowflake-${SNOWFLAKE_VERSION}/snowflake.control" \
+    | sed -n "s/^default_version[[:space:]]*=[[:space:]]*'\([^']*\)'.*/\1/p")" || true
+  if [ "${src_version}" != "${SNOWFLAKE_VERSION}" ]; then
+    echo "::error::source tarball declares extension version '${src_version:-<unknown>}' in snowflake.control, but the package version is '${SNOWFLAKE_VERSION}'. Bump snowflake.control (and add the upgrade script) or fix COMPONENT_VERSION/COMPONENT_BRANCH." >&2
+    return 1
+  fi
 }
