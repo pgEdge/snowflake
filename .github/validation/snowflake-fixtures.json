@@ -1,0 +1,2257 @@
+{
+ "_note": "Validation fixture (existing-package validation, not a release build): the already-published snowflake 2.6.0-1 RELEASE-channel files a real build cell uploads, per detector cell, with URL, sha256 and size from repository metadata (repomd.xml -> primary, InRelease -> Packages.gz, each chain checked), every URL headers-only probed (HTTP 200, Content-Length = size). PG19 packages of this version exist for all 14 PG19 cells, so all 56 cells are staged; PEP reports the PG19 cells as pg_not_supported gaps. Nothing is built or published from it; the receipts bind these files to this run's cells only.",
+ "cells": {
+  "pepcell.v1.deb.bookworm.amd64.pkg.pg16": [
+   {
+    "arch": "amd64",
+    "class": "debug",
+    "file": "pgedge-postgresql-16-snowflake-dbgsym_2.6.0-1.bookworm_amd64.deb",
+    "name": "pgedge-postgresql-16-snowflake-dbgsym",
+    "sha256": "3640d69c55b171d34fb66454bb2c2b24c97bf6604db3aa1c4d6f9e8fa0a6cbbb",
+    "size": 27700,
+    "url": "https://apt.pgedge.com/release/bookworm/pool/main/p/pgedge-snowflake/pgedge-postgresql-16-snowflake-dbgsym_2.6.0-1.bookworm_amd64.deb",
+    "version": "2.6.0-1.bookworm"
+   },
+   {
+    "arch": "amd64",
+    "class": "runtime",
+    "file": "pgedge-postgresql-16-snowflake_2.6.0-1.bookworm_amd64.deb",
+    "name": "pgedge-postgresql-16-snowflake",
+    "sha256": "1d63bb984933ae3fb0da28af65e190d237c9cb9e56dfecba2e6b0fa7fdf919f4",
+    "size": 28594,
+    "url": "https://apt.pgedge.com/release/bookworm/pool/main/p/pgedge-snowflake/pgedge-postgresql-16-snowflake_2.6.0-1.bookworm_amd64.deb",
+    "version": "2.6.0-1.bookworm"
+   }
+  ],
+  "pepcell.v1.deb.bookworm.amd64.pkg.pg17": [
+   {
+    "arch": "amd64",
+    "class": "debug",
+    "file": "pgedge-postgresql-17-snowflake-dbgsym_2.6.0-1.bookworm_amd64.deb",
+    "name": "pgedge-postgresql-17-snowflake-dbgsym",
+    "sha256": "480fa2c19635483d413029d86ddaef217fa5021f6a830eba33a4d3eb30f50302",
+    "size": 42384,
+    "url": "https://apt.pgedge.com/release/bookworm/pool/main/p/pgedge-snowflake/pgedge-postgresql-17-snowflake-dbgsym_2.6.0-1.bookworm_amd64.deb",
+    "version": "2.6.0-1.bookworm"
+   },
+   {
+    "arch": "amd64",
+    "class": "runtime",
+    "file": "pgedge-postgresql-17-snowflake_2.6.0-1.bookworm_amd64.deb",
+    "name": "pgedge-postgresql-17-snowflake",
+    "sha256": "7cba021604188ac609e57b1f3f2a0a30944782e3362aafa9a1b7e69ec5ac79f8",
+    "size": 30586,
+    "url": "https://apt.pgedge.com/release/bookworm/pool/main/p/pgedge-snowflake/pgedge-postgresql-17-snowflake_2.6.0-1.bookworm_amd64.deb",
+    "version": "2.6.0-1.bookworm"
+   }
+  ],
+  "pepcell.v1.deb.bookworm.amd64.pkg.pg18": [
+   {
+    "arch": "amd64",
+    "class": "debug",
+    "file": "pgedge-postgresql-18-snowflake-dbgsym_2.6.0-1.bookworm_amd64.deb",
+    "name": "pgedge-postgresql-18-snowflake-dbgsym",
+    "sha256": "a152afde5f861dbefb9233d4251686e9d42dd0721273ec1f3501483b75914ab6",
+    "size": 43534,
+    "url": "https://apt.pgedge.com/release/bookworm/pool/main/p/pgedge-snowflake/pgedge-postgresql-18-snowflake-dbgsym_2.6.0-1.bookworm_amd64.deb",
+    "version": "2.6.0-1.bookworm"
+   },
+   {
+    "arch": "amd64",
+    "class": "runtime",
+    "file": "pgedge-postgresql-18-snowflake_2.6.0-1.bookworm_amd64.deb",
+    "name": "pgedge-postgresql-18-snowflake",
+    "sha256": "fcab56c898e13ee531f01e0898fb6cb645a397cbb00cf878e2c7c98202f88720",
+    "size": 30738,
+    "url": "https://apt.pgedge.com/release/bookworm/pool/main/p/pgedge-snowflake/pgedge-postgresql-18-snowflake_2.6.0-1.bookworm_amd64.deb",
+    "version": "2.6.0-1.bookworm"
+   }
+  ],
+  "pepcell.v1.deb.bookworm.amd64.pkg.pg19": [
+   {
+    "arch": "amd64",
+    "class": "debug",
+    "file": "pgedge-postgresql-19-snowflake-dbgsym_2.6.0-1.bookworm_amd64.deb",
+    "name": "pgedge-postgresql-19-snowflake-dbgsym",
+    "sha256": "12cdda151d9ecd8da2386b980036ea9ef800d454816f7b660ed81259f396f0fc",
+    "size": 29514,
+    "url": "https://apt.pgedge.com/release/bookworm/pool/main/p/pgedge-snowflake/pgedge-postgresql-19-snowflake-dbgsym_2.6.0-1.bookworm_amd64.deb",
+    "version": "2.6.0-1.bookworm"
+   },
+   {
+    "arch": "amd64",
+    "class": "runtime",
+    "file": "pgedge-postgresql-19-snowflake_2.6.0-1.bookworm_amd64.deb",
+    "name": "pgedge-postgresql-19-snowflake",
+    "sha256": "05b43455c474ec10c5b1252a6263a8d6610339fd06c33bfce35cfae686991041",
+    "size": 28648,
+    "url": "https://apt.pgedge.com/release/bookworm/pool/main/p/pgedge-snowflake/pgedge-postgresql-19-snowflake_2.6.0-1.bookworm_amd64.deb",
+    "version": "2.6.0-1.bookworm"
+   }
+  ],
+  "pepcell.v1.deb.bookworm.arm64.pkg.pg16": [
+   {
+    "arch": "arm64",
+    "class": "debug",
+    "file": "pgedge-postgresql-16-snowflake-dbgsym_2.6.0-1.bookworm_arm64.deb",
+    "name": "pgedge-postgresql-16-snowflake-dbgsym",
+    "sha256": "cd379aa6dcb156c0fdc04e9cee7783167dd5727a1d13f6739c735cd2a98fa121",
+    "size": 27620,
+    "url": "https://apt.pgedge.com/release/bookworm/pool/main/p/pgedge-snowflake/pgedge-postgresql-16-snowflake-dbgsym_2.6.0-1.bookworm_arm64.deb",
+    "version": "2.6.0-1.bookworm"
+   },
+   {
+    "arch": "arm64",
+    "class": "runtime",
+    "file": "pgedge-postgresql-16-snowflake_2.6.0-1.bookworm_arm64.deb",
+    "name": "pgedge-postgresql-16-snowflake",
+    "sha256": "92f6ae974e5c856b40943a3b9df99c178a2e8f03fd9099167f1506c6e6493a45",
+    "size": 28786,
+    "url": "https://apt.pgedge.com/release/bookworm/pool/main/p/pgedge-snowflake/pgedge-postgresql-16-snowflake_2.6.0-1.bookworm_arm64.deb",
+    "version": "2.6.0-1.bookworm"
+   }
+  ],
+  "pepcell.v1.deb.bookworm.arm64.pkg.pg17": [
+   {
+    "arch": "arm64",
+    "class": "debug",
+    "file": "pgedge-postgresql-17-snowflake-dbgsym_2.6.0-1.bookworm_arm64.deb",
+    "name": "pgedge-postgresql-17-snowflake-dbgsym",
+    "sha256": "90d86055ffb1b842d58e75c5bd96553e581aeba74e11bc77b86dabe7412c1a18",
+    "size": 42244,
+    "url": "https://apt.pgedge.com/release/bookworm/pool/main/p/pgedge-snowflake/pgedge-postgresql-17-snowflake-dbgsym_2.6.0-1.bookworm_arm64.deb",
+    "version": "2.6.0-1.bookworm"
+   },
+   {
+    "arch": "arm64",
+    "class": "runtime",
+    "file": "pgedge-postgresql-17-snowflake_2.6.0-1.bookworm_arm64.deb",
+    "name": "pgedge-postgresql-17-snowflake",
+    "sha256": "f6eaf1be487769e2f7f0ef79eeafce5eff8f884dcaa67161feb66ebe531ccb7a",
+    "size": 30674,
+    "url": "https://apt.pgedge.com/release/bookworm/pool/main/p/pgedge-snowflake/pgedge-postgresql-17-snowflake_2.6.0-1.bookworm_arm64.deb",
+    "version": "2.6.0-1.bookworm"
+   }
+  ],
+  "pepcell.v1.deb.bookworm.arm64.pkg.pg18": [
+   {
+    "arch": "arm64",
+    "class": "debug",
+    "file": "pgedge-postgresql-18-snowflake-dbgsym_2.6.0-1.bookworm_arm64.deb",
+    "name": "pgedge-postgresql-18-snowflake-dbgsym",
+    "sha256": "6ff56c9158aa299983c7f34958de0775c77884a3239df22392d65b65daf9166e",
+    "size": 43424,
+    "url": "https://apt.pgedge.com/release/bookworm/pool/main/p/pgedge-snowflake/pgedge-postgresql-18-snowflake-dbgsym_2.6.0-1.bookworm_arm64.deb",
+    "version": "2.6.0-1.bookworm"
+   },
+   {
+    "arch": "arm64",
+    "class": "runtime",
+    "file": "pgedge-postgresql-18-snowflake_2.6.0-1.bookworm_arm64.deb",
+    "name": "pgedge-postgresql-18-snowflake",
+    "sha256": "423a97d6711d2a6700fd95fe871b306e22c58df0c7b3085bddb27e42d25390f9",
+    "size": 30814,
+    "url": "https://apt.pgedge.com/release/bookworm/pool/main/p/pgedge-snowflake/pgedge-postgresql-18-snowflake_2.6.0-1.bookworm_arm64.deb",
+    "version": "2.6.0-1.bookworm"
+   }
+  ],
+  "pepcell.v1.deb.bookworm.arm64.pkg.pg19": [
+   {
+    "arch": "arm64",
+    "class": "debug",
+    "file": "pgedge-postgresql-19-snowflake-dbgsym_2.6.0-1.bookworm_arm64.deb",
+    "name": "pgedge-postgresql-19-snowflake-dbgsym",
+    "sha256": "a40bf95ed36b3cef7d13af9629ac32bb0cbceacb67db6c6bede1aeb0d64196f8",
+    "size": 29398,
+    "url": "https://apt.pgedge.com/release/bookworm/pool/main/p/pgedge-snowflake/pgedge-postgresql-19-snowflake-dbgsym_2.6.0-1.bookworm_arm64.deb",
+    "version": "2.6.0-1.bookworm"
+   },
+   {
+    "arch": "arm64",
+    "class": "runtime",
+    "file": "pgedge-postgresql-19-snowflake_2.6.0-1.bookworm_arm64.deb",
+    "name": "pgedge-postgresql-19-snowflake",
+    "sha256": "294f064488bdffe6462e3450b22691adbd4da90a79b67301efe4a14785376889",
+    "size": 28794,
+    "url": "https://apt.pgedge.com/release/bookworm/pool/main/p/pgedge-snowflake/pgedge-postgresql-19-snowflake_2.6.0-1.bookworm_arm64.deb",
+    "version": "2.6.0-1.bookworm"
+   }
+  ],
+  "pepcell.v1.deb.jammy.amd64.pkg.pg16": [
+   {
+    "arch": "amd64",
+    "class": "debug",
+    "file": "pgedge-postgresql-16-snowflake-dbgsym_2.6.0-1.jammy_amd64.deb",
+    "name": "pgedge-postgresql-16-snowflake-dbgsym",
+    "sha256": "c4f013d8063cd7bf7bdccfcf8b23ba62adf8398c640d387564a605d56a7884cc",
+    "size": 28114,
+    "url": "https://apt.pgedge.com/release/jammy/pool/main/p/pgedge-snowflake/pgedge-postgresql-16-snowflake-dbgsym_2.6.0-1.jammy_amd64.deb",
+    "version": "2.6.0-1.jammy"
+   },
+   {
+    "arch": "amd64",
+    "class": "runtime",
+    "file": "pgedge-postgresql-16-snowflake_2.6.0-1.jammy_amd64.deb",
+    "name": "pgedge-postgresql-16-snowflake",
+    "sha256": "16ea188d93ad2e3c68c8e0d50f9bd93d088358699c56ee0916d0018825b8eaca",
+    "size": 27504,
+    "url": "https://apt.pgedge.com/release/jammy/pool/main/p/pgedge-snowflake/pgedge-postgresql-16-snowflake_2.6.0-1.jammy_amd64.deb",
+    "version": "2.6.0-1.jammy"
+   }
+  ],
+  "pepcell.v1.deb.jammy.amd64.pkg.pg17": [
+   {
+    "arch": "amd64",
+    "class": "debug",
+    "file": "pgedge-postgresql-17-snowflake-dbgsym_2.6.0-1.jammy_amd64.deb",
+    "name": "pgedge-postgresql-17-snowflake-dbgsym",
+    "sha256": "c0cf799a9b8959b0cb5e44135629592bf3e35416494b42618579360e8870d71d",
+    "size": 42898,
+    "url": "https://apt.pgedge.com/release/jammy/pool/main/p/pgedge-snowflake/pgedge-postgresql-17-snowflake-dbgsym_2.6.0-1.jammy_amd64.deb",
+    "version": "2.6.0-1.jammy"
+   },
+   {
+    "arch": "amd64",
+    "class": "runtime",
+    "file": "pgedge-postgresql-17-snowflake_2.6.0-1.jammy_amd64.deb",
+    "name": "pgedge-postgresql-17-snowflake",
+    "sha256": "a6e357a948f3c78158c907607ab9017c915b66262b74f2b57cb1e725e41baf87",
+    "size": 29468,
+    "url": "https://apt.pgedge.com/release/jammy/pool/main/p/pgedge-snowflake/pgedge-postgresql-17-snowflake_2.6.0-1.jammy_amd64.deb",
+    "version": "2.6.0-1.jammy"
+   }
+  ],
+  "pepcell.v1.deb.jammy.amd64.pkg.pg18": [
+   {
+    "arch": "amd64",
+    "class": "debug",
+    "file": "pgedge-postgresql-18-snowflake-dbgsym_2.6.0-1.jammy_amd64.deb",
+    "name": "pgedge-postgresql-18-snowflake-dbgsym",
+    "sha256": "0f0784e6eba03e79506dc103f3cbe115551a7b21335f409fb8fe0490f6706ff4",
+    "size": 44030,
+    "url": "https://apt.pgedge.com/release/jammy/pool/main/p/pgedge-snowflake/pgedge-postgresql-18-snowflake-dbgsym_2.6.0-1.jammy_amd64.deb",
+    "version": "2.6.0-1.jammy"
+   },
+   {
+    "arch": "amd64",
+    "class": "runtime",
+    "file": "pgedge-postgresql-18-snowflake_2.6.0-1.jammy_amd64.deb",
+    "name": "pgedge-postgresql-18-snowflake",
+    "sha256": "02af29a58d8ef1680000cf5d10129f14a40e2cc5889848646acafc0683bdff33",
+    "size": 29612,
+    "url": "https://apt.pgedge.com/release/jammy/pool/main/p/pgedge-snowflake/pgedge-postgresql-18-snowflake_2.6.0-1.jammy_amd64.deb",
+    "version": "2.6.0-1.jammy"
+   }
+  ],
+  "pepcell.v1.deb.jammy.amd64.pkg.pg19": [
+   {
+    "arch": "amd64",
+    "class": "debug",
+    "file": "pgedge-postgresql-19-snowflake-dbgsym_2.6.0-1.jammy_amd64.deb",
+    "name": "pgedge-postgresql-19-snowflake-dbgsym",
+    "sha256": "33fb3229a4115c8b7081385b24e7106a3f82e3fed59e7b107fa052d41c483c7d",
+    "size": 29874,
+    "url": "https://apt.pgedge.com/release/jammy/pool/main/p/pgedge-snowflake/pgedge-postgresql-19-snowflake-dbgsym_2.6.0-1.jammy_amd64.deb",
+    "version": "2.6.0-1.jammy"
+   },
+   {
+    "arch": "amd64",
+    "class": "runtime",
+    "file": "pgedge-postgresql-19-snowflake_2.6.0-1.jammy_amd64.deb",
+    "name": "pgedge-postgresql-19-snowflake",
+    "sha256": "6a8dafe638b31b0720294284a94babaefb7910af602431d36390c25837e17da6",
+    "size": 27552,
+    "url": "https://apt.pgedge.com/release/jammy/pool/main/p/pgedge-snowflake/pgedge-postgresql-19-snowflake_2.6.0-1.jammy_amd64.deb",
+    "version": "2.6.0-1.jammy"
+   }
+  ],
+  "pepcell.v1.deb.jammy.arm64.pkg.pg16": [
+   {
+    "arch": "arm64",
+    "class": "debug",
+    "file": "pgedge-postgresql-16-snowflake-dbgsym_2.6.0-1.jammy_arm64.deb",
+    "name": "pgedge-postgresql-16-snowflake-dbgsym",
+    "sha256": "993e761029898269a1f1cbf362e9a0d3b5908f60229f3cdaa8e1f678973866e8",
+    "size": 28004,
+    "url": "https://apt.pgedge.com/release/jammy/pool/main/p/pgedge-snowflake/pgedge-postgresql-16-snowflake-dbgsym_2.6.0-1.jammy_arm64.deb",
+    "version": "2.6.0-1.jammy"
+   },
+   {
+    "arch": "arm64",
+    "class": "runtime",
+    "file": "pgedge-postgresql-16-snowflake_2.6.0-1.jammy_arm64.deb",
+    "name": "pgedge-postgresql-16-snowflake",
+    "sha256": "378bdba7040a099a5443c9a78c58e7e824a0058cac18f7a96e782c8f86b00b34",
+    "size": 27246,
+    "url": "https://apt.pgedge.com/release/jammy/pool/main/p/pgedge-snowflake/pgedge-postgresql-16-snowflake_2.6.0-1.jammy_arm64.deb",
+    "version": "2.6.0-1.jammy"
+   }
+  ],
+  "pepcell.v1.deb.jammy.arm64.pkg.pg17": [
+   {
+    "arch": "arm64",
+    "class": "debug",
+    "file": "pgedge-postgresql-17-snowflake-dbgsym_2.6.0-1.jammy_arm64.deb",
+    "name": "pgedge-postgresql-17-snowflake-dbgsym",
+    "sha256": "2cd0e0491017ed5d88281bc0e3f14e8063cbce09ae37170dda60bec4d8de7e06",
+    "size": 42744,
+    "url": "https://apt.pgedge.com/release/jammy/pool/main/p/pgedge-snowflake/pgedge-postgresql-17-snowflake-dbgsym_2.6.0-1.jammy_arm64.deb",
+    "version": "2.6.0-1.jammy"
+   },
+   {
+    "arch": "arm64",
+    "class": "runtime",
+    "file": "pgedge-postgresql-17-snowflake_2.6.0-1.jammy_arm64.deb",
+    "name": "pgedge-postgresql-17-snowflake",
+    "sha256": "c6a2d395cafae962ff68daa50b4850977551802c72baf89463f13aec431a02b4",
+    "size": 29204,
+    "url": "https://apt.pgedge.com/release/jammy/pool/main/p/pgedge-snowflake/pgedge-postgresql-17-snowflake_2.6.0-1.jammy_arm64.deb",
+    "version": "2.6.0-1.jammy"
+   }
+  ],
+  "pepcell.v1.deb.jammy.arm64.pkg.pg18": [
+   {
+    "arch": "arm64",
+    "class": "debug",
+    "file": "pgedge-postgresql-18-snowflake-dbgsym_2.6.0-1.jammy_arm64.deb",
+    "name": "pgedge-postgresql-18-snowflake-dbgsym",
+    "sha256": "30101ec9fd6b72d46831625a561fc1729010f07fec998cccbd8acf0400ff0e50",
+    "size": 43948,
+    "url": "https://apt.pgedge.com/release/jammy/pool/main/p/pgedge-snowflake/pgedge-postgresql-18-snowflake-dbgsym_2.6.0-1.jammy_arm64.deb",
+    "version": "2.6.0-1.jammy"
+   },
+   {
+    "arch": "arm64",
+    "class": "runtime",
+    "file": "pgedge-postgresql-18-snowflake_2.6.0-1.jammy_arm64.deb",
+    "name": "pgedge-postgresql-18-snowflake",
+    "sha256": "7a023116fa008b18355efa675ab843ea10cf99e210cd91c921094b3783a34425",
+    "size": 29324,
+    "url": "https://apt.pgedge.com/release/jammy/pool/main/p/pgedge-snowflake/pgedge-postgresql-18-snowflake_2.6.0-1.jammy_arm64.deb",
+    "version": "2.6.0-1.jammy"
+   }
+  ],
+  "pepcell.v1.deb.jammy.arm64.pkg.pg19": [
+   {
+    "arch": "arm64",
+    "class": "debug",
+    "file": "pgedge-postgresql-19-snowflake-dbgsym_2.6.0-1.jammy_arm64.deb",
+    "name": "pgedge-postgresql-19-snowflake-dbgsym",
+    "sha256": "fa36eb4b25d64a938a5992053c5b5801e954b571198e3d7cf65b94f9422f0290",
+    "size": 29896,
+    "url": "https://apt.pgedge.com/release/jammy/pool/main/p/pgedge-snowflake/pgedge-postgresql-19-snowflake-dbgsym_2.6.0-1.jammy_arm64.deb",
+    "version": "2.6.0-1.jammy"
+   },
+   {
+    "arch": "arm64",
+    "class": "runtime",
+    "file": "pgedge-postgresql-19-snowflake_2.6.0-1.jammy_arm64.deb",
+    "name": "pgedge-postgresql-19-snowflake",
+    "sha256": "f8012a85e3f2a9536933ef8b011782e1f6da68cc0d6b22b185c5ebdcaf69b484",
+    "size": 27278,
+    "url": "https://apt.pgedge.com/release/jammy/pool/main/p/pgedge-snowflake/pgedge-postgresql-19-snowflake_2.6.0-1.jammy_arm64.deb",
+    "version": "2.6.0-1.jammy"
+   }
+  ],
+  "pepcell.v1.deb.noble.amd64.pkg.pg16": [
+   {
+    "arch": "amd64",
+    "class": "debug",
+    "file": "pgedge-postgresql-16-snowflake-dbgsym_2.6.0-1.noble_amd64.deb",
+    "name": "pgedge-postgresql-16-snowflake-dbgsym",
+    "sha256": "2cbe66ac5b39d393b7567850969308f79ca5dc56f773e079dbc27c5ca5185a5a",
+    "size": 28280,
+    "url": "https://apt.pgedge.com/release/noble/pool/main/p/pgedge-snowflake/pgedge-postgresql-16-snowflake-dbgsym_2.6.0-1.noble_amd64.deb",
+    "version": "2.6.0-1.noble"
+   },
+   {
+    "arch": "amd64",
+    "class": "runtime",
+    "file": "pgedge-postgresql-16-snowflake_2.6.0-1.noble_amd64.deb",
+    "name": "pgedge-postgresql-16-snowflake",
+    "sha256": "37d4bc890ae5e367d02676ec025b81e34dddad1a9ed2ea94cc0bf91bc61e7165",
+    "size": 26576,
+    "url": "https://apt.pgedge.com/release/noble/pool/main/p/pgedge-snowflake/pgedge-postgresql-16-snowflake_2.6.0-1.noble_amd64.deb",
+    "version": "2.6.0-1.noble"
+   }
+  ],
+  "pepcell.v1.deb.noble.amd64.pkg.pg17": [
+   {
+    "arch": "amd64",
+    "class": "debug",
+    "file": "pgedge-postgresql-17-snowflake-dbgsym_2.6.0-1.noble_amd64.deb",
+    "name": "pgedge-postgresql-17-snowflake-dbgsym",
+    "sha256": "12be4d77177a80a277faf27c237c08b85d5f8f7ee66d517be185d091b0c359db",
+    "size": 43038,
+    "url": "https://apt.pgedge.com/release/noble/pool/main/p/pgedge-snowflake/pgedge-postgresql-17-snowflake-dbgsym_2.6.0-1.noble_amd64.deb",
+    "version": "2.6.0-1.noble"
+   },
+   {
+    "arch": "amd64",
+    "class": "runtime",
+    "file": "pgedge-postgresql-17-snowflake_2.6.0-1.noble_amd64.deb",
+    "name": "pgedge-postgresql-17-snowflake",
+    "sha256": "bb950ae7701af6ff7babdaf56597f25d1aa46205651ed625ac00be026f2c3578",
+    "size": 26582,
+    "url": "https://apt.pgedge.com/release/noble/pool/main/p/pgedge-snowflake/pgedge-postgresql-17-snowflake_2.6.0-1.noble_amd64.deb",
+    "version": "2.6.0-1.noble"
+   }
+  ],
+  "pepcell.v1.deb.noble.amd64.pkg.pg18": [
+   {
+    "arch": "amd64",
+    "class": "debug",
+    "file": "pgedge-postgresql-18-snowflake-dbgsym_2.6.0-1.noble_amd64.deb",
+    "name": "pgedge-postgresql-18-snowflake-dbgsym",
+    "sha256": "6768762eccda49104ae2cefedf3adb37638f139c95a5d26fab3af5b6f3fc3c12",
+    "size": 44204,
+    "url": "https://apt.pgedge.com/release/noble/pool/main/p/pgedge-snowflake/pgedge-postgresql-18-snowflake-dbgsym_2.6.0-1.noble_amd64.deb",
+    "version": "2.6.0-1.noble"
+   },
+   {
+    "arch": "amd64",
+    "class": "runtime",
+    "file": "pgedge-postgresql-18-snowflake_2.6.0-1.noble_amd64.deb",
+    "name": "pgedge-postgresql-18-snowflake",
+    "sha256": "e1dd4e29907358a0deabd9bbfadb39529901d4158999f8bc0ee2fd65b31f998c",
+    "size": 26622,
+    "url": "https://apt.pgedge.com/release/noble/pool/main/p/pgedge-snowflake/pgedge-postgresql-18-snowflake_2.6.0-1.noble_amd64.deb",
+    "version": "2.6.0-1.noble"
+   }
+  ],
+  "pepcell.v1.deb.noble.amd64.pkg.pg19": [
+   {
+    "arch": "amd64",
+    "class": "debug",
+    "file": "pgedge-postgresql-19-snowflake-dbgsym_2.6.0-1.noble_amd64.deb",
+    "name": "pgedge-postgresql-19-snowflake-dbgsym",
+    "sha256": "f6da1449a20414f83e3eb02b35bfc46b970ceaad456a655a16f125d628d01034",
+    "size": 30082,
+    "url": "https://apt.pgedge.com/release/noble/pool/main/p/pgedge-snowflake/pgedge-postgresql-19-snowflake-dbgsym_2.6.0-1.noble_amd64.deb",
+    "version": "2.6.0-1.noble"
+   },
+   {
+    "arch": "amd64",
+    "class": "runtime",
+    "file": "pgedge-postgresql-19-snowflake_2.6.0-1.noble_amd64.deb",
+    "name": "pgedge-postgresql-19-snowflake",
+    "sha256": "05d5ff4aa02f71c413b3234cc39ef212facfa53f8b0a0ebd98ba0468fcaa1915",
+    "size": 26630,
+    "url": "https://apt.pgedge.com/release/noble/pool/main/p/pgedge-snowflake/pgedge-postgresql-19-snowflake_2.6.0-1.noble_amd64.deb",
+    "version": "2.6.0-1.noble"
+   }
+  ],
+  "pepcell.v1.deb.noble.arm64.pkg.pg16": [
+   {
+    "arch": "arm64",
+    "class": "debug",
+    "file": "pgedge-postgresql-16-snowflake-dbgsym_2.6.0-1.noble_arm64.deb",
+    "name": "pgedge-postgresql-16-snowflake-dbgsym",
+    "sha256": "e679fe197ea842062c5bc5c81ab4e222f2d47e281080e3264af6d0818a9a922f",
+    "size": 28092,
+    "url": "https://apt.pgedge.com/release/noble/pool/main/p/pgedge-snowflake/pgedge-postgresql-16-snowflake-dbgsym_2.6.0-1.noble_arm64.deb",
+    "version": "2.6.0-1.noble"
+   },
+   {
+    "arch": "arm64",
+    "class": "runtime",
+    "file": "pgedge-postgresql-16-snowflake_2.6.0-1.noble_arm64.deb",
+    "name": "pgedge-postgresql-16-snowflake",
+    "sha256": "009974a372a2f5f9886e4080f88850c4a3e61b8742a358bf996fae256b93b9ed",
+    "size": 26702,
+    "url": "https://apt.pgedge.com/release/noble/pool/main/p/pgedge-snowflake/pgedge-postgresql-16-snowflake_2.6.0-1.noble_arm64.deb",
+    "version": "2.6.0-1.noble"
+   }
+  ],
+  "pepcell.v1.deb.noble.arm64.pkg.pg17": [
+   {
+    "arch": "arm64",
+    "class": "debug",
+    "file": "pgedge-postgresql-17-snowflake-dbgsym_2.6.0-1.noble_arm64.deb",
+    "name": "pgedge-postgresql-17-snowflake-dbgsym",
+    "sha256": "977f951185b6f4bf43afe2af984a1b9642f8da438ae4e2b02aa06a2037c90abc",
+    "size": 42884,
+    "url": "https://apt.pgedge.com/release/noble/pool/main/p/pgedge-snowflake/pgedge-postgresql-17-snowflake-dbgsym_2.6.0-1.noble_arm64.deb",
+    "version": "2.6.0-1.noble"
+   },
+   {
+    "arch": "arm64",
+    "class": "runtime",
+    "file": "pgedge-postgresql-17-snowflake_2.6.0-1.noble_arm64.deb",
+    "name": "pgedge-postgresql-17-snowflake",
+    "sha256": "96a98027c396b854fa1ca906f0a066e92ce7d4ce1ee74533e5a94ab4ec899699",
+    "size": 26714,
+    "url": "https://apt.pgedge.com/release/noble/pool/main/p/pgedge-snowflake/pgedge-postgresql-17-snowflake_2.6.0-1.noble_arm64.deb",
+    "version": "2.6.0-1.noble"
+   }
+  ],
+  "pepcell.v1.deb.noble.arm64.pkg.pg18": [
+   {
+    "arch": "arm64",
+    "class": "debug",
+    "file": "pgedge-postgresql-18-snowflake-dbgsym_2.6.0-1.noble_arm64.deb",
+    "name": "pgedge-postgresql-18-snowflake-dbgsym",
+    "sha256": "ef78c41963ebd198161821c7f62284acb97733620a5d61f9c413b7454e98bb96",
+    "size": 44000,
+    "url": "https://apt.pgedge.com/release/noble/pool/main/p/pgedge-snowflake/pgedge-postgresql-18-snowflake-dbgsym_2.6.0-1.noble_arm64.deb",
+    "version": "2.6.0-1.noble"
+   },
+   {
+    "arch": "arm64",
+    "class": "runtime",
+    "file": "pgedge-postgresql-18-snowflake_2.6.0-1.noble_arm64.deb",
+    "name": "pgedge-postgresql-18-snowflake",
+    "sha256": "557431a54b2b41c1c1bed1423025e64101d8262a5c75de727668dbbcb8c26c43",
+    "size": 26732,
+    "url": "https://apt.pgedge.com/release/noble/pool/main/p/pgedge-snowflake/pgedge-postgresql-18-snowflake_2.6.0-1.noble_arm64.deb",
+    "version": "2.6.0-1.noble"
+   }
+  ],
+  "pepcell.v1.deb.noble.arm64.pkg.pg19": [
+   {
+    "arch": "arm64",
+    "class": "debug",
+    "file": "pgedge-postgresql-19-snowflake-dbgsym_2.6.0-1.noble_arm64.deb",
+    "name": "pgedge-postgresql-19-snowflake-dbgsym",
+    "sha256": "b78228f2d4bf111e615b07b283512e49c793e653556b54002a938d99c11bb964",
+    "size": 29942,
+    "url": "https://apt.pgedge.com/release/noble/pool/main/p/pgedge-snowflake/pgedge-postgresql-19-snowflake-dbgsym_2.6.0-1.noble_arm64.deb",
+    "version": "2.6.0-1.noble"
+   },
+   {
+    "arch": "arm64",
+    "class": "runtime",
+    "file": "pgedge-postgresql-19-snowflake_2.6.0-1.noble_arm64.deb",
+    "name": "pgedge-postgresql-19-snowflake",
+    "sha256": "ddcb0f67e34b74f842c02af5dbf660b71c08fe8bf6478c0f13a09cf476b46db2",
+    "size": 26760,
+    "url": "https://apt.pgedge.com/release/noble/pool/main/p/pgedge-snowflake/pgedge-postgresql-19-snowflake_2.6.0-1.noble_arm64.deb",
+    "version": "2.6.0-1.noble"
+   }
+  ],
+  "pepcell.v1.deb.resolute.amd64.pkg.pg16": [
+   {
+    "arch": "amd64",
+    "class": "debug",
+    "file": "pgedge-postgresql-16-snowflake-dbgsym_2.6.0-1.resolute_amd64.deb",
+    "name": "pgedge-postgresql-16-snowflake-dbgsym",
+    "sha256": "0d22f765947cbf8faf8ba5f68ffaf0a9572e224844df541c7901f5ce515595f0",
+    "size": 28562,
+    "url": "https://apt.pgedge.com/release/resolute/pool/main/p/pgedge-snowflake/pgedge-postgresql-16-snowflake-dbgsym_2.6.0-1.resolute_amd64.deb",
+    "version": "2.6.0-1.resolute"
+   },
+   {
+    "arch": "amd64",
+    "class": "runtime",
+    "file": "pgedge-postgresql-16-snowflake_2.6.0-1.resolute_amd64.deb",
+    "name": "pgedge-postgresql-16-snowflake",
+    "sha256": "164edbb4092949bcd6bfdbd571a47d84c266797634dfcd8d28fcff0710be91c6",
+    "size": 26716,
+    "url": "https://apt.pgedge.com/release/resolute/pool/main/p/pgedge-snowflake/pgedge-postgresql-16-snowflake_2.6.0-1.resolute_amd64.deb",
+    "version": "2.6.0-1.resolute"
+   }
+  ],
+  "pepcell.v1.deb.resolute.amd64.pkg.pg17": [
+   {
+    "arch": "amd64",
+    "class": "debug",
+    "file": "pgedge-postgresql-17-snowflake-dbgsym_2.6.0-1.resolute_amd64.deb",
+    "name": "pgedge-postgresql-17-snowflake-dbgsym",
+    "sha256": "d2125687b14162d95bfd58324a0e40d9b95f0aae2c70694d670933a1972af476",
+    "size": 43268,
+    "url": "https://apt.pgedge.com/release/resolute/pool/main/p/pgedge-snowflake/pgedge-postgresql-17-snowflake-dbgsym_2.6.0-1.resolute_amd64.deb",
+    "version": "2.6.0-1.resolute"
+   },
+   {
+    "arch": "amd64",
+    "class": "runtime",
+    "file": "pgedge-postgresql-17-snowflake_2.6.0-1.resolute_amd64.deb",
+    "name": "pgedge-postgresql-17-snowflake",
+    "sha256": "716c8c651498b1956be6830022a0814416ecb2ffdcbbebaf982a2256477f10ee",
+    "size": 26714,
+    "url": "https://apt.pgedge.com/release/resolute/pool/main/p/pgedge-snowflake/pgedge-postgresql-17-snowflake_2.6.0-1.resolute_amd64.deb",
+    "version": "2.6.0-1.resolute"
+   }
+  ],
+  "pepcell.v1.deb.resolute.amd64.pkg.pg18": [
+   {
+    "arch": "amd64",
+    "class": "debug",
+    "file": "pgedge-postgresql-18-snowflake-dbgsym_2.6.0-1.resolute_amd64.deb",
+    "name": "pgedge-postgresql-18-snowflake-dbgsym",
+    "sha256": "39072dbce63f2fba8613652c6b75da3284d715b907871823734dabdbdb61cc13",
+    "size": 44382,
+    "url": "https://apt.pgedge.com/release/resolute/pool/main/p/pgedge-snowflake/pgedge-postgresql-18-snowflake-dbgsym_2.6.0-1.resolute_amd64.deb",
+    "version": "2.6.0-1.resolute"
+   },
+   {
+    "arch": "amd64",
+    "class": "runtime",
+    "file": "pgedge-postgresql-18-snowflake_2.6.0-1.resolute_amd64.deb",
+    "name": "pgedge-postgresql-18-snowflake",
+    "sha256": "9acab8c314bd13a84102c667e71c9388fc76c8cf6fd1a370c46f7c62e6e4a532",
+    "size": 26716,
+    "url": "https://apt.pgedge.com/release/resolute/pool/main/p/pgedge-snowflake/pgedge-postgresql-18-snowflake_2.6.0-1.resolute_amd64.deb",
+    "version": "2.6.0-1.resolute"
+   }
+  ],
+  "pepcell.v1.deb.resolute.amd64.pkg.pg19": [
+   {
+    "arch": "amd64",
+    "class": "debug",
+    "file": "pgedge-postgresql-19-snowflake-dbgsym_2.6.0-1.resolute_amd64.deb",
+    "name": "pgedge-postgresql-19-snowflake-dbgsym",
+    "sha256": "4bf0fd69e35906ea72876034eb8b0ba34dca7b9ef12d3104f12dec0d72cbe163",
+    "size": 30348,
+    "url": "https://apt.pgedge.com/release/resolute/pool/main/p/pgedge-snowflake/pgedge-postgresql-19-snowflake-dbgsym_2.6.0-1.resolute_amd64.deb",
+    "version": "2.6.0-1.resolute"
+   },
+   {
+    "arch": "amd64",
+    "class": "runtime",
+    "file": "pgedge-postgresql-19-snowflake_2.6.0-1.resolute_amd64.deb",
+    "name": "pgedge-postgresql-19-snowflake",
+    "sha256": "bf6119e760d49c0720eb4b0868d03ff00bae7c86a4684ce4b2001d3603e34b4a",
+    "size": 26720,
+    "url": "https://apt.pgedge.com/release/resolute/pool/main/p/pgedge-snowflake/pgedge-postgresql-19-snowflake_2.6.0-1.resolute_amd64.deb",
+    "version": "2.6.0-1.resolute"
+   }
+  ],
+  "pepcell.v1.deb.resolute.arm64.pkg.pg16": [
+   {
+    "arch": "arm64",
+    "class": "debug",
+    "file": "pgedge-postgresql-16-snowflake-dbgsym_2.6.0-1.resolute_arm64.deb",
+    "name": "pgedge-postgresql-16-snowflake-dbgsym",
+    "sha256": "8eef346c082dc6f9dba0b10f744890dff149b382336a4d34b1a07de0ce490275",
+    "size": 28286,
+    "url": "https://apt.pgedge.com/release/resolute/pool/main/p/pgedge-snowflake/pgedge-postgresql-16-snowflake-dbgsym_2.6.0-1.resolute_arm64.deb",
+    "version": "2.6.0-1.resolute"
+   },
+   {
+    "arch": "arm64",
+    "class": "runtime",
+    "file": "pgedge-postgresql-16-snowflake_2.6.0-1.resolute_arm64.deb",
+    "name": "pgedge-postgresql-16-snowflake",
+    "sha256": "90a8d431e68d253fd62be645fcdf34c06b4fef8f28267e2f2c103b30432526c2",
+    "size": 26456,
+    "url": "https://apt.pgedge.com/release/resolute/pool/main/p/pgedge-snowflake/pgedge-postgresql-16-snowflake_2.6.0-1.resolute_arm64.deb",
+    "version": "2.6.0-1.resolute"
+   }
+  ],
+  "pepcell.v1.deb.resolute.arm64.pkg.pg17": [
+   {
+    "arch": "arm64",
+    "class": "debug",
+    "file": "pgedge-postgresql-17-snowflake-dbgsym_2.6.0-1.resolute_arm64.deb",
+    "name": "pgedge-postgresql-17-snowflake-dbgsym",
+    "sha256": "cb6a5ff1a39e519f23729005d6c353efe24a54453f2fb77d803f9ec05e1a93d6",
+    "size": 43084,
+    "url": "https://apt.pgedge.com/release/resolute/pool/main/p/pgedge-snowflake/pgedge-postgresql-17-snowflake-dbgsym_2.6.0-1.resolute_arm64.deb",
+    "version": "2.6.0-1.resolute"
+   },
+   {
+    "arch": "arm64",
+    "class": "runtime",
+    "file": "pgedge-postgresql-17-snowflake_2.6.0-1.resolute_arm64.deb",
+    "name": "pgedge-postgresql-17-snowflake",
+    "sha256": "d4a64eb816c9ab7559ff590a79074afec8d0214e66ea70f17f428079fc47e6fc",
+    "size": 26462,
+    "url": "https://apt.pgedge.com/release/resolute/pool/main/p/pgedge-snowflake/pgedge-postgresql-17-snowflake_2.6.0-1.resolute_arm64.deb",
+    "version": "2.6.0-1.resolute"
+   }
+  ],
+  "pepcell.v1.deb.resolute.arm64.pkg.pg18": [
+   {
+    "arch": "arm64",
+    "class": "debug",
+    "file": "pgedge-postgresql-18-snowflake-dbgsym_2.6.0-1.resolute_arm64.deb",
+    "name": "pgedge-postgresql-18-snowflake-dbgsym",
+    "sha256": "91aa35453e16d9e33c2b588bc4683acd5c7f534dc949f1557bcfc55f98f6480c",
+    "size": 44184,
+    "url": "https://apt.pgedge.com/release/resolute/pool/main/p/pgedge-snowflake/pgedge-postgresql-18-snowflake-dbgsym_2.6.0-1.resolute_arm64.deb",
+    "version": "2.6.0-1.resolute"
+   },
+   {
+    "arch": "arm64",
+    "class": "runtime",
+    "file": "pgedge-postgresql-18-snowflake_2.6.0-1.resolute_arm64.deb",
+    "name": "pgedge-postgresql-18-snowflake",
+    "sha256": "a3e02c28a8ae634d44a46f2f06a5e1057b7cab497cb838062f19cc5809f937bb",
+    "size": 26464,
+    "url": "https://apt.pgedge.com/release/resolute/pool/main/p/pgedge-snowflake/pgedge-postgresql-18-snowflake_2.6.0-1.resolute_arm64.deb",
+    "version": "2.6.0-1.resolute"
+   }
+  ],
+  "pepcell.v1.deb.resolute.arm64.pkg.pg19": [
+   {
+    "arch": "arm64",
+    "class": "debug",
+    "file": "pgedge-postgresql-19-snowflake-dbgsym_2.6.0-1.resolute_arm64.deb",
+    "name": "pgedge-postgresql-19-snowflake-dbgsym",
+    "sha256": "c68bc223b924df825e2125318604921c7ffa5b6c0357b71db30699b5cde33efb",
+    "size": 30108,
+    "url": "https://apt.pgedge.com/release/resolute/pool/main/p/pgedge-snowflake/pgedge-postgresql-19-snowflake-dbgsym_2.6.0-1.resolute_arm64.deb",
+    "version": "2.6.0-1.resolute"
+   },
+   {
+    "arch": "arm64",
+    "class": "runtime",
+    "file": "pgedge-postgresql-19-snowflake_2.6.0-1.resolute_arm64.deb",
+    "name": "pgedge-postgresql-19-snowflake",
+    "sha256": "c2812ea9ea98ad95a22b5acfa294b87527b9ed2d4996c75fbc4ac224d9fe4cc3",
+    "size": 26462,
+    "url": "https://apt.pgedge.com/release/resolute/pool/main/p/pgedge-snowflake/pgedge-postgresql-19-snowflake_2.6.0-1.resolute_arm64.deb",
+    "version": "2.6.0-1.resolute"
+   }
+  ],
+  "pepcell.v1.deb.trixie.amd64.pkg.pg16": [
+   {
+    "arch": "amd64",
+    "class": "debug",
+    "file": "pgedge-postgresql-16-snowflake-dbgsym_2.6.0-1.trixie_amd64.deb",
+    "name": "pgedge-postgresql-16-snowflake-dbgsym",
+    "sha256": "8762eeba48d9f874af9f05d365992a98ceb6c7aa19d042c7bc5579bb99bcba43",
+    "size": 27682,
+    "url": "https://apt.pgedge.com/release/trixie/pool/main/p/pgedge-snowflake/pgedge-postgresql-16-snowflake-dbgsym_2.6.0-1.trixie_amd64.deb",
+    "version": "2.6.0-1.trixie"
+   },
+   {
+    "arch": "amd64",
+    "class": "runtime",
+    "file": "pgedge-postgresql-16-snowflake_2.6.0-1.trixie_amd64.deb",
+    "name": "pgedge-postgresql-16-snowflake",
+    "sha256": "eb14671bcbc01bb1b5199a9ae530c38e183fba1eb5436c72d25d0d11c1fa09ee",
+    "size": 26750,
+    "url": "https://apt.pgedge.com/release/trixie/pool/main/p/pgedge-snowflake/pgedge-postgresql-16-snowflake_2.6.0-1.trixie_amd64.deb",
+    "version": "2.6.0-1.trixie"
+   }
+  ],
+  "pepcell.v1.deb.trixie.amd64.pkg.pg17": [
+   {
+    "arch": "amd64",
+    "class": "debug",
+    "file": "pgedge-postgresql-17-snowflake-dbgsym_2.6.0-1.trixie_amd64.deb",
+    "name": "pgedge-postgresql-17-snowflake-dbgsym",
+    "sha256": "b135f53984ea9f212d7cd7b460e348a1c64f6a959f84b40e1f6ede305971bf8d",
+    "size": 42394,
+    "url": "https://apt.pgedge.com/release/trixie/pool/main/p/pgedge-snowflake/pgedge-postgresql-17-snowflake-dbgsym_2.6.0-1.trixie_amd64.deb",
+    "version": "2.6.0-1.trixie"
+   },
+   {
+    "arch": "amd64",
+    "class": "runtime",
+    "file": "pgedge-postgresql-17-snowflake_2.6.0-1.trixie_amd64.deb",
+    "name": "pgedge-postgresql-17-snowflake",
+    "sha256": "3836943339e173381f1eea5bdbe7e3d05c4d8901a170d39e2807f3302c76ca86",
+    "size": 26754,
+    "url": "https://apt.pgedge.com/release/trixie/pool/main/p/pgedge-snowflake/pgedge-postgresql-17-snowflake_2.6.0-1.trixie_amd64.deb",
+    "version": "2.6.0-1.trixie"
+   }
+  ],
+  "pepcell.v1.deb.trixie.amd64.pkg.pg18": [
+   {
+    "arch": "amd64",
+    "class": "debug",
+    "file": "pgedge-postgresql-18-snowflake-dbgsym_2.6.0-1.trixie_amd64.deb",
+    "name": "pgedge-postgresql-18-snowflake-dbgsym",
+    "sha256": "ca9a5171de2def2a842c9c7b8c82a025054fabd9390fc8656df1403d46e11d77",
+    "size": 43580,
+    "url": "https://apt.pgedge.com/release/trixie/pool/main/p/pgedge-snowflake/pgedge-postgresql-18-snowflake-dbgsym_2.6.0-1.trixie_amd64.deb",
+    "version": "2.6.0-1.trixie"
+   },
+   {
+    "arch": "amd64",
+    "class": "runtime",
+    "file": "pgedge-postgresql-18-snowflake_2.6.0-1.trixie_amd64.deb",
+    "name": "pgedge-postgresql-18-snowflake",
+    "sha256": "1a58dd410a8fdd2d055d482d16b78c3bd9e47469eabbd5022a58f95ecaf9e17a",
+    "size": 26774,
+    "url": "https://apt.pgedge.com/release/trixie/pool/main/p/pgedge-snowflake/pgedge-postgresql-18-snowflake_2.6.0-1.trixie_amd64.deb",
+    "version": "2.6.0-1.trixie"
+   }
+  ],
+  "pepcell.v1.deb.trixie.amd64.pkg.pg19": [
+   {
+    "arch": "amd64",
+    "class": "debug",
+    "file": "pgedge-postgresql-19-snowflake-dbgsym_2.6.0-1.trixie_amd64.deb",
+    "name": "pgedge-postgresql-19-snowflake-dbgsym",
+    "sha256": "0633cab4be04cfbef62295b611fedc28bfe118c16c4e7a723419d1303f06454f",
+    "size": 29532,
+    "url": "https://apt.pgedge.com/release/trixie/pool/main/p/pgedge-snowflake/pgedge-postgresql-19-snowflake-dbgsym_2.6.0-1.trixie_amd64.deb",
+    "version": "2.6.0-1.trixie"
+   },
+   {
+    "arch": "amd64",
+    "class": "runtime",
+    "file": "pgedge-postgresql-19-snowflake_2.6.0-1.trixie_amd64.deb",
+    "name": "pgedge-postgresql-19-snowflake",
+    "sha256": "f5ebf122a0ec9e7631c5b8ae9e58e03fb5303feb57b96565b69393644516c46c",
+    "size": 26770,
+    "url": "https://apt.pgedge.com/release/trixie/pool/main/p/pgedge-snowflake/pgedge-postgresql-19-snowflake_2.6.0-1.trixie_amd64.deb",
+    "version": "2.6.0-1.trixie"
+   }
+  ],
+  "pepcell.v1.deb.trixie.arm64.pkg.pg16": [
+   {
+    "arch": "arm64",
+    "class": "debug",
+    "file": "pgedge-postgresql-16-snowflake-dbgsym_2.6.0-1.trixie_arm64.deb",
+    "name": "pgedge-postgresql-16-snowflake-dbgsym",
+    "sha256": "9332e5b913605a658a108bbbded3d7af1a711f24b1bc45474ae953d0903c290b",
+    "size": 27722,
+    "url": "https://apt.pgedge.com/release/trixie/pool/main/p/pgedge-snowflake/pgedge-postgresql-16-snowflake-dbgsym_2.6.0-1.trixie_arm64.deb",
+    "version": "2.6.0-1.trixie"
+   },
+   {
+    "arch": "arm64",
+    "class": "runtime",
+    "file": "pgedge-postgresql-16-snowflake_2.6.0-1.trixie_arm64.deb",
+    "name": "pgedge-postgresql-16-snowflake",
+    "sha256": "8dcaa215abaa2a03cda98a33d7afa7184f2e45d1f00d5f007015ec6f297175b6",
+    "size": 27028,
+    "url": "https://apt.pgedge.com/release/trixie/pool/main/p/pgedge-snowflake/pgedge-postgresql-16-snowflake_2.6.0-1.trixie_arm64.deb",
+    "version": "2.6.0-1.trixie"
+   }
+  ],
+  "pepcell.v1.deb.trixie.arm64.pkg.pg17": [
+   {
+    "arch": "arm64",
+    "class": "debug",
+    "file": "pgedge-postgresql-17-snowflake-dbgsym_2.6.0-1.trixie_arm64.deb",
+    "name": "pgedge-postgresql-17-snowflake-dbgsym",
+    "sha256": "50c374962a5a20d92e1c9ffd99d273d4031f64b8d61ae2e956310cb5758ee476",
+    "size": 42396,
+    "url": "https://apt.pgedge.com/release/trixie/pool/main/p/pgedge-snowflake/pgedge-postgresql-17-snowflake-dbgsym_2.6.0-1.trixie_arm64.deb",
+    "version": "2.6.0-1.trixie"
+   },
+   {
+    "arch": "arm64",
+    "class": "runtime",
+    "file": "pgedge-postgresql-17-snowflake_2.6.0-1.trixie_arm64.deb",
+    "name": "pgedge-postgresql-17-snowflake",
+    "sha256": "6beadfc1404703b9e05ee22b138df846bb3285b31b6af8ef18388f9e07eedb09",
+    "size": 27016,
+    "url": "https://apt.pgedge.com/release/trixie/pool/main/p/pgedge-snowflake/pgedge-postgresql-17-snowflake_2.6.0-1.trixie_arm64.deb",
+    "version": "2.6.0-1.trixie"
+   }
+  ],
+  "pepcell.v1.deb.trixie.arm64.pkg.pg18": [
+   {
+    "arch": "arm64",
+    "class": "debug",
+    "file": "pgedge-postgresql-18-snowflake-dbgsym_2.6.0-1.trixie_arm64.deb",
+    "name": "pgedge-postgresql-18-snowflake-dbgsym",
+    "sha256": "6387618a99d4363426b3552eae8276bc425562a3338cd3ed022f4954ee8231d3",
+    "size": 43554,
+    "url": "https://apt.pgedge.com/release/trixie/pool/main/p/pgedge-snowflake/pgedge-postgresql-18-snowflake-dbgsym_2.6.0-1.trixie_arm64.deb",
+    "version": "2.6.0-1.trixie"
+   },
+   {
+    "arch": "arm64",
+    "class": "runtime",
+    "file": "pgedge-postgresql-18-snowflake_2.6.0-1.trixie_arm64.deb",
+    "name": "pgedge-postgresql-18-snowflake",
+    "sha256": "28eff55d43bf3503fd5a87eb0ab63fd460fe4c024dc3c25d657589faa0688a9a",
+    "size": 27022,
+    "url": "https://apt.pgedge.com/release/trixie/pool/main/p/pgedge-snowflake/pgedge-postgresql-18-snowflake_2.6.0-1.trixie_arm64.deb",
+    "version": "2.6.0-1.trixie"
+   }
+  ],
+  "pepcell.v1.deb.trixie.arm64.pkg.pg19": [
+   {
+    "arch": "arm64",
+    "class": "debug",
+    "file": "pgedge-postgresql-19-snowflake-dbgsym_2.6.0-1.trixie_arm64.deb",
+    "name": "pgedge-postgresql-19-snowflake-dbgsym",
+    "sha256": "3a60b0435ebc58d18ef28394d15f809833f4b7b89848babb29efbf3a4e2ae465",
+    "size": 29514,
+    "url": "https://apt.pgedge.com/release/trixie/pool/main/p/pgedge-snowflake/pgedge-postgresql-19-snowflake-dbgsym_2.6.0-1.trixie_arm64.deb",
+    "version": "2.6.0-1.trixie"
+   },
+   {
+    "arch": "arm64",
+    "class": "runtime",
+    "file": "pgedge-postgresql-19-snowflake_2.6.0-1.trixie_arm64.deb",
+    "name": "pgedge-postgresql-19-snowflake",
+    "sha256": "778b153f3cda0e24d2f86e33749394e3344828d202100e91562645d186ae3bc2",
+    "size": 27046,
+    "url": "https://apt.pgedge.com/release/trixie/pool/main/p/pgedge-snowflake/pgedge-postgresql-19-snowflake_2.6.0-1.trixie_arm64.deb",
+    "version": "2.6.0-1.trixie"
+   }
+  ],
+  "pepcell.v1.rpm.el-10.amd64.pkg.pg16": [
+   {
+    "arch": "src",
+    "class": "source",
+    "file": "pgedge-snowflake_16-2.6.0-1.el10.src.rpm",
+    "name": "pgedge-snowflake_16",
+    "sha256": "863bfe2f7f50d811bf164a0e70916eece7e9d2ebb5db51552874370ed29c003c",
+    "size": 125793,
+    "url": "https://dnf.pgedge.com/release/10/SRPMS/pgedge-snowflake_16-2.6.0-1.el10.src.rpm",
+    "version": "2.6.0-1.el10"
+   },
+   {
+    "arch": "x86_64",
+    "class": "runtime",
+    "file": "pgedge-snowflake_16-2.6.0-1.el10.x86_64.rpm",
+    "name": "pgedge-snowflake_16",
+    "sha256": "fe0fc3bb7fa785a17c23f052055e1c2d62c798ca9a343c0d42c1eddacf6b46f5",
+    "size": 25732,
+    "url": "https://dnf.pgedge.com/release/10/RPMS/x86_64/pgedge-snowflake_16-2.6.0-1.el10.x86_64.rpm",
+    "version": "2.6.0-1.el10"
+   },
+   {
+    "arch": "x86_64",
+    "class": "debug",
+    "file": "pgedge-snowflake_16-debuginfo-2.6.0-1.el10.x86_64.rpm",
+    "name": "pgedge-snowflake_16-debuginfo",
+    "sha256": "25006172a19b185cf2b1d734a38d812f0e13000e010dbe2440abc83ce2a6b073",
+    "size": 39491,
+    "url": "https://dnf.pgedge.com/release/10/RPMS/x86_64/pgedge-snowflake_16-debuginfo-2.6.0-1.el10.x86_64.rpm",
+    "version": "2.6.0-1.el10"
+   },
+   {
+    "arch": "x86_64",
+    "class": "debug",
+    "file": "pgedge-snowflake_16-debugsource-2.6.0-1.el10.x86_64.rpm",
+    "name": "pgedge-snowflake_16-debugsource",
+    "sha256": "bf5cac9af4040eda5be6faef6e6a795ed488caeeabe81f9958a16ea8fe3b5524",
+    "size": 13847,
+    "url": "https://dnf.pgedge.com/release/10/RPMS/x86_64/pgedge-snowflake_16-debugsource-2.6.0-1.el10.x86_64.rpm",
+    "version": "2.6.0-1.el10"
+   },
+   {
+    "arch": "x86_64",
+    "class": "llvmjit",
+    "file": "pgedge-snowflake_16-llvmjit-2.6.0-1.el10.x86_64.rpm",
+    "name": "pgedge-snowflake_16-llvmjit",
+    "sha256": "2f6fd393478bb76e9561dfa571251cc56bac14e03cf28b74856a20c4faf1afad",
+    "size": 17063,
+    "url": "https://dnf.pgedge.com/release/10/RPMS/x86_64/pgedge-snowflake_16-llvmjit-2.6.0-1.el10.x86_64.rpm",
+    "version": "2.6.0-1.el10"
+   }
+  ],
+  "pepcell.v1.rpm.el-10.amd64.pkg.pg17": [
+   {
+    "arch": "src",
+    "class": "source",
+    "file": "pgedge-snowflake_17-2.6.0-1.el10.src.rpm",
+    "name": "pgedge-snowflake_17",
+    "sha256": "2a28351997cd907cc0543709519b11b164775f0387c4ab3d4b9b70dce3f124d8",
+    "size": 125761,
+    "url": "https://dnf.pgedge.com/release/10/SRPMS/pgedge-snowflake_17-2.6.0-1.el10.src.rpm",
+    "version": "2.6.0-1.el10"
+   },
+   {
+    "arch": "x86_64",
+    "class": "runtime",
+    "file": "pgedge-snowflake_17-2.6.0-1.el10.x86_64.rpm",
+    "name": "pgedge-snowflake_17",
+    "sha256": "638f1b45922be10eefd57f72613f12f811dc92d47c89a4e9d7af471f6c06c232",
+    "size": 25727,
+    "url": "https://dnf.pgedge.com/release/10/RPMS/x86_64/pgedge-snowflake_17-2.6.0-1.el10.x86_64.rpm",
+    "version": "2.6.0-1.el10"
+   },
+   {
+    "arch": "x86_64",
+    "class": "debug",
+    "file": "pgedge-snowflake_17-debuginfo-2.6.0-1.el10.x86_64.rpm",
+    "name": "pgedge-snowflake_17-debuginfo",
+    "sha256": "844ca45c9338df4900f1c30ae326b60b9ead6d04bd5ce6d0e52200a6c0f514c0",
+    "size": 54250,
+    "url": "https://dnf.pgedge.com/release/10/RPMS/x86_64/pgedge-snowflake_17-debuginfo-2.6.0-1.el10.x86_64.rpm",
+    "version": "2.6.0-1.el10"
+   },
+   {
+    "arch": "x86_64",
+    "class": "debug",
+    "file": "pgedge-snowflake_17-debugsource-2.6.0-1.el10.x86_64.rpm",
+    "name": "pgedge-snowflake_17-debugsource",
+    "sha256": "d9a22b0357d29e86865a80c95e52221b689d5409528c4ce42b7afef82f16abdb",
+    "size": 13848,
+    "url": "https://dnf.pgedge.com/release/10/RPMS/x86_64/pgedge-snowflake_17-debugsource-2.6.0-1.el10.x86_64.rpm",
+    "version": "2.6.0-1.el10"
+   },
+   {
+    "arch": "x86_64",
+    "class": "llvmjit",
+    "file": "pgedge-snowflake_17-llvmjit-2.6.0-1.el10.x86_64.rpm",
+    "name": "pgedge-snowflake_17-llvmjit",
+    "sha256": "07bc8546348b5ee1d1c90b20581266ee0e921882fcfec4b457b55f02d831f7f4",
+    "size": 17068,
+    "url": "https://dnf.pgedge.com/release/10/RPMS/x86_64/pgedge-snowflake_17-llvmjit-2.6.0-1.el10.x86_64.rpm",
+    "version": "2.6.0-1.el10"
+   }
+  ],
+  "pepcell.v1.rpm.el-10.amd64.pkg.pg18": [
+   {
+    "arch": "src",
+    "class": "source",
+    "file": "pgedge-snowflake_18-2.6.0-1.el10.src.rpm",
+    "name": "pgedge-snowflake_18",
+    "sha256": "c1e67eba9b5a279ca300abcef3957da68e31e5e33211c664f488c441559ea964",
+    "size": 125761,
+    "url": "https://dnf.pgedge.com/release/10/SRPMS/pgedge-snowflake_18-2.6.0-1.el10.src.rpm",
+    "version": "2.6.0-1.el10"
+   },
+   {
+    "arch": "x86_64",
+    "class": "runtime",
+    "file": "pgedge-snowflake_18-2.6.0-1.el10.x86_64.rpm",
+    "name": "pgedge-snowflake_18",
+    "sha256": "bdd181b1453e2499b7175643ca542d85a20f64aad6675ec333baf2b2b004ad29",
+    "size": 25714,
+    "url": "https://dnf.pgedge.com/release/10/RPMS/x86_64/pgedge-snowflake_18-2.6.0-1.el10.x86_64.rpm",
+    "version": "2.6.0-1.el10"
+   },
+   {
+    "arch": "x86_64",
+    "class": "debug",
+    "file": "pgedge-snowflake_18-debuginfo-2.6.0-1.el10.x86_64.rpm",
+    "name": "pgedge-snowflake_18-debuginfo",
+    "sha256": "9cd3d886496a4269b4e4ed0d5f978a511e3c38833002f822bdb80afe08b98656",
+    "size": 55433,
+    "url": "https://dnf.pgedge.com/release/10/RPMS/x86_64/pgedge-snowflake_18-debuginfo-2.6.0-1.el10.x86_64.rpm",
+    "version": "2.6.0-1.el10"
+   },
+   {
+    "arch": "x86_64",
+    "class": "debug",
+    "file": "pgedge-snowflake_18-debugsource-2.6.0-1.el10.x86_64.rpm",
+    "name": "pgedge-snowflake_18-debugsource",
+    "sha256": "3ab6f4d40fdb517760ea2ad4432b718a901c78a52582ed4aec1898fa2fc3d5d9",
+    "size": 13848,
+    "url": "https://dnf.pgedge.com/release/10/RPMS/x86_64/pgedge-snowflake_18-debugsource-2.6.0-1.el10.x86_64.rpm",
+    "version": "2.6.0-1.el10"
+   },
+   {
+    "arch": "x86_64",
+    "class": "llvmjit",
+    "file": "pgedge-snowflake_18-llvmjit-2.6.0-1.el10.x86_64.rpm",
+    "name": "pgedge-snowflake_18-llvmjit",
+    "sha256": "627da8bfb46fab18ac77856ba35179f7c2a26b655f3eb8517792450eeeb92d86",
+    "size": 17065,
+    "url": "https://dnf.pgedge.com/release/10/RPMS/x86_64/pgedge-snowflake_18-llvmjit-2.6.0-1.el10.x86_64.rpm",
+    "version": "2.6.0-1.el10"
+   }
+  ],
+  "pepcell.v1.rpm.el-10.amd64.pkg.pg19": [
+   {
+    "arch": "src",
+    "class": "source",
+    "file": "pgedge-snowflake_19-2.6.0-1.el10.src.rpm",
+    "name": "pgedge-snowflake_19",
+    "sha256": "7cd02748a82d1a1d8479775fce69abbfc51993d9273f60f50280d3f2582ae7a8",
+    "size": 125766,
+    "url": "https://dnf.pgedge.com/release/10/SRPMS/pgedge-snowflake_19-2.6.0-1.el10.src.rpm",
+    "version": "2.6.0-1.el10"
+   },
+   {
+    "arch": "x86_64",
+    "class": "runtime",
+    "file": "pgedge-snowflake_19-2.6.0-1.el10.x86_64.rpm",
+    "name": "pgedge-snowflake_19",
+    "sha256": "0dedac322c2bdca4e886bed2a14a6a58b5abf2070610857c40799b0a2ca5222e",
+    "size": 26327,
+    "url": "https://dnf.pgedge.com/release/10/RPMS/x86_64/pgedge-snowflake_19-2.6.0-1.el10.x86_64.rpm",
+    "version": "2.6.0-1.el10"
+   },
+   {
+    "arch": "x86_64",
+    "class": "debug",
+    "file": "pgedge-snowflake_19-debuginfo-2.6.0-1.el10.x86_64.rpm",
+    "name": "pgedge-snowflake_19-debuginfo",
+    "sha256": "7ad5b8761af7de4e66df76cbfe0d4f96a1aa4fa5e12a7bb1caaddaea2321fa6a",
+    "size": 42600,
+    "url": "https://dnf.pgedge.com/release/10/RPMS/x86_64/pgedge-snowflake_19-debuginfo-2.6.0-1.el10.x86_64.rpm",
+    "version": "2.6.0-1.el10"
+   },
+   {
+    "arch": "x86_64",
+    "class": "debug",
+    "file": "pgedge-snowflake_19-debugsource-2.6.0-1.el10.x86_64.rpm",
+    "name": "pgedge-snowflake_19-debugsource",
+    "sha256": "136a58553a994750dce76d625469afc6e01767fc7e73d9d9ba21123d8d72d567",
+    "size": 13848,
+    "url": "https://dnf.pgedge.com/release/10/RPMS/x86_64/pgedge-snowflake_19-debugsource-2.6.0-1.el10.x86_64.rpm",
+    "version": "2.6.0-1.el10"
+   },
+   {
+    "arch": "x86_64",
+    "class": "llvmjit",
+    "file": "pgedge-snowflake_19-llvmjit-2.6.0-1.el10.x86_64.rpm",
+    "name": "pgedge-snowflake_19-llvmjit",
+    "sha256": "be616d994f71ed9022081961c65986b57692eb7fdbbaa6dc27fcca503c221573",
+    "size": 18631,
+    "url": "https://dnf.pgedge.com/release/10/RPMS/x86_64/pgedge-snowflake_19-llvmjit-2.6.0-1.el10.x86_64.rpm",
+    "version": "2.6.0-1.el10"
+   }
+  ],
+  "pepcell.v1.rpm.el-10.arm64.pkg.pg16": [
+   {
+    "arch": "aarch64",
+    "class": "runtime",
+    "file": "pgedge-snowflake_16-2.6.0-1.el10.aarch64.rpm",
+    "name": "pgedge-snowflake_16",
+    "sha256": "b3ab9fe678ba8144ab6b6351f4e9de745833e710a4195280e150a29f3dfb6793",
+    "size": 25539,
+    "url": "https://dnf.pgedge.com/release/10/RPMS/aarch64/pgedge-snowflake_16-2.6.0-1.el10.aarch64.rpm",
+    "version": "2.6.0-1.el10"
+   },
+   {
+    "arch": "src",
+    "class": "source",
+    "file": "pgedge-snowflake_16-2.6.0-1.el10.src.rpm",
+    "name": "pgedge-snowflake_16",
+    "sha256": "863bfe2f7f50d811bf164a0e70916eece7e9d2ebb5db51552874370ed29c003c",
+    "size": 125793,
+    "url": "https://dnf.pgedge.com/release/10/SRPMS/pgedge-snowflake_16-2.6.0-1.el10.src.rpm",
+    "version": "2.6.0-1.el10"
+   },
+   {
+    "arch": "aarch64",
+    "class": "debug",
+    "file": "pgedge-snowflake_16-debuginfo-2.6.0-1.el10.aarch64.rpm",
+    "name": "pgedge-snowflake_16-debuginfo",
+    "sha256": "855044eb5e647aa7ab6c84090d15fc57e2affd7e8e90f37229cc33a4e057fa07",
+    "size": 39348,
+    "url": "https://dnf.pgedge.com/release/10/RPMS/aarch64/pgedge-snowflake_16-debuginfo-2.6.0-1.el10.aarch64.rpm",
+    "version": "2.6.0-1.el10"
+   },
+   {
+    "arch": "aarch64",
+    "class": "debug",
+    "file": "pgedge-snowflake_16-debugsource-2.6.0-1.el10.aarch64.rpm",
+    "name": "pgedge-snowflake_16-debugsource",
+    "sha256": "4f9d9c95f07eac99c69a750a6c09dbb9cfe0fff70976fc919eebd10ee36d3318",
+    "size": 13808,
+    "url": "https://dnf.pgedge.com/release/10/RPMS/aarch64/pgedge-snowflake_16-debugsource-2.6.0-1.el10.aarch64.rpm",
+    "version": "2.6.0-1.el10"
+   },
+   {
+    "arch": "aarch64",
+    "class": "llvmjit",
+    "file": "pgedge-snowflake_16-llvmjit-2.6.0-1.el10.aarch64.rpm",
+    "name": "pgedge-snowflake_16-llvmjit",
+    "sha256": "fdb793a676f19e5376cbc61532bcaecec2c3dc8432f7a52118a19b965881863a",
+    "size": 16658,
+    "url": "https://dnf.pgedge.com/release/10/RPMS/aarch64/pgedge-snowflake_16-llvmjit-2.6.0-1.el10.aarch64.rpm",
+    "version": "2.6.0-1.el10"
+   }
+  ],
+  "pepcell.v1.rpm.el-10.arm64.pkg.pg17": [
+   {
+    "arch": "aarch64",
+    "class": "runtime",
+    "file": "pgedge-snowflake_17-2.6.0-1.el10.aarch64.rpm",
+    "name": "pgedge-snowflake_17",
+    "sha256": "0f0075feba575e59772dc0d3a33d861d6b31621164b4c7f60ebb152e17218407",
+    "size": 25552,
+    "url": "https://dnf.pgedge.com/release/10/RPMS/aarch64/pgedge-snowflake_17-2.6.0-1.el10.aarch64.rpm",
+    "version": "2.6.0-1.el10"
+   },
+   {
+    "arch": "src",
+    "class": "source",
+    "file": "pgedge-snowflake_17-2.6.0-1.el10.src.rpm",
+    "name": "pgedge-snowflake_17",
+    "sha256": "2a28351997cd907cc0543709519b11b164775f0387c4ab3d4b9b70dce3f124d8",
+    "size": 125761,
+    "url": "https://dnf.pgedge.com/release/10/SRPMS/pgedge-snowflake_17-2.6.0-1.el10.src.rpm",
+    "version": "2.6.0-1.el10"
+   },
+   {
+    "arch": "aarch64",
+    "class": "debug",
+    "file": "pgedge-snowflake_17-debuginfo-2.6.0-1.el10.aarch64.rpm",
+    "name": "pgedge-snowflake_17-debuginfo",
+    "sha256": "b3900f027cc463a4ecbc949e3005eeb5cb5cae7b67c23edd8af3e23f6997bf47",
+    "size": 54261,
+    "url": "https://dnf.pgedge.com/release/10/RPMS/aarch64/pgedge-snowflake_17-debuginfo-2.6.0-1.el10.aarch64.rpm",
+    "version": "2.6.0-1.el10"
+   },
+   {
+    "arch": "aarch64",
+    "class": "debug",
+    "file": "pgedge-snowflake_17-debugsource-2.6.0-1.el10.aarch64.rpm",
+    "name": "pgedge-snowflake_17-debugsource",
+    "sha256": "074ad9f2811f5a0354d3bdc45b23d5db7d188e3df5b66b2ed3c5dc5d33b016a3",
+    "size": 13810,
+    "url": "https://dnf.pgedge.com/release/10/RPMS/aarch64/pgedge-snowflake_17-debugsource-2.6.0-1.el10.aarch64.rpm",
+    "version": "2.6.0-1.el10"
+   },
+   {
+    "arch": "aarch64",
+    "class": "llvmjit",
+    "file": "pgedge-snowflake_17-llvmjit-2.6.0-1.el10.aarch64.rpm",
+    "name": "pgedge-snowflake_17-llvmjit",
+    "sha256": "426793c60dd1637f72e510aded209d0c7fa95a0dfb1f0434416530d8dd3ca9af",
+    "size": 16659,
+    "url": "https://dnf.pgedge.com/release/10/RPMS/aarch64/pgedge-snowflake_17-llvmjit-2.6.0-1.el10.aarch64.rpm",
+    "version": "2.6.0-1.el10"
+   }
+  ],
+  "pepcell.v1.rpm.el-10.arm64.pkg.pg18": [
+   {
+    "arch": "aarch64",
+    "class": "runtime",
+    "file": "pgedge-snowflake_18-2.6.0-1.el10.aarch64.rpm",
+    "name": "pgedge-snowflake_18",
+    "sha256": "4356435404feda270676e7a92220983eb1fe2707ffda9fa1226862c48d49f3bd",
+    "size": 25553,
+    "url": "https://dnf.pgedge.com/release/10/RPMS/aarch64/pgedge-snowflake_18-2.6.0-1.el10.aarch64.rpm",
+    "version": "2.6.0-1.el10"
+   },
+   {
+    "arch": "src",
+    "class": "source",
+    "file": "pgedge-snowflake_18-2.6.0-1.el10.src.rpm",
+    "name": "pgedge-snowflake_18",
+    "sha256": "c1e67eba9b5a279ca300abcef3957da68e31e5e33211c664f488c441559ea964",
+    "size": 125761,
+    "url": "https://dnf.pgedge.com/release/10/SRPMS/pgedge-snowflake_18-2.6.0-1.el10.src.rpm",
+    "version": "2.6.0-1.el10"
+   },
+   {
+    "arch": "aarch64",
+    "class": "debug",
+    "file": "pgedge-snowflake_18-debuginfo-2.6.0-1.el10.aarch64.rpm",
+    "name": "pgedge-snowflake_18-debuginfo",
+    "sha256": "0d5e9a7db28ef57c513dd2c84bbaf819108824075f8d0764d444467f171adcaf",
+    "size": 55488,
+    "url": "https://dnf.pgedge.com/release/10/RPMS/aarch64/pgedge-snowflake_18-debuginfo-2.6.0-1.el10.aarch64.rpm",
+    "version": "2.6.0-1.el10"
+   },
+   {
+    "arch": "aarch64",
+    "class": "debug",
+    "file": "pgedge-snowflake_18-debugsource-2.6.0-1.el10.aarch64.rpm",
+    "name": "pgedge-snowflake_18-debugsource",
+    "sha256": "1c543d2052a9afc4fca8ed982d3bf77e85e1cd7f047a4c49374b479f774ad2f5",
+    "size": 13810,
+    "url": "https://dnf.pgedge.com/release/10/RPMS/aarch64/pgedge-snowflake_18-debugsource-2.6.0-1.el10.aarch64.rpm",
+    "version": "2.6.0-1.el10"
+   },
+   {
+    "arch": "aarch64",
+    "class": "llvmjit",
+    "file": "pgedge-snowflake_18-llvmjit-2.6.0-1.el10.aarch64.rpm",
+    "name": "pgedge-snowflake_18-llvmjit",
+    "sha256": "d4895f48c30bbb251599515f0c882856f07aa50863859814e41606f4a340776f",
+    "size": 16671,
+    "url": "https://dnf.pgedge.com/release/10/RPMS/aarch64/pgedge-snowflake_18-llvmjit-2.6.0-1.el10.aarch64.rpm",
+    "version": "2.6.0-1.el10"
+   }
+  ],
+  "pepcell.v1.rpm.el-10.arm64.pkg.pg19": [
+   {
+    "arch": "aarch64",
+    "class": "runtime",
+    "file": "pgedge-snowflake_19-2.6.0-1.el10.aarch64.rpm",
+    "name": "pgedge-snowflake_19",
+    "sha256": "425f1d4215aaf818d88c5a08858b1f15780ef08e886cdd1f648e68e694549550",
+    "size": 26158,
+    "url": "https://dnf.pgedge.com/release/10/RPMS/aarch64/pgedge-snowflake_19-2.6.0-1.el10.aarch64.rpm",
+    "version": "2.6.0-1.el10"
+   },
+   {
+    "arch": "src",
+    "class": "source",
+    "file": "pgedge-snowflake_19-2.6.0-1.el10.src.rpm",
+    "name": "pgedge-snowflake_19",
+    "sha256": "7cd02748a82d1a1d8479775fce69abbfc51993d9273f60f50280d3f2582ae7a8",
+    "size": 125766,
+    "url": "https://dnf.pgedge.com/release/10/SRPMS/pgedge-snowflake_19-2.6.0-1.el10.src.rpm",
+    "version": "2.6.0-1.el10"
+   },
+   {
+    "arch": "aarch64",
+    "class": "debug",
+    "file": "pgedge-snowflake_19-debuginfo-2.6.0-1.el10.aarch64.rpm",
+    "name": "pgedge-snowflake_19-debuginfo",
+    "sha256": "772243ae7e3582b1e35bb8d8f5a9c5c5fae2b0f20b5acea91db228d992ea2305",
+    "size": 42197,
+    "url": "https://dnf.pgedge.com/release/10/RPMS/aarch64/pgedge-snowflake_19-debuginfo-2.6.0-1.el10.aarch64.rpm",
+    "version": "2.6.0-1.el10"
+   },
+   {
+    "arch": "aarch64",
+    "class": "debug",
+    "file": "pgedge-snowflake_19-debugsource-2.6.0-1.el10.aarch64.rpm",
+    "name": "pgedge-snowflake_19-debugsource",
+    "sha256": "a1a49673b0fd133564819400d3c0653b72b0cd0a769c4f34a9bcb15f5bb5fe90",
+    "size": 13809,
+    "url": "https://dnf.pgedge.com/release/10/RPMS/aarch64/pgedge-snowflake_19-debugsource-2.6.0-1.el10.aarch64.rpm",
+    "version": "2.6.0-1.el10"
+   },
+   {
+    "arch": "aarch64",
+    "class": "llvmjit",
+    "file": "pgedge-snowflake_19-llvmjit-2.6.0-1.el10.aarch64.rpm",
+    "name": "pgedge-snowflake_19-llvmjit",
+    "sha256": "c17f9d76cee469af0ad0529fe6a773bd141aadc304109eb1c04955198fe2700b",
+    "size": 18448,
+    "url": "https://dnf.pgedge.com/release/10/RPMS/aarch64/pgedge-snowflake_19-llvmjit-2.6.0-1.el10.aarch64.rpm",
+    "version": "2.6.0-1.el10"
+   }
+  ],
+  "pepcell.v1.rpm.el-9.amd64.pkg.pg16": [
+   {
+    "arch": "src",
+    "class": "source",
+    "file": "pgedge-snowflake_16-2.6.0-1.el9.src.rpm",
+    "name": "pgedge-snowflake_16",
+    "sha256": "466ad7de72dc8f029cf28d44076b926e48df3a42f4d2ee001de4d9c3ba17180c",
+    "size": 121809,
+    "url": "https://dnf.pgedge.com/release/9/SRPMS/pgedge-snowflake_16-2.6.0-1.el9.src.rpm",
+    "version": "2.6.0-1.el9"
+   },
+   {
+    "arch": "x86_64",
+    "class": "runtime",
+    "file": "pgedge-snowflake_16-2.6.0-1.el9.x86_64.rpm",
+    "name": "pgedge-snowflake_16",
+    "sha256": "134232923b296ab88834206a35bec96b48c1163134f3a4d863794923c48d01f4",
+    "size": 25579,
+    "url": "https://dnf.pgedge.com/release/9/RPMS/x86_64/pgedge-snowflake_16-2.6.0-1.el9.x86_64.rpm",
+    "version": "2.6.0-1.el9"
+   },
+   {
+    "arch": "x86_64",
+    "class": "debug",
+    "file": "pgedge-snowflake_16-debuginfo-2.6.0-1.el9.x86_64.rpm",
+    "name": "pgedge-snowflake_16-debuginfo",
+    "sha256": "dbfa5c1a6b9c54ea2e4eeda0af28e6fdff0b4f66fef81b437670f92124dd838e",
+    "size": 39259,
+    "url": "https://dnf.pgedge.com/release/9/RPMS/x86_64/pgedge-snowflake_16-debuginfo-2.6.0-1.el9.x86_64.rpm",
+    "version": "2.6.0-1.el9"
+   },
+   {
+    "arch": "x86_64",
+    "class": "debug",
+    "file": "pgedge-snowflake_16-debugsource-2.6.0-1.el9.x86_64.rpm",
+    "name": "pgedge-snowflake_16-debugsource",
+    "sha256": "aacf9d6b02e5931dbe542fc15aa283303bf1fc7a04aa4a712d255d2fc9088a30",
+    "size": 13687,
+    "url": "https://dnf.pgedge.com/release/9/RPMS/x86_64/pgedge-snowflake_16-debugsource-2.6.0-1.el9.x86_64.rpm",
+    "version": "2.6.0-1.el9"
+   },
+   {
+    "arch": "x86_64",
+    "class": "llvmjit",
+    "file": "pgedge-snowflake_16-llvmjit-2.6.0-1.el9.x86_64.rpm",
+    "name": "pgedge-snowflake_16-llvmjit",
+    "sha256": "0c95dad2d117cd052242ddea123a5913722ef0a42229ee150ba9e50cb2690e28",
+    "size": 16894,
+    "url": "https://dnf.pgedge.com/release/9/RPMS/x86_64/pgedge-snowflake_16-llvmjit-2.6.0-1.el9.x86_64.rpm",
+    "version": "2.6.0-1.el9"
+   }
+  ],
+  "pepcell.v1.rpm.el-9.amd64.pkg.pg17": [
+   {
+    "arch": "src",
+    "class": "source",
+    "file": "pgedge-snowflake_17-2.6.0-1.el9.src.rpm",
+    "name": "pgedge-snowflake_17",
+    "sha256": "9899ef89618061be5cd498063816fc1dfc1d92b7e5e9e23697315301fd2101b0",
+    "size": 121795,
+    "url": "https://dnf.pgedge.com/release/9/SRPMS/pgedge-snowflake_17-2.6.0-1.el9.src.rpm",
+    "version": "2.6.0-1.el9"
+   },
+   {
+    "arch": "x86_64",
+    "class": "runtime",
+    "file": "pgedge-snowflake_17-2.6.0-1.el9.x86_64.rpm",
+    "name": "pgedge-snowflake_17",
+    "sha256": "819294f6d88661a399197685951d89211b4818d48bf8c91fcf1bb831b8777794",
+    "size": 25588,
+    "url": "https://dnf.pgedge.com/release/9/RPMS/x86_64/pgedge-snowflake_17-2.6.0-1.el9.x86_64.rpm",
+    "version": "2.6.0-1.el9"
+   },
+   {
+    "arch": "x86_64",
+    "class": "debug",
+    "file": "pgedge-snowflake_17-debuginfo-2.6.0-1.el9.x86_64.rpm",
+    "name": "pgedge-snowflake_17-debuginfo",
+    "sha256": "0a568cdcc4f33c2cfde19fad598aa45560a2dee1ba82c151a78f209fafd8356d",
+    "size": 54117,
+    "url": "https://dnf.pgedge.com/release/9/RPMS/x86_64/pgedge-snowflake_17-debuginfo-2.6.0-1.el9.x86_64.rpm",
+    "version": "2.6.0-1.el9"
+   },
+   {
+    "arch": "x86_64",
+    "class": "debug",
+    "file": "pgedge-snowflake_17-debugsource-2.6.0-1.el9.x86_64.rpm",
+    "name": "pgedge-snowflake_17-debugsource",
+    "sha256": "0f70bf29c9fa1b5f7391efd23a64c0e4ca596ab26565f310822b7ebb3e4504e1",
+    "size": 13685,
+    "url": "https://dnf.pgedge.com/release/9/RPMS/x86_64/pgedge-snowflake_17-debugsource-2.6.0-1.el9.x86_64.rpm",
+    "version": "2.6.0-1.el9"
+   },
+   {
+    "arch": "x86_64",
+    "class": "llvmjit",
+    "file": "pgedge-snowflake_17-llvmjit-2.6.0-1.el9.x86_64.rpm",
+    "name": "pgedge-snowflake_17-llvmjit",
+    "sha256": "8a659076f4bde358c34996b732928bac96c677d351ea716ba8ead8bd918bc54b",
+    "size": 16908,
+    "url": "https://dnf.pgedge.com/release/9/RPMS/x86_64/pgedge-snowflake_17-llvmjit-2.6.0-1.el9.x86_64.rpm",
+    "version": "2.6.0-1.el9"
+   }
+  ],
+  "pepcell.v1.rpm.el-9.amd64.pkg.pg18": [
+   {
+    "arch": "src",
+    "class": "source",
+    "file": "pgedge-snowflake_18-2.6.0-1.el9.src.rpm",
+    "name": "pgedge-snowflake_18",
+    "sha256": "d91243fbab5d0da1eeda79327b8a54b8f84eb447c26208d643037f0e04014078",
+    "size": 121805,
+    "url": "https://dnf.pgedge.com/release/9/SRPMS/pgedge-snowflake_18-2.6.0-1.el9.src.rpm",
+    "version": "2.6.0-1.el9"
+   },
+   {
+    "arch": "x86_64",
+    "class": "runtime",
+    "file": "pgedge-snowflake_18-2.6.0-1.el9.x86_64.rpm",
+    "name": "pgedge-snowflake_18",
+    "sha256": "7d8769d78f60d6715ab33e125972ada8178ad821318e7489b0e35eb9548bb545",
+    "size": 25569,
+    "url": "https://dnf.pgedge.com/release/9/RPMS/x86_64/pgedge-snowflake_18-2.6.0-1.el9.x86_64.rpm",
+    "version": "2.6.0-1.el9"
+   },
+   {
+    "arch": "x86_64",
+    "class": "debug",
+    "file": "pgedge-snowflake_18-debuginfo-2.6.0-1.el9.x86_64.rpm",
+    "name": "pgedge-snowflake_18-debuginfo",
+    "sha256": "198affc08b5fac210d0bf521960a2f9a763534a890747df39663463e58d52f4a",
+    "size": 55313,
+    "url": "https://dnf.pgedge.com/release/9/RPMS/x86_64/pgedge-snowflake_18-debuginfo-2.6.0-1.el9.x86_64.rpm",
+    "version": "2.6.0-1.el9"
+   },
+   {
+    "arch": "x86_64",
+    "class": "debug",
+    "file": "pgedge-snowflake_18-debugsource-2.6.0-1.el9.x86_64.rpm",
+    "name": "pgedge-snowflake_18-debugsource",
+    "sha256": "6e1e02c88abe993a13600ab548b811972efbaec38d6b34dfd602bd52a4f82dcc",
+    "size": 13685,
+    "url": "https://dnf.pgedge.com/release/9/RPMS/x86_64/pgedge-snowflake_18-debugsource-2.6.0-1.el9.x86_64.rpm",
+    "version": "2.6.0-1.el9"
+   },
+   {
+    "arch": "x86_64",
+    "class": "llvmjit",
+    "file": "pgedge-snowflake_18-llvmjit-2.6.0-1.el9.x86_64.rpm",
+    "name": "pgedge-snowflake_18-llvmjit",
+    "sha256": "949b22365182b802f4c88432d106ecc09518332a9babcadcd878c1f8a319007f",
+    "size": 16902,
+    "url": "https://dnf.pgedge.com/release/9/RPMS/x86_64/pgedge-snowflake_18-llvmjit-2.6.0-1.el9.x86_64.rpm",
+    "version": "2.6.0-1.el9"
+   }
+  ],
+  "pepcell.v1.rpm.el-9.amd64.pkg.pg19": [
+   {
+    "arch": "src",
+    "class": "source",
+    "file": "pgedge-snowflake_19-2.6.0-1.el9.src.rpm",
+    "name": "pgedge-snowflake_19",
+    "sha256": "a919e5e7e453e9d6188295edc35401a22ca63e5a6908df0ce179ed477d8dd2b3",
+    "size": 122159,
+    "url": "https://dnf.pgedge.com/release/9/SRPMS/pgedge-snowflake_19-2.6.0-1.el9.src.rpm",
+    "version": "2.6.0-1.el9"
+   },
+   {
+    "arch": "x86_64",
+    "class": "runtime",
+    "file": "pgedge-snowflake_19-2.6.0-1.el9.x86_64.rpm",
+    "name": "pgedge-snowflake_19",
+    "sha256": "ef37125afbcd4fa500a34d731164677718a82b3f90b279b30a751bd973e5b0f8",
+    "size": 26110,
+    "url": "https://dnf.pgedge.com/release/9/RPMS/x86_64/pgedge-snowflake_19-2.6.0-1.el9.x86_64.rpm",
+    "version": "2.6.0-1.el9"
+   },
+   {
+    "arch": "x86_64",
+    "class": "debug",
+    "file": "pgedge-snowflake_19-debuginfo-2.6.0-1.el9.x86_64.rpm",
+    "name": "pgedge-snowflake_19-debuginfo",
+    "sha256": "97c340d541b8dcfff82cbce9b59dbe52dfa7c14641fbebd31c192f22cef28fdf",
+    "size": 42123,
+    "url": "https://dnf.pgedge.com/release/9/RPMS/x86_64/pgedge-snowflake_19-debuginfo-2.6.0-1.el9.x86_64.rpm",
+    "version": "2.6.0-1.el9"
+   },
+   {
+    "arch": "x86_64",
+    "class": "debug",
+    "file": "pgedge-snowflake_19-debugsource-2.6.0-1.el9.x86_64.rpm",
+    "name": "pgedge-snowflake_19-debugsource",
+    "sha256": "95478966f5f1b60ebb5a949596143e80c43c1e3dbdce397f06c66a1437cfade7",
+    "size": 13686,
+    "url": "https://dnf.pgedge.com/release/9/RPMS/x86_64/pgedge-snowflake_19-debugsource-2.6.0-1.el9.x86_64.rpm",
+    "version": "2.6.0-1.el9"
+   },
+   {
+    "arch": "x86_64",
+    "class": "llvmjit",
+    "file": "pgedge-snowflake_19-llvmjit-2.6.0-1.el9.x86_64.rpm",
+    "name": "pgedge-snowflake_19-llvmjit",
+    "sha256": "7e330b459cd2770f293623c4a2748aea1845bc4df1186e6fed965a5d127ec1ba",
+    "size": 18460,
+    "url": "https://dnf.pgedge.com/release/9/RPMS/x86_64/pgedge-snowflake_19-llvmjit-2.6.0-1.el9.x86_64.rpm",
+    "version": "2.6.0-1.el9"
+   }
+  ],
+  "pepcell.v1.rpm.el-9.arm64.pkg.pg16": [
+   {
+    "arch": "aarch64",
+    "class": "runtime",
+    "file": "pgedge-snowflake_16-2.6.0-1.el9.aarch64.rpm",
+    "name": "pgedge-snowflake_16",
+    "sha256": "3ccf3a2add11bb3a24ea7fea2cab29d3e33f3162df3b46106db8a6ae2ec2ec87",
+    "size": 25182,
+    "url": "https://dnf.pgedge.com/release/9/RPMS/aarch64/pgedge-snowflake_16-2.6.0-1.el9.aarch64.rpm",
+    "version": "2.6.0-1.el9"
+   },
+   {
+    "arch": "src",
+    "class": "source",
+    "file": "pgedge-snowflake_16-2.6.0-1.el9.src.rpm",
+    "name": "pgedge-snowflake_16",
+    "sha256": "466ad7de72dc8f029cf28d44076b926e48df3a42f4d2ee001de4d9c3ba17180c",
+    "size": 121809,
+    "url": "https://dnf.pgedge.com/release/9/SRPMS/pgedge-snowflake_16-2.6.0-1.el9.src.rpm",
+    "version": "2.6.0-1.el9"
+   },
+   {
+    "arch": "aarch64",
+    "class": "debug",
+    "file": "pgedge-snowflake_16-debuginfo-2.6.0-1.el9.aarch64.rpm",
+    "name": "pgedge-snowflake_16-debuginfo",
+    "sha256": "f3fb694c6c237940dc332422dffc47759e15fe25f681850eb2614b2e00426167",
+    "size": 39205,
+    "url": "https://dnf.pgedge.com/release/9/RPMS/aarch64/pgedge-snowflake_16-debuginfo-2.6.0-1.el9.aarch64.rpm",
+    "version": "2.6.0-1.el9"
+   },
+   {
+    "arch": "aarch64",
+    "class": "debug",
+    "file": "pgedge-snowflake_16-debugsource-2.6.0-1.el9.aarch64.rpm",
+    "name": "pgedge-snowflake_16-debugsource",
+    "sha256": "d5a03497c2899356df292874a09ae6f355391351e625f47c059e64a80af2d8d7",
+    "size": 13637,
+    "url": "https://dnf.pgedge.com/release/9/RPMS/aarch64/pgedge-snowflake_16-debugsource-2.6.0-1.el9.aarch64.rpm",
+    "version": "2.6.0-1.el9"
+   },
+   {
+    "arch": "aarch64",
+    "class": "llvmjit",
+    "file": "pgedge-snowflake_16-llvmjit-2.6.0-1.el9.aarch64.rpm",
+    "name": "pgedge-snowflake_16-llvmjit",
+    "sha256": "8deed1d39e5130d84d8381d68cc9aea54d98420c819e1e7f21697e4e74a6011d",
+    "size": 16474,
+    "url": "https://dnf.pgedge.com/release/9/RPMS/aarch64/pgedge-snowflake_16-llvmjit-2.6.0-1.el9.aarch64.rpm",
+    "version": "2.6.0-1.el9"
+   }
+  ],
+  "pepcell.v1.rpm.el-9.arm64.pkg.pg17": [
+   {
+    "arch": "aarch64",
+    "class": "runtime",
+    "file": "pgedge-snowflake_17-2.6.0-1.el9.aarch64.rpm",
+    "name": "pgedge-snowflake_17",
+    "sha256": "28fcf53478fabf1841532922d250e948d4cbc66f854918034b7d809c9b78b491",
+    "size": 25173,
+    "url": "https://dnf.pgedge.com/release/9/RPMS/aarch64/pgedge-snowflake_17-2.6.0-1.el9.aarch64.rpm",
+    "version": "2.6.0-1.el9"
+   },
+   {
+    "arch": "src",
+    "class": "source",
+    "file": "pgedge-snowflake_17-2.6.0-1.el9.src.rpm",
+    "name": "pgedge-snowflake_17",
+    "sha256": "9899ef89618061be5cd498063816fc1dfc1d92b7e5e9e23697315301fd2101b0",
+    "size": 121795,
+    "url": "https://dnf.pgedge.com/release/9/SRPMS/pgedge-snowflake_17-2.6.0-1.el9.src.rpm",
+    "version": "2.6.0-1.el9"
+   },
+   {
+    "arch": "aarch64",
+    "class": "debug",
+    "file": "pgedge-snowflake_17-debuginfo-2.6.0-1.el9.aarch64.rpm",
+    "name": "pgedge-snowflake_17-debuginfo",
+    "sha256": "a36ef403f08829b1b177dea9a16f8efce1c54e96874aec5402014efce239bfdb",
+    "size": 53975,
+    "url": "https://dnf.pgedge.com/release/9/RPMS/aarch64/pgedge-snowflake_17-debuginfo-2.6.0-1.el9.aarch64.rpm",
+    "version": "2.6.0-1.el9"
+   },
+   {
+    "arch": "aarch64",
+    "class": "debug",
+    "file": "pgedge-snowflake_17-debugsource-2.6.0-1.el9.aarch64.rpm",
+    "name": "pgedge-snowflake_17-debugsource",
+    "sha256": "1f4e908f31005a9f78bd231421bc7ec0f1a13eb7c3a270ef08d987f6b39a5861",
+    "size": 13635,
+    "url": "https://dnf.pgedge.com/release/9/RPMS/aarch64/pgedge-snowflake_17-debugsource-2.6.0-1.el9.aarch64.rpm",
+    "version": "2.6.0-1.el9"
+   },
+   {
+    "arch": "aarch64",
+    "class": "llvmjit",
+    "file": "pgedge-snowflake_17-llvmjit-2.6.0-1.el9.aarch64.rpm",
+    "name": "pgedge-snowflake_17-llvmjit",
+    "sha256": "91b7fa2ce4643780dc9c98fb0d33fa1b9204a21ac0c04f71825c3141d1477d2b",
+    "size": 16476,
+    "url": "https://dnf.pgedge.com/release/9/RPMS/aarch64/pgedge-snowflake_17-llvmjit-2.6.0-1.el9.aarch64.rpm",
+    "version": "2.6.0-1.el9"
+   }
+  ],
+  "pepcell.v1.rpm.el-9.arm64.pkg.pg18": [
+   {
+    "arch": "aarch64",
+    "class": "runtime",
+    "file": "pgedge-snowflake_18-2.6.0-1.el9.aarch64.rpm",
+    "name": "pgedge-snowflake_18",
+    "sha256": "3146ca467e6c6e16f459ebfaaf9f393db0a90bf06d72b6303d49e08fcd0ec6a8",
+    "size": 25182,
+    "url": "https://dnf.pgedge.com/release/9/RPMS/aarch64/pgedge-snowflake_18-2.6.0-1.el9.aarch64.rpm",
+    "version": "2.6.0-1.el9"
+   },
+   {
+    "arch": "src",
+    "class": "source",
+    "file": "pgedge-snowflake_18-2.6.0-1.el9.src.rpm",
+    "name": "pgedge-snowflake_18",
+    "sha256": "d91243fbab5d0da1eeda79327b8a54b8f84eb447c26208d643037f0e04014078",
+    "size": 121805,
+    "url": "https://dnf.pgedge.com/release/9/SRPMS/pgedge-snowflake_18-2.6.0-1.el9.src.rpm",
+    "version": "2.6.0-1.el9"
+   },
+   {
+    "arch": "aarch64",
+    "class": "debug",
+    "file": "pgedge-snowflake_18-debuginfo-2.6.0-1.el9.aarch64.rpm",
+    "name": "pgedge-snowflake_18-debuginfo",
+    "sha256": "802dc6fad8f3353b60e50984bcd6826ce827f77dcfb24b3f306410c1b51b01a0",
+    "size": 55209,
+    "url": "https://dnf.pgedge.com/release/9/RPMS/aarch64/pgedge-snowflake_18-debuginfo-2.6.0-1.el9.aarch64.rpm",
+    "version": "2.6.0-1.el9"
+   },
+   {
+    "arch": "aarch64",
+    "class": "debug",
+    "file": "pgedge-snowflake_18-debugsource-2.6.0-1.el9.aarch64.rpm",
+    "name": "pgedge-snowflake_18-debugsource",
+    "sha256": "1676bd2c2297493343b3b1ba288ec871fce354797b43104de31562882022cf70",
+    "size": 13639,
+    "url": "https://dnf.pgedge.com/release/9/RPMS/aarch64/pgedge-snowflake_18-debugsource-2.6.0-1.el9.aarch64.rpm",
+    "version": "2.6.0-1.el9"
+   },
+   {
+    "arch": "aarch64",
+    "class": "llvmjit",
+    "file": "pgedge-snowflake_18-llvmjit-2.6.0-1.el9.aarch64.rpm",
+    "name": "pgedge-snowflake_18-llvmjit",
+    "sha256": "f146dc8bed359e5c0e5d62153e948a55cae2c2b75dcffe92e4cddef1c4b6dccb",
+    "size": 16496,
+    "url": "https://dnf.pgedge.com/release/9/RPMS/aarch64/pgedge-snowflake_18-llvmjit-2.6.0-1.el9.aarch64.rpm",
+    "version": "2.6.0-1.el9"
+   }
+  ],
+  "pepcell.v1.rpm.el-9.arm64.pkg.pg19": [
+   {
+    "arch": "aarch64",
+    "class": "runtime",
+    "file": "pgedge-snowflake_19-2.6.0-1.el9.aarch64.rpm",
+    "name": "pgedge-snowflake_19",
+    "sha256": "a3eb97a4b1cd4883e9b99831969a7303cd3d025b5d105395ce048cd6528f347a",
+    "size": 25690,
+    "url": "https://dnf.pgedge.com/release/9/RPMS/aarch64/pgedge-snowflake_19-2.6.0-1.el9.aarch64.rpm",
+    "version": "2.6.0-1.el9"
+   },
+   {
+    "arch": "src",
+    "class": "source",
+    "file": "pgedge-snowflake_19-2.6.0-1.el9.src.rpm",
+    "name": "pgedge-snowflake_19",
+    "sha256": "a919e5e7e453e9d6188295edc35401a22ca63e5a6908df0ce179ed477d8dd2b3",
+    "size": 122159,
+    "url": "https://dnf.pgedge.com/release/9/SRPMS/pgedge-snowflake_19-2.6.0-1.el9.src.rpm",
+    "version": "2.6.0-1.el9"
+   },
+   {
+    "arch": "aarch64",
+    "class": "debug",
+    "file": "pgedge-snowflake_19-debuginfo-2.6.0-1.el9.aarch64.rpm",
+    "name": "pgedge-snowflake_19-debuginfo",
+    "sha256": "bc8b41ed608100ada96955cc37bf83571b0cdf2fb8fc05d294ee6c0a8f63d773",
+    "size": 41970,
+    "url": "https://dnf.pgedge.com/release/9/RPMS/aarch64/pgedge-snowflake_19-debuginfo-2.6.0-1.el9.aarch64.rpm",
+    "version": "2.6.0-1.el9"
+   },
+   {
+    "arch": "aarch64",
+    "class": "debug",
+    "file": "pgedge-snowflake_19-debugsource-2.6.0-1.el9.aarch64.rpm",
+    "name": "pgedge-snowflake_19-debugsource",
+    "sha256": "c4edb04d0c708bca00ca4570bd4c2c3e4c89597f3feaddeffcfeda5bdc11edac",
+    "size": 13637,
+    "url": "https://dnf.pgedge.com/release/9/RPMS/aarch64/pgedge-snowflake_19-debugsource-2.6.0-1.el9.aarch64.rpm",
+    "version": "2.6.0-1.el9"
+   },
+   {
+    "arch": "aarch64",
+    "class": "llvmjit",
+    "file": "pgedge-snowflake_19-llvmjit-2.6.0-1.el9.aarch64.rpm",
+    "name": "pgedge-snowflake_19-llvmjit",
+    "sha256": "accadf59ab57d75ae7cd6f88fc32852377f2f421561cd29e1ac9d09d47eeb76d",
+    "size": 18267,
+    "url": "https://dnf.pgedge.com/release/9/RPMS/aarch64/pgedge-snowflake_19-llvmjit-2.6.0-1.el9.aarch64.rpm",
+    "version": "2.6.0-1.el9"
+   }
+  ]
+ },
+ "channel": "release",
+ "detector": {
+  "pepcell.v1.deb.bookworm.amd64.pkg.pg16": {
+   "arch": "amd64",
+   "family": "deb",
+   "image": "debian:bookworm",
+   "os": "bookworm",
+   "pg_major": "16"
+  },
+  "pepcell.v1.deb.bookworm.amd64.pkg.pg17": {
+   "arch": "amd64",
+   "family": "deb",
+   "image": "debian:bookworm",
+   "os": "bookworm",
+   "pg_major": "17"
+  },
+  "pepcell.v1.deb.bookworm.amd64.pkg.pg18": {
+   "arch": "amd64",
+   "family": "deb",
+   "image": "debian:bookworm",
+   "os": "bookworm",
+   "pg_major": "18"
+  },
+  "pepcell.v1.deb.bookworm.amd64.pkg.pg19": {
+   "arch": "amd64",
+   "family": "deb",
+   "image": "debian:bookworm",
+   "os": "bookworm",
+   "pg_major": "19"
+  },
+  "pepcell.v1.deb.bookworm.arm64.pkg.pg16": {
+   "arch": "arm64",
+   "family": "deb",
+   "image": "debian:bookworm",
+   "os": "bookworm",
+   "pg_major": "16"
+  },
+  "pepcell.v1.deb.bookworm.arm64.pkg.pg17": {
+   "arch": "arm64",
+   "family": "deb",
+   "image": "debian:bookworm",
+   "os": "bookworm",
+   "pg_major": "17"
+  },
+  "pepcell.v1.deb.bookworm.arm64.pkg.pg18": {
+   "arch": "arm64",
+   "family": "deb",
+   "image": "debian:bookworm",
+   "os": "bookworm",
+   "pg_major": "18"
+  },
+  "pepcell.v1.deb.bookworm.arm64.pkg.pg19": {
+   "arch": "arm64",
+   "family": "deb",
+   "image": "debian:bookworm",
+   "os": "bookworm",
+   "pg_major": "19"
+  },
+  "pepcell.v1.deb.jammy.amd64.pkg.pg16": {
+   "arch": "amd64",
+   "family": "deb",
+   "image": "ubuntu:jammy",
+   "os": "jammy",
+   "pg_major": "16"
+  },
+  "pepcell.v1.deb.jammy.amd64.pkg.pg17": {
+   "arch": "amd64",
+   "family": "deb",
+   "image": "ubuntu:jammy",
+   "os": "jammy",
+   "pg_major": "17"
+  },
+  "pepcell.v1.deb.jammy.amd64.pkg.pg18": {
+   "arch": "amd64",
+   "family": "deb",
+   "image": "ubuntu:jammy",
+   "os": "jammy",
+   "pg_major": "18"
+  },
+  "pepcell.v1.deb.jammy.amd64.pkg.pg19": {
+   "arch": "amd64",
+   "family": "deb",
+   "image": "ubuntu:jammy",
+   "os": "jammy",
+   "pg_major": "19"
+  },
+  "pepcell.v1.deb.jammy.arm64.pkg.pg16": {
+   "arch": "arm64",
+   "family": "deb",
+   "image": "ubuntu:jammy",
+   "os": "jammy",
+   "pg_major": "16"
+  },
+  "pepcell.v1.deb.jammy.arm64.pkg.pg17": {
+   "arch": "arm64",
+   "family": "deb",
+   "image": "ubuntu:jammy",
+   "os": "jammy",
+   "pg_major": "17"
+  },
+  "pepcell.v1.deb.jammy.arm64.pkg.pg18": {
+   "arch": "arm64",
+   "family": "deb",
+   "image": "ubuntu:jammy",
+   "os": "jammy",
+   "pg_major": "18"
+  },
+  "pepcell.v1.deb.jammy.arm64.pkg.pg19": {
+   "arch": "arm64",
+   "family": "deb",
+   "image": "ubuntu:jammy",
+   "os": "jammy",
+   "pg_major": "19"
+  },
+  "pepcell.v1.deb.noble.amd64.pkg.pg16": {
+   "arch": "amd64",
+   "family": "deb",
+   "image": "ubuntu:noble",
+   "os": "noble",
+   "pg_major": "16"
+  },
+  "pepcell.v1.deb.noble.amd64.pkg.pg17": {
+   "arch": "amd64",
+   "family": "deb",
+   "image": "ubuntu:noble",
+   "os": "noble",
+   "pg_major": "17"
+  },
+  "pepcell.v1.deb.noble.amd64.pkg.pg18": {
+   "arch": "amd64",
+   "family": "deb",
+   "image": "ubuntu:noble",
+   "os": "noble",
+   "pg_major": "18"
+  },
+  "pepcell.v1.deb.noble.amd64.pkg.pg19": {
+   "arch": "amd64",
+   "family": "deb",
+   "image": "ubuntu:noble",
+   "os": "noble",
+   "pg_major": "19"
+  },
+  "pepcell.v1.deb.noble.arm64.pkg.pg16": {
+   "arch": "arm64",
+   "family": "deb",
+   "image": "ubuntu:noble",
+   "os": "noble",
+   "pg_major": "16"
+  },
+  "pepcell.v1.deb.noble.arm64.pkg.pg17": {
+   "arch": "arm64",
+   "family": "deb",
+   "image": "ubuntu:noble",
+   "os": "noble",
+   "pg_major": "17"
+  },
+  "pepcell.v1.deb.noble.arm64.pkg.pg18": {
+   "arch": "arm64",
+   "family": "deb",
+   "image": "ubuntu:noble",
+   "os": "noble",
+   "pg_major": "18"
+  },
+  "pepcell.v1.deb.noble.arm64.pkg.pg19": {
+   "arch": "arm64",
+   "family": "deb",
+   "image": "ubuntu:noble",
+   "os": "noble",
+   "pg_major": "19"
+  },
+  "pepcell.v1.deb.resolute.amd64.pkg.pg16": {
+   "arch": "amd64",
+   "family": "deb",
+   "image": "ubuntu:resolute",
+   "os": "resolute",
+   "pg_major": "16"
+  },
+  "pepcell.v1.deb.resolute.amd64.pkg.pg17": {
+   "arch": "amd64",
+   "family": "deb",
+   "image": "ubuntu:resolute",
+   "os": "resolute",
+   "pg_major": "17"
+  },
+  "pepcell.v1.deb.resolute.amd64.pkg.pg18": {
+   "arch": "amd64",
+   "family": "deb",
+   "image": "ubuntu:resolute",
+   "os": "resolute",
+   "pg_major": "18"
+  },
+  "pepcell.v1.deb.resolute.amd64.pkg.pg19": {
+   "arch": "amd64",
+   "family": "deb",
+   "image": "ubuntu:resolute",
+   "os": "resolute",
+   "pg_major": "19"
+  },
+  "pepcell.v1.deb.resolute.arm64.pkg.pg16": {
+   "arch": "arm64",
+   "family": "deb",
+   "image": "ubuntu:resolute",
+   "os": "resolute",
+   "pg_major": "16"
+  },
+  "pepcell.v1.deb.resolute.arm64.pkg.pg17": {
+   "arch": "arm64",
+   "family": "deb",
+   "image": "ubuntu:resolute",
+   "os": "resolute",
+   "pg_major": "17"
+  },
+  "pepcell.v1.deb.resolute.arm64.pkg.pg18": {
+   "arch": "arm64",
+   "family": "deb",
+   "image": "ubuntu:resolute",
+   "os": "resolute",
+   "pg_major": "18"
+  },
+  "pepcell.v1.deb.resolute.arm64.pkg.pg19": {
+   "arch": "arm64",
+   "family": "deb",
+   "image": "ubuntu:resolute",
+   "os": "resolute",
+   "pg_major": "19"
+  },
+  "pepcell.v1.deb.trixie.amd64.pkg.pg16": {
+   "arch": "amd64",
+   "family": "deb",
+   "image": "debian:trixie",
+   "os": "trixie",
+   "pg_major": "16"
+  },
+  "pepcell.v1.deb.trixie.amd64.pkg.pg17": {
+   "arch": "amd64",
+   "family": "deb",
+   "image": "debian:trixie",
+   "os": "trixie",
+   "pg_major": "17"
+  },
+  "pepcell.v1.deb.trixie.amd64.pkg.pg18": {
+   "arch": "amd64",
+   "family": "deb",
+   "image": "debian:trixie",
+   "os": "trixie",
+   "pg_major": "18"
+  },
+  "pepcell.v1.deb.trixie.amd64.pkg.pg19": {
+   "arch": "amd64",
+   "family": "deb",
+   "image": "debian:trixie",
+   "os": "trixie",
+   "pg_major": "19"
+  },
+  "pepcell.v1.deb.trixie.arm64.pkg.pg16": {
+   "arch": "arm64",
+   "family": "deb",
+   "image": "debian:trixie",
+   "os": "trixie",
+   "pg_major": "16"
+  },
+  "pepcell.v1.deb.trixie.arm64.pkg.pg17": {
+   "arch": "arm64",
+   "family": "deb",
+   "image": "debian:trixie",
+   "os": "trixie",
+   "pg_major": "17"
+  },
+  "pepcell.v1.deb.trixie.arm64.pkg.pg18": {
+   "arch": "arm64",
+   "family": "deb",
+   "image": "debian:trixie",
+   "os": "trixie",
+   "pg_major": "18"
+  },
+  "pepcell.v1.deb.trixie.arm64.pkg.pg19": {
+   "arch": "arm64",
+   "family": "deb",
+   "image": "debian:trixie",
+   "os": "trixie",
+   "pg_major": "19"
+  },
+  "pepcell.v1.rpm.el-10.amd64.pkg.pg16": {
+   "arch": "amd64",
+   "family": "rpm",
+   "image": "almalinux:10",
+   "os": "el-10",
+   "pg_major": "16"
+  },
+  "pepcell.v1.rpm.el-10.amd64.pkg.pg17": {
+   "arch": "amd64",
+   "family": "rpm",
+   "image": "almalinux:10",
+   "os": "el-10",
+   "pg_major": "17"
+  },
+  "pepcell.v1.rpm.el-10.amd64.pkg.pg18": {
+   "arch": "amd64",
+   "family": "rpm",
+   "image": "almalinux:10",
+   "os": "el-10",
+   "pg_major": "18"
+  },
+  "pepcell.v1.rpm.el-10.amd64.pkg.pg19": {
+   "arch": "amd64",
+   "family": "rpm",
+   "image": "almalinux:10",
+   "os": "el-10",
+   "pg_major": "19"
+  },
+  "pepcell.v1.rpm.el-10.arm64.pkg.pg16": {
+   "arch": "arm64",
+   "family": "rpm",
+   "image": "almalinux:10",
+   "os": "el-10",
+   "pg_major": "16"
+  },
+  "pepcell.v1.rpm.el-10.arm64.pkg.pg17": {
+   "arch": "arm64",
+   "family": "rpm",
+   "image": "almalinux:10",
+   "os": "el-10",
+   "pg_major": "17"
+  },
+  "pepcell.v1.rpm.el-10.arm64.pkg.pg18": {
+   "arch": "arm64",
+   "family": "rpm",
+   "image": "almalinux:10",
+   "os": "el-10",
+   "pg_major": "18"
+  },
+  "pepcell.v1.rpm.el-10.arm64.pkg.pg19": {
+   "arch": "arm64",
+   "family": "rpm",
+   "image": "almalinux:10",
+   "os": "el-10",
+   "pg_major": "19"
+  },
+  "pepcell.v1.rpm.el-9.amd64.pkg.pg16": {
+   "arch": "amd64",
+   "family": "rpm",
+   "image": "almalinux:9",
+   "os": "el-9",
+   "pg_major": "16"
+  },
+  "pepcell.v1.rpm.el-9.amd64.pkg.pg17": {
+   "arch": "amd64",
+   "family": "rpm",
+   "image": "almalinux:9",
+   "os": "el-9",
+   "pg_major": "17"
+  },
+  "pepcell.v1.rpm.el-9.amd64.pkg.pg18": {
+   "arch": "amd64",
+   "family": "rpm",
+   "image": "almalinux:9",
+   "os": "el-9",
+   "pg_major": "18"
+  },
+  "pepcell.v1.rpm.el-9.amd64.pkg.pg19": {
+   "arch": "amd64",
+   "family": "rpm",
+   "image": "almalinux:9",
+   "os": "el-9",
+   "pg_major": "19"
+  },
+  "pepcell.v1.rpm.el-9.arm64.pkg.pg16": {
+   "arch": "arm64",
+   "family": "rpm",
+   "image": "almalinux:9",
+   "os": "el-9",
+   "pg_major": "16"
+  },
+  "pepcell.v1.rpm.el-9.arm64.pkg.pg17": {
+   "arch": "arm64",
+   "family": "rpm",
+   "image": "almalinux:9",
+   "os": "el-9",
+   "pg_major": "17"
+  },
+  "pepcell.v1.rpm.el-9.arm64.pkg.pg18": {
+   "arch": "arm64",
+   "family": "rpm",
+   "image": "almalinux:9",
+   "os": "el-9",
+   "pg_major": "18"
+  },
+  "pepcell.v1.rpm.el-9.arm64.pkg.pg19": {
+   "arch": "arm64",
+   "family": "rpm",
+   "image": "almalinux:9",
+   "os": "el-9",
+   "pg_major": "19"
+  }
+ },
+ "detector_source": "real detector output (lolor Release run 37756669120, job 113242799330, detector f54f427); identical detect inputs for snowflake, lolor and safesession",
+ "head_probe": {
+  "all_200_with_metadata_size": true,
+  "distinct_urls": 152
+ },
+ "metadata_documents": {
+  "https://apt.pgedge.com/release/bookworm/dists/bookworm/InRelease": {
+   "date": "Wed, 04 Nov 2026 09:40:02 UTC",
+   "sha256": "90552b71ce81348ae42f23ac5153c83c3153b5c2f22571810a1f6a0d355607a0",
+   "size": 3182
+  },
+  "https://apt.pgedge.com/release/bookworm/dists/bookworm/main/binary-amd64/Packages.gz": {
+   "matches_inrelease": true,
+   "sha256": "089dfefaf12b9509d662ceef723787120f94dac2a95577ad5bbe15bf1ca2842f",
+   "size": 78470
+  },
+  "https://apt.pgedge.com/release/bookworm/dists/bookworm/main/binary-arm64/Packages.gz": {
+   "matches_inrelease": true,
+   "sha256": "beea9d52bb68aa1cd7745818edbd9fe6a5b1232feee6dccaffbb34ddaee8e619",
+   "size": 78468
+  },
+  "https://apt.pgedge.com/release/jammy/dists/jammy/InRelease": {
+   "date": "Wed, 04 Nov 2026 09:42:50 UTC",
+   "sha256": "4e08455532ee3fa430ae4c13841a18bae05ac624344086a679f9e13872498cbf",
+   "size": 3176
+  },
+  "https://apt.pgedge.com/release/jammy/dists/jammy/main/binary-amd64/Packages.gz": {
+   "matches_inrelease": true,
+   "sha256": "4931245a81502da762a36c27114a09cc38b754c12e87f48084520ba3cabe5f09",
+   "size": 78511
+  },
+  "https://apt.pgedge.com/release/jammy/dists/jammy/main/binary-arm64/Packages.gz": {
+   "matches_inrelease": true,
+   "sha256": "49aa868c7c6a27dae6a5fa1728b834dbbe33595e807bf7b811272ff501b04347",
+   "size": 78471
+  },
+  "https://apt.pgedge.com/release/noble/dists/noble/InRelease": {
+   "date": "Wed, 04 Nov 2026 09:39:42 UTC",
+   "sha256": "8c7562c8cf3bd315df9c5382494cd4493cf9dd143d5b6c0c0c1d464914ce0349",
+   "size": 3176
+  },
+  "https://apt.pgedge.com/release/noble/dists/noble/main/binary-amd64/Packages.gz": {
+   "matches_inrelease": true,
+   "sha256": "ca3624c9170ea10c7eb0b612dd1423ce86f0b9dd9e7843ec5923b8c27ca3fe2d",
+   "size": 78521
+  },
+  "https://apt.pgedge.com/release/noble/dists/noble/main/binary-arm64/Packages.gz": {
+   "matches_inrelease": true,
+   "sha256": "c7732c12be284703b51aea3101e60c700d36796ecd7b1f845b91e2d57e14a7bd",
+   "size": 78464
+  },
+  "https://apt.pgedge.com/release/resolute/dists/resolute/InRelease": {
+   "date": "Wed, 04 Nov 2026 09:40:14 UTC",
+   "sha256": "82700c9a450d20f4cc8e06adaf2eb682a9e46424c265a2c1ae60745cec9125c5",
+   "size": 3182
+  },
+  "https://apt.pgedge.com/release/resolute/dists/resolute/main/binary-amd64/Packages.gz": {
+   "matches_inrelease": true,
+   "sha256": "a3da2c67cb7952d42fd24331b1151acb77c1af1e837d7458ef045969feecc79e",
+   "size": 78412
+  },
+  "https://apt.pgedge.com/release/resolute/dists/resolute/main/binary-arm64/Packages.gz": {
+   "matches_inrelease": true,
+   "sha256": "c663fb2aedce07418e107d2b426d96afbdf91e7f59a6f8542279aed6694251b0",
+   "size": 78417
+  },
+  "https://apt.pgedge.com/release/trixie/dists/trixie/InRelease": {
+   "date": "Wed, 04 Nov 2026 09:40:47 UTC",
+   "sha256": "df178fb4f7773497f52af5054e20612e9a2090151d0aca73b899ef53462ec529",
+   "size": 3178
+  },
+  "https://apt.pgedge.com/release/trixie/dists/trixie/main/binary-amd64/Packages.gz": {
+   "matches_inrelease": true,
+   "sha256": "062ba69271b4133162d8fd9692c39b8c55a98d36f704329c425d8f7d5c3b2338",
+   "size": 78557
+  },
+  "https://apt.pgedge.com/release/trixie/dists/trixie/main/binary-arm64/Packages.gz": {
+   "matches_inrelease": true,
+   "sha256": "2c590d0cbceae6333b04497d2be8e46017b1ad74112083a1627f44b5a9884949",
+   "size": 78480
+  },
+  "https://dnf.pgedge.com/release/10/RPMS/aarch64/repodata/2b250b66a8c92ee793a4761721e3e70d6fa9963e62076c37d789081dd83134b0-primary.xml.gz": {
+   "matches_repomd": true,
+   "sha256": "2b250b66a8c92ee793a4761721e3e70d6fa9963e62076c37d789081dd83134b0",
+   "size": 315503
+  },
+  "https://dnf.pgedge.com/release/10/RPMS/aarch64/repodata/repomd.xml": {
+   "revision": "1793785146",
+   "sha256": "cbd7918b88f95591ec7bdeb9928cbc0c0bb6a41a81597936dbf5dda20ee154ae",
+   "size": 3103
+  },
+  "https://dnf.pgedge.com/release/10/RPMS/x86_64/repodata/cbcce2ed1e1c9841ff21609c58a405bed097710649013182f7c9afec316e994a-primary.xml.gz": {
+   "matches_repomd": true,
+   "sha256": "cbcce2ed1e1c9841ff21609c58a405bed097710649013182f7c9afec316e994a",
+   "size": 314763
+  },
+  "https://dnf.pgedge.com/release/10/RPMS/x86_64/repodata/repomd.xml": {
+   "revision": "1793785173",
+   "sha256": "7be14e44b4876c2cbc2ec48c14205dedd9e4a41f78d04ad9cf251fdd2e913bf8",
+   "size": 3103
+  },
+  "https://dnf.pgedge.com/release/10/SRPMS/repodata/bb202f84026ab8239cb02a63cf08ede0827d43b447a2dd8a6b3e1c9e4b50159e-primary.xml.gz": {
+   "matches_repomd": true,
+   "sha256": "bb202f84026ab8239cb02a63cf08ede0827d43b447a2dd8a6b3e1c9e4b50159e",
+   "size": 44574
+  },
+  "https://dnf.pgedge.com/release/10/SRPMS/repodata/repomd.xml": {
+   "revision": "1793785215",
+   "sha256": "d654a9ace8dbc1459f51665068c1ff46e9e2c2e2eca031ff7643d4c25e1152e2",
+   "size": 3089
+  },
+  "https://dnf.pgedge.com/release/9/RPMS/aarch64/repodata/ca5943b75f523c1177ef7816c8b7ab762841b9ab6ed952a05d40d58420bbc387-primary.xml.gz": {
+   "matches_repomd": true,
+   "sha256": "ca5943b75f523c1177ef7816c8b7ab762841b9ab6ed952a05d40d58420bbc387",
+   "size": 314298
+  },
+  "https://dnf.pgedge.com/release/9/RPMS/aarch64/repodata/repomd.xml": {
+   "revision": "1793784966",
+   "sha256": "5a3c8c3ba45547e5c4631e8396a58d867c7612432379a8864827e0307c63c31f",
+   "size": 3103
+  },
+  "https://dnf.pgedge.com/release/9/RPMS/x86_64/repodata/f094e5b5cd0087eea9b5068de06389da0da8ae7d4c148a0898e987e61ee9b10a-primary.xml.gz": {
+   "matches_repomd": true,
+   "sha256": "f094e5b5cd0087eea9b5068de06389da0da8ae7d4c148a0898e987e61ee9b10a",
+   "size": 313701
+  },
+  "https://dnf.pgedge.com/release/9/RPMS/x86_64/repodata/repomd.xml": {
+   "revision": "1793784986",
+   "sha256": "452d953bbbb0c77e7f86306361f5c4ce02e85e520ba8a60d998e22257fb68b05",
+   "size": 3103
+  },
+  "https://dnf.pgedge.com/release/9/SRPMS/repodata/ea7c7117dbc019239574d64bcb6c4754a5842d586476a7c55f6442933f8d84bf-primary.xml.gz": {
+   "matches_repomd": true,
+   "sha256": "ea7c7117dbc019239574d64bcb6c4754a5842d586476a7c55f6442933f8d84bf",
+   "size": 46877
+  },
+  "https://dnf.pgedge.com/release/9/SRPMS/repodata/repomd.xml": {
+   "revision": "1793785027",
+   "sha256": "e4bc2d01dcfd72f62816e1576aa2c7fc318876b270c2fd71252f7c88b8367380",
+   "size": 3089
+  }
+ },
+ "product": "snowflake",
+ "source_meta_sha256": "26d47cc036c18645214b18132867bb47bc1d92b1ac5bebb45e4d6ebe2dbce6d9",
+ "version": "2.6.0-1"
+}
