@@ -71,6 +71,8 @@ install -p -m 0644 %{_builddir}/%{pname}-%{version}/%{pname}-sbom.json.asc %{bui
 %endif
 
 %changelog
+* Fri Nov 06 2026 Asif Rehman <asifr@pgedge.com> - 2.6.1
+- Update snowflake package to 2.6.1
 * Wed Jul 29 2026 Muhammad Aqeel <muhammad.aqeel@pgedge.com> - 2.6.0
 - Update snowflake package to 2.6.0
 * Fri Jun 19 2026 Muhammad Aqeel <muhammad.aqeel@pgedge.com> - 2.5.0
